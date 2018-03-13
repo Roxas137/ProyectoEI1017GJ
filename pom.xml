@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>es.uji.belfern</groupId>
+    <artifactId>Aritmetica</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <junit.jupiter.version>5.0.3</junit.jupiter.version>
+        <junit.platform.version>1.0.3</junit.platform.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <junit.platform.surefire>1.0.3</junit.platform.surefire>
+        <maven.surefire.plugin>2.19.1</maven.surefire.plugin>
+        <!--<argLine>-DfailIfNoTests=false</argLine>-->
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <finalName>services</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <target>${java.version}</target>
+                    <source>${java.version}</source>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit.platform.surefire}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!--Lo mínimo que necesitamos para las pruebas-->
+        <!--<dependency>-->
+            <!--<groupId>org.junit.jupiter</groupId>-->
+            <!--<artifactId>junit-jupiter-engine</artifactId>-->
+            <!--<version>${junit.jupiter.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+        <!--Para la bibioteca hamcrest-->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Para las pruebas parametrizadas-->
+        <!--<dependency>-->
+            <!--<groupId>org.junit.jupiter</groupId>-->
+            <!--<artifactId>junit-jupiter-params</artifactId>-->
+            <!--<version>${junit.jupiter.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <!--Para las suites de pruebas-->
+        <!--<dependency>-->
+            <!--<groupId>org.junit.platform</groupId>-->
+            <!--<artifactId>junit-platform-runner</artifactId>-->
+            <!--<version>${junit.platform.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <!--El generador aleatorio de datos-->
+        <dependency>
+            <groupId>com.github.CursoJRD</groupId>
+            <artifactId>GeneradorDatosINE</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+    </dependencies>
+</project>
