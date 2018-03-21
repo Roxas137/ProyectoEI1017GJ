@@ -25,6 +25,22 @@ public abstract class Cliente implements Fecha { //abstract
         ultimaFactura = new Date(1970, 1, 1);
     }
 
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Override
     public Date getFecha() {
         return fecha;

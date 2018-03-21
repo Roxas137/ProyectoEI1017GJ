@@ -26,7 +26,7 @@ public class MenuSwitch {
         return sb.toString();
     }
 
-    Metodos metodo = new Metodos();
+
 
     public void menuInicio() {
         System.out.println(getMenu());
