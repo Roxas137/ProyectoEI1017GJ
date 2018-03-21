@@ -23,7 +23,7 @@ public class Metodos {
         return modificado;
     }
 
-    private Optional<Cliente> recorrerConjuntoClientes(String dni){
+    private Optional<Cliente> recorrerConjuntoClientes(String dni) {
         for (Cliente cliente : conjuntoClientes)
             if (cliente.getDni().equals(dni))
                 return Optional.of(cliente);
@@ -81,7 +81,6 @@ public class Metodos {
             if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
                 importe += llamada.getDuracion() * llamada.getTarifa().getPrecio();
         Factura nueva = new Factura();
-        nueva.setTarifa(cliente.getTarifa());
         nueva.setCliente(cliente);
         nueva.setFecha(new Date());
         cliente.setUltimaFactura(new Date());
