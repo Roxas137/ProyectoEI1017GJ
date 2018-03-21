@@ -4,7 +4,10 @@ import atributos.Direccion;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
+import menu.MenuSwitch;
+import principal.Main;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
@@ -12,7 +15,7 @@ import java.util.Scanner;
 
 public class GestorOpciones {
 
-    Metodos metodo = new Metodos();
+    Metodos metodo = MenuSwitch.getMetodos();
 
     //TODO
     public void salir() {

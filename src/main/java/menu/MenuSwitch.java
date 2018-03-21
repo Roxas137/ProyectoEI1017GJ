@@ -15,6 +15,10 @@ import java.util.Scanner;
  */
 public class MenuSwitch {
 
+    public static Metodos getMetodos(){
+        return new Metodos();
+    }
+
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
         for (MenuOpciones opcion : MenuOpciones.values()) {
