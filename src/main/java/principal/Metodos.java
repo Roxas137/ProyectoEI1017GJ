@@ -5,10 +5,7 @@ import atributos.Llamada;
 import atributos.Tarifa;
 import clientes.Cliente;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Created by al361891 on 20/02/18.
@@ -20,17 +17,23 @@ public class Metodos {
     private HashMap<String, ArrayList<Llamada>> llamadasCliente;
 
     public boolean addCliente(Cliente nuevo) {                     //1
-        int tamanyoAntiguo = conjuntoClientes.size();
-        conjuntoClientes.add(nuevo);
-        boolean modificado = tamanyoAntiguo != conjuntoClientes.size();
+        boolean modificado = conjuntoClientes.add(nuevo);
         if (modificado)
             llamadasCliente.put(nuevo.getDni(), new ArrayList<Llamada>());
         return modificado;
     }
 
-    public boolean removeCliente(Cliente cliente) {                //2
+    private Optional<Cliente> recorrerConjuntoClientes(String dni){
+        for (Cliente cliente : conjuntoClientes)
+            if (cliente.getDni().equals(dni))
+                return Optional.of(cliente);
+        return Optional.empty();
+    }
+
+    public boolean removeCliente(String dni) {                //2
         int tamanyoAntiguo = conjuntoClientes.size();
-        conjuntoClientes.remove(cliente);
+        Optional<Cliente> correcto = recorrerConjuntoClientes(dni);
+        conjuntoClientes.remove(correcto);
         return tamanyoAntiguo != conjuntoClientes.size();
     }
 
@@ -38,11 +41,11 @@ public class Metodos {
         cliente.setTarifa(nueva);
     }
 
-    public Cliente devuelveCliente(String dni) {                   //4
+    public Optional<Cliente> devuelveCliente(String dni) {                   //4
         for (Cliente cliente : conjuntoClientes)
             if (cliente.getDni().equals(dni))
-                return cliente;
-        return null;
+                return Optional.of(cliente);
+        return Optional.empty();
     }
 
     public ArrayList<Cliente> listaClientes() {                    //5
@@ -75,13 +78,12 @@ public class Metodos {
         ArrayList<Llamada> listaLlamadas = llamadasCliente.get(cliente.getDni());
         Date fechaUltimaFactura = cliente.getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
-            if (llamada.getFechaLlamada().compareTo(fechaUltimaFactura) > 0)
+            if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
                 importe += llamada.getDuracion() * llamada.getTarifa().getPrecio();
         Factura nueva = new Factura();
         nueva.setTarifa(cliente.getTarifa());
         nueva.setCliente(cliente);
-        nueva.setFechaInicio(fechaUltimaFactura);
-        nueva.setFechaFin(new Date());
+        nueva.setFecha(new Date());
         cliente.setUltimaFactura(new Date());
         nueva.setCodigo(totalFacturas.size());
         nueva.setPrecio(importe);

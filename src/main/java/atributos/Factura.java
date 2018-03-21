@@ -2,22 +2,21 @@ package atributos;
 
 import clientes.Cliente;
 import clientes.Particular;
+import principal.Fecha;
 
 import java.util.Date;
 
-public class Factura {
-    private Tarifa tarifa;
+public class Factura implements Fecha{
+    //private Tarifa tarifa;
     private int codigo;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private Date fecha;
     private Cliente cliente;
     private double precio;
 
     public Factura() {
-        tarifa = new Tarifa();
+       // tarifa = new Tarifa();
         codigo = 0;
-        fechaInicio = getCliente().getUltimaFactura();
-        fechaFin = new Date();
+        fecha = new Date();
         cliente = new Particular(); //Por defecto, suponemos que es un cliente particular
     }
 
@@ -25,9 +24,14 @@ public class Factura {
         return cliente;
     }
 
-    public void setTarifa(Tarifa nueva) {
-        tarifa = nueva;
+    @Override
+    public Date getFecha() {
+        return fecha;
     }
+
+    /*public void setTarifa(Tarifa nueva){
+        tarifa = nueva;
+    }*/
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -37,15 +41,13 @@ public class Factura {
         this.codigo = codigo;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public void setPrecio(double precio) {
+    public void setPrecio(double precio) throws IllegalArgumentException{
+        if (precio < 0)
+            throw new IllegalArgumentException("El precio de la factura no puede ser negativo");
         this.precio = precio;
     }
 }

@@ -2,15 +2,16 @@ package clientes;
 
 import atributos.Direccion;
 import atributos.Tarifa;
+import principal.Fecha;
 
 import java.util.Date;
 
-public abstract class Cliente { //abstract
+public abstract class Cliente implements Fecha { //abstract
     private Tarifa tarifa;
     private Direccion direccion;
     private String dni;
     private String email;
-    private Date fechaAlta;
+    private Date fecha;//FechaAlta
     private String nombre;
     private Date ultimaFactura;
 
@@ -19,9 +20,14 @@ public abstract class Cliente { //abstract
         direccion = new Direccion();
         dni = "";
         email = "";
-        fechaAlta = new Date();
+        fecha = new Date();
         nombre = "";
         ultimaFactura = new Date(1970, 1, 1);
+    }
+
+    @Override
+    public Date getFecha() {
+        return fecha;
     }
 
     public String getDni() {
@@ -32,12 +38,14 @@ public abstract class Cliente { //abstract
         return tarifa;
     }
 
-    public void setTarifa(Tarifa tarifa) {
-        this.tarifa = tarifa;
-    }
-
     public Date getUltimaFactura() {
         return ultimaFactura;
+    }
+
+    public void setTarifa(Tarifa tarifa) throws IllegalArgumentException {
+        if (tarifa.getPrecio() < 0)
+            throw new IllegalArgumentException("El precio de la tarifa no puede ser negativa.");
+        this.tarifa = tarifa;
     }
 
     public void setUltimaFactura(Date ultimaFactura) {

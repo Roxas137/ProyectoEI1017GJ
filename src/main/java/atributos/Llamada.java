@@ -1,22 +1,28 @@
 package atributos;
 
+import principal.Fecha;
+
 import java.util.Date;
 
-public class Llamada {
+public class Llamada implements Fecha{
     private int nTelefono;
-    private Date fechaLlamada;
+    private Date fecha; //Fecha de la llamada
     private double duracion;
-    private Tarifa tarifa;
+    private Tarifa tarifa; //Tarifa en el momento de la llamada
 
     public Llamada() {
         nTelefono = 0;
-        fechaLlamada = new Date();
+        fecha = new Date();
         duracion = 10;
         tarifa = new Tarifa();
     }
+    @Override
+    public Date getFecha() {
+        return fecha;
+    }
 
-    public Date getFechaLlamada() {
-        return fechaLlamada;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public double getDuracion() {
