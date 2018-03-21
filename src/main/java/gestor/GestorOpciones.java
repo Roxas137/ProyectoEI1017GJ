@@ -62,6 +62,7 @@ public class GestorOpciones {
         System.out.println("email: ");
         nuevo.setEmail(sc.next());
         metodo.addCliente(nuevo);
+        System.out.println("Cliente Añadido Correctamente");
     }
 
     public void borrarCliente() {
@@ -89,13 +90,16 @@ public class GestorOpciones {
     }
 
     public void verTodosClientes() {
+        System.out.println("Consultando Todos Los Clientes");
         Cliente unCliente;
         ArrayList<Cliente> listaDeClientes = metodo.listaClientes();
         Iterator<Cliente> it = listaDeClientes.iterator();
         while (it.hasNext()){
             unCliente = it.next();
+            System.out.println("Tengo un nuevo cliente:");
             System.out.println(unCliente.toString());
         }
+        System.out.println("Todos los clientes mostrados");
     }
 
     public void altaLlamada() {
