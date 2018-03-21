@@ -9,4 +9,6 @@ public class Factura {
         GeneradorDatosINE ine = new GeneradorDatosINE();
 
     }
+
+    // todo Hacer más tests
 }
