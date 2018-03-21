@@ -1,14 +1,13 @@
-package principal;
+package menu;
 
 import atributos.Llamada;
 import atributos.Tarifa;
 import clientes.Cliente;
 import clientes.Particular;
+import gestor.Metodos;
 
 import java.util.Date;
 import java.util.Scanner;
-
-import static principal.MenuOpciones.values;
 
 /**
  * Created by al361891 on 13/03/18.
@@ -28,7 +27,7 @@ public class Menu_a_secas {
 
     Metodos metodo = new Metodos();
 
-    public void MenuInicio() {
+    public void menuInicio() {
         System.out.println(getMenu());
         Scanner sc = new Scanner(System.in);
         System.out.println("Elije una opción:");
@@ -39,6 +38,7 @@ public class Menu_a_secas {
 
         switch (opcionMenu) {
             case SALIR:
+                //guardar datos en el fichero.
                 System.exit(0);
                 break;
             case ALTA_CLIENTE:

@@ -1,6 +1,4 @@
-package principal;
-
-import java.util.Scanner;
+package menu;
 
 /**
  * Created by al361891 on 27/02/18.
