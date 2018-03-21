@@ -9,6 +9,18 @@ import java.util.Date;
 public abstract class Cliente implements Fecha { //abstract
     private Tarifa tarifa;
     private Direccion direccion;
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "direccion=" + direccion +
+                ", dni='" + dni + '\'' +
+                ", email='" + email + '\'' +
+                ", fecha=" + fecha +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
+
     private String dni;
     private String email;
     private Date fecha;//FechaAlta

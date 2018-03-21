@@ -10,4 +10,8 @@ public class Particular extends Cliente {
         super();
         apellidos = "";
     }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 }

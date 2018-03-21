@@ -12,9 +12,9 @@ import java.util.*;
  */
 public class Metodos {
 
-    private HashSet<Cliente> conjuntoClientes;
-    private ArrayList<Factura> totalFacturas;
-    private HashMap<String, ArrayList<Llamada>> llamadasCliente;
+    private HashSet<Cliente> conjuntoClientes = new HashSet<Cliente>();
+    private ArrayList<Factura> totalFacturas = new ArrayList<Factura>();
+    private HashMap<String, ArrayList<Llamada>> llamadasCliente = new HashMap<String, ArrayList<Llamada>>();
 
     public boolean addCliente(Cliente nuevo) {                     //1
         boolean modificado = conjuntoClientes.add(nuevo);

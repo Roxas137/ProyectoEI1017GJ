@@ -46,7 +46,7 @@ public class GestorOpciones {
         nuevo.setNombre(sc.next());
         if (opcion.equals("p")) {
             System.out.println("Apellido: ");
-            nuevo.setNombre(sc.next());
+            nuevo.setNombre(sc.next());//es setApellidos
         }
         System.out.println("DNI: ");
         nuevo.setDni(sc.next());
@@ -81,7 +81,7 @@ public class GestorOpciones {
         String dni = sc.next();
         Optional<Cliente> buscado = metodo.devuelveCliente(dni);
         if (buscado.equals(Optional.empty())){
-            System.out.println("No se encuentra el cliente");
+            System.out.println("No se encuentra el cliente\n");
         }else{
             //pasar a string el cliente
             System.out.println(Optional.of(buscado).get().get().clienteToString());
@@ -89,10 +89,12 @@ public class GestorOpciones {
     }
 
     public void verTodosClientes() {
-        Iterator<Cliente> it;
+        Cliente unCliente;
         ArrayList<Cliente> listaDeClientes = metodo.listaClientes();
-        for(Cliente unCliente : listaDeClientes){
-            System.out.println(unCliente.clienteToString());
+        Iterator<Cliente> it = listaDeClientes.iterator();
+        while (it.hasNext()){
+            unCliente = it.next();
+            System.out.println(unCliente.toString());
         }
     }
 
