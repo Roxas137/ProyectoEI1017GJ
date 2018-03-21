@@ -1,4 +1,4 @@
-package principal;
+package gestor;
 
 import atributos.Factura;
 import atributos.Llamada;

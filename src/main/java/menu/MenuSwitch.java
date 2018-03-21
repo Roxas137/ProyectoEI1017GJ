@@ -4,6 +4,7 @@ import atributos.Llamada;
 import atributos.Tarifa;
 import clientes.Cliente;
 import clientes.Particular;
+import gestor.GestorOpciones;
 import gestor.Metodos;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 /**
  * Created by al361891 on 13/03/18.
  */
-public class Menu_a_secas {
+public class MenuSwitch {
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
@@ -33,61 +34,51 @@ public class Menu_a_secas {
         System.out.println("Elije una opción:");
         byte opcion = sc.nextByte();
         MenuOpciones opcionMenu = MenuOpciones.getOpcion(opcion);
-
+        GestorOpciones gestor = new GestorOpciones();
 
 
         switch (opcionMenu) {
             case SALIR:
-                //guardar datos en el fichero.
-                System.exit(0);
+                gestor.salir();
                 break;
             case ALTA_CLIENTE:
-                Cliente nuevo = new Particular();
-                metodo.addCliente(nuevo);
+                gestor.altaCliente();
                 break;
             case BORRAR_CLIENTE:
-                String dni = "";
-                metodo.removeCliente(dni);
+                gestor.borrarCliente();
                 break;
             case CAMBIAR_TARIFA:
-                Tarifa nueva = new Tarifa();
+                gestor.cambiarTarifa();
                 break;
             case VER_CLIENTE:
-                dni = "";
-                //Metodo
+                gestor.verCliente();
                 break;
             case VER_TODOS_CLIENTES:
-                //metodo
+                gestor.verTodosClientes();
                 break;
             case ALTA_LLAMADA:
-                Llamada llamada = new Llamada();
-                //metodo
+                gestor.altaLlamada();
                 break;
             case VER_LLAMADAS_CLIENTE:
-                dni = "";
-                //metodo
+                gestor.verLlamadasCliente();
                 break;
             case EMITIR_FACTURA:
-                dni = "";
-                //metodo
+                gestor.emitirFactura();
                 break;
             case VER_FACTURA:
-                int codigo = 0;
-                System.out.println();
+                gestor.verFactura();
                 break;
             case VER_FACTURAS_CLIENTE:
-                dni = "";
+                gestor.verFacturasCliente();
                 break;
             case VER_CLIENTES_FECHAS:
-                Date fechaInicio;
-                Date fechaFin;
-                //metodo
+                gestor.verClientesFechas();
                 break;
             case VER_LLAMADAS_CLIENTE_FECHAS:
-
+                gestor.verLlamadasClienteFechas();
                 break;
             case VER_FACTURAS_CLIENTE_FECHAS:
-                //metodo
+                gestor.verFacturasClienteFechas();
                 break;
         }
     }

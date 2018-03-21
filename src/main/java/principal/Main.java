@@ -1,6 +1,6 @@
 package principal;
 
-import menu.Menu_a_secas;
+import menu.MenuSwitch;
 
 public class Main {
 
@@ -8,7 +8,7 @@ public class Main {
         //Leer fichero
         //Mostrar menu
         while (true) {
-            Menu_a_secas menu = new Menu_a_secas();
+            MenuSwitch menu = new MenuSwitch();
             menu.getMenu();
             menu.menuInicio();
         }
