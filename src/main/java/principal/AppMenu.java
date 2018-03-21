@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Created by al361891 on 27/02/18.
  */
-//patatilla
+
 public enum AppMenu{
     SALIR("Salir de la aplicacion"),
     ALTA_CLIENTE("Dar de alta un nuevo cliente"),
