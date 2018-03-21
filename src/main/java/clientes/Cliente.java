@@ -67,4 +67,29 @@ public abstract class Cliente implements Fecha { //abstract
     public void setUltimaFactura(Date ultimaFactura) {
         this.ultimaFactura = ultimaFactura;
     }
+
+    public String clienteToString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre:\t");
+        sb.append(this.nombre);
+        sb.append("\n");
+
+        sb.append("DNI:\t");
+        sb.append(this.dni);
+        sb.append("\n");
+
+        sb.append("Direccion:\t");
+        sb.append(this.direccion.toString());
+        sb.append("\n");
+
+        sb.append("Email:\t");
+        sb.append(this.email);
+        sb.append("\n");
+
+        sb.append("Fecha de alta:\t");
+        sb.append(this.fecha.toString());
+        sb.append("\n\n");
+
+        return sb.toString();
+    }
 }

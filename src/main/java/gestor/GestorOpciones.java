@@ -5,7 +5,9 @@ import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class GestorOpciones {
@@ -20,10 +22,11 @@ public class GestorOpciones {
 
     public void altaCliente() {
         Cliente nuevo = new Particular();
-        boolean incorrecto = false;
+        boolean incorrecto;
         String opcion;
         Scanner sc;
         do {
+            incorrecto = false;
             System.out.println("Elije el tipo de cliente que quieres añadir: Particular (P) / Empresa (E)");
             sc = new Scanner(System.in);
             opcion = sc.next();
@@ -65,7 +68,7 @@ public class GestorOpciones {
         System.out.println("Introduce el DNI del cliente que quieres eliminar: ");
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
-
+        metodo.removeCliente(dni);
     }
 
     public void cambiarTarifa() {
@@ -73,12 +76,24 @@ public class GestorOpciones {
     }
 
     public void verCliente() {
-
+        System.out.println("Introduce el DNI del cliente que deseas buscar: ");
+        Scanner sc = new Scanner(System.in);
+        String dni = sc.next();
+        Optional<Cliente> buscado = metodo.devuelveCliente(dni);
+        if (buscado.equals(Optional.empty())){
+            System.out.println("No se encuentra el cliente");
+        }else{
+            //pasar a string el cliente
+            System.out.println(Optional.of(buscado).get().get().clienteToString());
+        }
     }
 
     public void verTodosClientes() {
         Iterator<Cliente> it;
-
+        ArrayList<Cliente> listaDeClientes = metodo.listaClientes();
+        for(Cliente unCliente : listaDeClientes){
+            System.out.println(unCliente.clienteToString());
+        }
     }
 
     public void altaLlamada() {
