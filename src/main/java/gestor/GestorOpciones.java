@@ -1,6 +1,7 @@
 package gestor;
 
 import atributos.Direccion;
+import atributos.Llamada;
 import atributos.Tarifa;
 import clientes.Cliente;
 import clientes.Empresa;
@@ -101,8 +102,7 @@ public class GestorOpciones {
         if (buscado.equals(Optional.empty())){
             System.out.println("No se encuentra el cliente\n");
         }else{
-            //pasar a string el cliente
-            System.out.println(Optional.of(buscado).get().get().clienteToString());
+            System.out.println(buscado.get().clienteToString());
         }
     }
 
@@ -122,7 +122,23 @@ public class GestorOpciones {
     }
 
     public void altaLlamada() {
-
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca su dni:");
+        String dni = sc.next();
+        Optional<Cliente> buscado = metodo.devuelveCliente(dni);
+        if (!buscado.isPresent()){
+            System.out.println("No se encuentra el cliente\n");
+        }else{
+            //pasar a string el cliente
+            Cliente encontrado = buscado.get();
+            Llamada nueva = new Llamada();
+            System.out.println("Desde que teléfono:");
+            nueva.setnTelefono(sc.nextInt());
+            System.out.println("Duracion:");
+            nueva.setDuracion(sc.nextDouble());
+            metodo.addLlamada(encontrado, nueva);
+            System.out.println("Llamada añadida");
+        }
     }
 
     public void verLlamadasCliente() {

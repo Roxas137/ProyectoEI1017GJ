@@ -36,4 +36,12 @@ public class Llamada implements Fecha{
     public void setTarifa(Tarifa tarifa) {
         this.tarifa = tarifa;
     }
+
+    public void setDuracion(double duracion) {
+        this.duracion = duracion;
+    }
+
+    public void setnTelefono(int nTelefono) {
+        this.nTelefono = nTelefono;
+    }
 }
