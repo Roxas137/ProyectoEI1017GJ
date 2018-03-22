@@ -24,7 +24,7 @@ public class GestorOpciones {
         // guardar datos en fichero
         System.exit(0);
     }
-
+    //falta el apellido
     public void altaCliente() {
         Cliente nuevo = new Particular();
         boolean incorrecto;
@@ -35,7 +35,7 @@ public class GestorOpciones {
             System.out.println("Elije el tipo de cliente que quieres añadir: Particular (P) / Empresa (E)");
             sc = new Scanner(System.in);
             opcion = sc.next();
-            opcion.toLowerCase();
+            opcion = opcion.toLowerCase();
             switch (opcion) {
                 case "p": //Particular
                     break;
@@ -51,11 +51,10 @@ public class GestorOpciones {
         nuevo.setNombre(sc.next());
         if (opcion.equals("p")) {
             System.out.println("Apellido: ");
-            nuevo.setNombre(sc.next());//es setApellidos
+            nuevo.setNombre(nuevo.getNombre() + " " + sc.next());//es setApellidos
         }
         System.out.println("DNI: ");
         nuevo.setDni(sc.next());
-
         System.out.println("Codigo Postal: ");
         int codpostal = sc.nextInt();
         System.out.println("Provincia: ");
@@ -69,14 +68,14 @@ public class GestorOpciones {
         metodo.addCliente(nuevo);
         System.out.println("Cliente Añadido Correctamente");
     }
-
+    //hecho
     public void borrarCliente() {
         System.out.println("Introduce el DNI del cliente que quieres eliminar: ");
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
         metodo.removeCliente(dni);
     }
-
+    //hecho
     public void cambiarTarifa() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");

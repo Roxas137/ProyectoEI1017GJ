@@ -50,6 +50,10 @@ public abstract class Cliente implements Fecha { //abstract
         return dni;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public Tarifa getTarifa() {
         return tarifa;
     }
