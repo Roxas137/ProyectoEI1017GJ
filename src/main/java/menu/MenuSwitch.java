@@ -15,9 +15,7 @@ import java.util.Scanner;
  */
 public class MenuSwitch {
 
-    public static Metodos getMetodos(){
-        return new Metodos();
-    }
+    private GestorOpciones gestor = new GestorOpciones();
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
@@ -38,8 +36,6 @@ public class MenuSwitch {
         System.out.println("Elije una opción:");
         byte opcion = sc.nextByte();
         MenuOpciones opcionMenu = MenuOpciones.getOpcion(opcion);
-        GestorOpciones gestor = new GestorOpciones();
-
 
         switch (opcionMenu) {
             case SALIR:

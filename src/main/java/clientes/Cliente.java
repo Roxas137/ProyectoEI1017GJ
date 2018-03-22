@@ -68,16 +68,6 @@ public abstract class Cliente implements Fecha { //abstract
         this.ultimaFactura = ultimaFactura;
     }
 
-    public String toString() {
-        return "Cliente{" +
-                "direccion=" + direccion +
-                ", dni='" + dni + '\'' +
-                ", email='" + email + '\'' +
-                ", fecha=" + fecha +
-                ", nombre='" + nombre + '\'' +
-                '}';
-    }
-
     public String clienteToString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre:\t");

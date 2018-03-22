@@ -10,7 +10,6 @@ public class Main {
         //Leer fichero
         MenuSwitch menu = new MenuSwitch();
         while (true) {
-            menu.getMenu();
             menu.menuInicio();
         }
     }

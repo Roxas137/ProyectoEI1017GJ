@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class GestorOpciones {
 
-    Metodos metodo = MenuSwitch.getMetodos();
+    private Metodos metodo = new Metodos();
 
     //TODO
     public void salir() {
@@ -100,7 +100,7 @@ public class GestorOpciones {
         while (it.hasNext()){
             unCliente = it.next();
             System.out.println("Tengo un nuevo cliente:");
-            System.out.println(unCliente.toString());
+            System.out.println(unCliente.clienteToString());
         }
         System.out.println("Todos los clientes mostrados");
     }
