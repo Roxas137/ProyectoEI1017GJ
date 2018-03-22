@@ -1,6 +1,7 @@
 package gestor;
 
 import atributos.Direccion;
+import atributos.Tarifa;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
@@ -76,7 +77,20 @@ public class GestorOpciones {
     }
 
     public void cambiarTarifa() {
-
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca su dni:");
+        String dni = sc.next();
+        Optional<Cliente> buscado = metodo.devuelveCliente(dni);
+        if (!buscado.isPresent()){
+            System.out.println("No se encuentra el cliente\n");
+        }else{
+            //pasar a string el cliente
+            Cliente encontrado = buscado.get();
+            System.out.println("Introduce la nueva tarifa: ");
+            Tarifa nueva = new Tarifa();
+            nueva.setPrecio(sc.nextDouble());
+            metodo.cambiarTarifa(encontrado, nueva);
+        }
     }
 
     public void verCliente() {
@@ -102,7 +116,9 @@ public class GestorOpciones {
             System.out.println("Tengo un nuevo cliente:");
             System.out.println(unCliente.clienteToString());
         }
-        System.out.println("Todos los clientes mostrados");
+        /*System.out.println("Todos los clientes mostrados\nPulsa intro para continuar\n");
+        Scanner fin = new Scanner(System.in);
+        fin.next();*/
     }
 
     public void altaLlamada() {

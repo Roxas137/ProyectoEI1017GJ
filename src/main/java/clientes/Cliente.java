@@ -70,19 +70,19 @@ public abstract class Cliente implements Fecha { //abstract
 
     public String clienteToString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Nombre:\t");
+        sb.append("Nombre:\t\t\t");
         sb.append(this.nombre);
         sb.append("\n");
 
-        sb.append("DNI:\t");
+        sb.append("DNI:\t\t\t");
         sb.append(this.dni);
         sb.append("\n");
 
-        sb.append("Direccion:\t");
-        sb.append(this.direccion.toString());
+        sb.append("Direccion:\t\t");
+        sb.append(this.direccion.direccionToString());
         sb.append("\n");
 
-        sb.append("Email:\t");
+        sb.append("Email:\t\t\t");
         sb.append(this.email);
         sb.append("\n");
 

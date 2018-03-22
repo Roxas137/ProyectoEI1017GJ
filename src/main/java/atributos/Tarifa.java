@@ -10,4 +10,8 @@ public class Tarifa {
     public double getPrecio() {
         return precio;
     }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 }

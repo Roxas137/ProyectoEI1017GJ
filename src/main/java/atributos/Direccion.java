@@ -16,4 +16,8 @@ public class Direccion {
         this.provincia = provincia;
         this.poblacion = poblacion;
     }
+
+    public String direccionToString(){
+        return (codigoPostal+" "+provincia+" "+poblacion);
+    }
 }
