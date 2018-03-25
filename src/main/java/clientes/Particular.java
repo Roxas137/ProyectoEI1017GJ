@@ -6,9 +6,9 @@ package clientes;
 public class Particular extends Cliente {
     private String apellidos;
 
-    public Particular(){
+    public Particular(String apellido){
         super();
-        apellidos = "";
+        this.apellidos = apellido;
     }
 
     public void setApellidos(String apellidos) {

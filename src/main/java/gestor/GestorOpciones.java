@@ -26,7 +26,7 @@ public class GestorOpciones {
     }
     //falta el apellido
     public void altaCliente() {
-        Cliente nuevo = new Particular();
+        Cliente nuevo = new Empresa();
         boolean incorrecto;
         String opcion;
         Scanner sc;
@@ -38,9 +38,10 @@ public class GestorOpciones {
             opcion = opcion.toLowerCase();
             switch (opcion) {
                 case "p": //Particular
+                    System.out.println("Apellido: ");
+                    nuevo = new Particular(sc.next());
                     break;
                 case "e": //Empresa
-                    nuevo = new Empresa();
                     break;
                 default:
                     System.out.println("Opcion no valida\n");
@@ -49,10 +50,6 @@ public class GestorOpciones {
         } while (incorrecto);
         System.out.println("Nombre: ");
         nuevo.setNombre(sc.next());
-        if (opcion.equals("p")) {
-            System.out.println("Apellido: ");
-            nuevo.setNombre(nuevo.getNombre() + " " + sc.next());//es setApellidos
-        }
         System.out.println("DNI: ");
         nuevo.setDni(sc.next());
         System.out.println("Codigo Postal: ");
