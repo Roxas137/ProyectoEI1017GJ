@@ -24,7 +24,7 @@ public class GestorOpciones {
         // guardar datos en fichero
         System.exit(0);
     }
-    //falta el apellido
+    //hehco
     public void altaCliente() {
         Cliente nuevo = new Empresa();
         boolean incorrecto;

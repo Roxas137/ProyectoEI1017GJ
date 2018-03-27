@@ -13,7 +13,6 @@ public abstract class Cliente implements Fecha { //abstract
     private String dni;
     private String email;
     private Date fecha;//FechaAlta
-    //private String nombre;
     private Date ultimaFactura;
     abstract public String getNombre();
     abstract public void setNombre(String nombre);
@@ -39,10 +38,6 @@ public abstract class Cliente implements Fecha { //abstract
     public void setEmail(String email) {
         this.email = email;
     }
-
-//    public void setNombre(String nombre) {
-//        this.nombre = nombre;
-//    }
 
     @Override
     public Date getFecha() {
