@@ -55,8 +55,7 @@ public class Metodos {
 
     public ArrayList<Cliente> listaClientes() {                    //5
         ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-        for (Cliente cliente : mapaClientes.values())
-            listaClientes.add(cliente);
+        listaClientes.addAll(mapaClientes.values());
         return listaClientes;
     }
 
