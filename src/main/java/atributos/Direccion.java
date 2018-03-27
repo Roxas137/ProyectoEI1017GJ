@@ -1,6 +1,8 @@
 package atributos;
 
-public class Direccion {
+import java.io.Serializable;
+
+public class Direccion implements Serializable{
     private int codigoPostal;
     private String provincia;
     private String poblacion;

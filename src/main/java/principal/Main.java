@@ -7,7 +7,7 @@ public class Main {
     public Metodos metodo = new Metodos();
 
     public void ejecuta(){
-        //Leer fichero
+        //Leer Fichero
         MenuSwitch menu = new MenuSwitch();
         while (true) {
             menu.menuInicio();

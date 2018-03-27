@@ -4,9 +4,10 @@ import clientes.Cliente;
 import clientes.Particular;
 import principal.Fecha;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Factura implements Fecha{
+public class Factura implements Fecha, Serializable{
     //private Tarifa tarifa;
     private int codigo;
     private Date fecha;
