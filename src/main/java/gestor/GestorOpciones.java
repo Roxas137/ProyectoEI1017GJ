@@ -53,6 +53,7 @@ public class GestorOpciones {
         nuevo.setEmail(sc.next());
         metodo.addCliente(nuevo);
         System.out.println("Cliente Añadido Correctamente");
+        sc.close();
     }
 
     //no funciona
@@ -109,8 +110,10 @@ public class GestorOpciones {
         System.out.println("Introduzca su dni:");
         String dni = sc.next();
         Optional<Cliente> buscado = metodo.devuelveCliente(dni);
-        if (!buscado.isPresent())
+        if (!buscado.isPresent()) {
             System.out.println("No se encuentra el cliente\n");
+            sc.close();
+        }
         else {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
@@ -121,6 +124,7 @@ public class GestorOpciones {
             nueva.setDuracion(sc.nextDouble());
             metodo.addLlamada(encontrado, nueva);
             System.out.println("Llamada añadida");
+            sc.close();
         }
     }
 
@@ -129,7 +133,7 @@ public class GestorOpciones {
         String dni = pedirDNI();
         if (metodo.getMapaClientes().containsKey(dni))
             for (Llamada llamada : metodo.listaLlamadas(dni))
-                llamada.toString();
+                System.out.println(llamada.toString());
         else
             System.out.printf("El cliente no existe");
     }
@@ -145,6 +149,7 @@ public class GestorOpciones {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el código de la factura: ");
         int codigo = sc.nextInt();
+        sc.close();
         //Comprobar codigo
         System.out.println(metodo.getTotalFacturas().get(codigo).toString());
     }
@@ -248,9 +253,9 @@ public class GestorOpciones {
     private String pedirTipo() {
         boolean correcto = false;
         String opcion = "";
+        Scanner sc = new Scanner(System.in);
         while (!correcto) {
             System.out.println("Elije el tipo de cliente que quieres añadir: Particular (P) / Empresa (E)");
-            Scanner sc = new Scanner(System.in);
             opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (!opcion.equals("p") && !opcion.equals("e"))
@@ -258,6 +263,7 @@ public class GestorOpciones {
             else
                 correcto = true;
         }
+        sc.close();
         return opcion;
     }
 }
