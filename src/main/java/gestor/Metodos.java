@@ -46,10 +46,8 @@ public class Metodos {
     }
 
     public Optional<Cliente> devuelveCliente(String dni) {                   //4
-        //TODO hay que cambiar para que sea mas eficiente, no hace falta el for.
-        for (Cliente cliente : mapaClientes.values())
-            if (cliente.getDni().equals(dni))
-                return Optional.of(cliente);
+        if (mapaClientes.containsKey(dni))
+            return Optional.of(mapaClientes.get(dni));
         return Optional.empty();
     }
 
