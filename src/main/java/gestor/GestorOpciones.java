@@ -28,18 +28,15 @@ public class GestorOpciones {
         boolean incorrecto;
         String opcion;
         Scanner sc = new Scanner(System.in);
-        do {
-            incorrecto = false;
-            opcion = pedirTipo();
-            switch (opcion) {
-                case "p": //Particular
-                    System.out.println("Apellido: ");
-                    nuevo = new Particular(sc.next());
-                    break;
-                case "e": //Empresa
-                    break;
-            }
-        } while (incorrecto);
+        opcion = pedirTipo();
+        switch (opcion) {
+            case "p": //Particular
+                System.out.println("Apellido: ");
+                nuevo = new Particular(sc.next());
+                break;
+            case "e": //Empresa
+                break;
+        }
         System.out.println("Nombre: ");
         nuevo.setNombre(sc.next());
         System.out.println("DNI: ");
