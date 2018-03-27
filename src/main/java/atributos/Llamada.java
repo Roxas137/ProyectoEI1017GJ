@@ -2,9 +2,10 @@ package atributos;
 
 import principal.Fecha;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Llamada implements Fecha{
+public class Llamada implements Fecha, Serializable{
     private int nTelefono;
     private Date fecha; //Fecha de la llamada
     private double duracion;

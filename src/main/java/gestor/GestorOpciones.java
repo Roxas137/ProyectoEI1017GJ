@@ -18,7 +18,7 @@ public class GestorOpciones {
 
     //TODO
     public void salir() {
-        // guardar datos en fichero
+        // guardar datos en Fichero
         System.exit(0);
     }
 

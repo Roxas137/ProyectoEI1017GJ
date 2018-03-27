@@ -4,9 +4,10 @@ import atributos.Direccion;
 import atributos.Tarifa;
 import principal.Fecha;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Cliente implements Fecha { //abstract
+public abstract class Cliente implements Fecha, Serializable { //abstract
     private Tarifa tarifa;
     private Direccion direccion;
     private String dni;

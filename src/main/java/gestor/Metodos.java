@@ -5,6 +5,7 @@ import atributos.Llamada;
 import atributos.Tarifa;
 import clientes.Cliente;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.Optional;
 /**
  * Created by al361891 on 20/02/18.
  */
-public class Metodos {
+public class Metodos implements Serializable {
 
     private HashMap<String, Cliente> mapaClientes = new HashMap<>();
     private ArrayList<Factura> totalFacturas = new ArrayList<>();
