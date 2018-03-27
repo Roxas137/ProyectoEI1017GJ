@@ -65,7 +65,7 @@ public class GestorOpciones {
         metodo.addCliente(nuevo);
         System.out.println("Cliente Añadido Correctamente");
     }
-    //hecho
+    //no funciona
     public void borrarCliente() {
         System.out.println("Introduce el DNI del cliente que quieres eliminar: ");
         Scanner sc = new Scanner(System.in);
@@ -89,7 +89,7 @@ public class GestorOpciones {
             metodo.cambiarTarifa(encontrado, nueva);
         }
     }
-
+    //hecho
     public void verCliente() {
         System.out.println("Introduce el DNI del cliente que deseas buscar: ");
         Scanner sc = new Scanner(System.in);
@@ -101,7 +101,7 @@ public class GestorOpciones {
             System.out.println(buscado.get().clienteToString());
         }
     }
-
+    //hecho
     public void verTodosClientes() {
         System.out.println("Consultando Todos Los Clientes");
         Cliente unCliente;
@@ -116,7 +116,7 @@ public class GestorOpciones {
         Scanner fin = new Scanner(System.in);
         fin.next();*/
     }
-
+    //hecho (falta confirmar)
     public void altaLlamada() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");
