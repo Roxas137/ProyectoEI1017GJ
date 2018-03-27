@@ -50,4 +50,14 @@ public class Factura implements Fecha{
             throw new IllegalArgumentException("El precio de la factura no puede ser negativo");
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Código de la factura: " + codigo + "\n");
+        sb.append("Fecha de la factura: " + fecha.toString() + "\n");
+        sb.append("Cliente: " + cliente.toString() + "\n");
+        sb.append("Precio de la factura: " + precio + "\n");
+        return sb.toString();
+    }
 }

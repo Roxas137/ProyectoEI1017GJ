@@ -12,19 +12,21 @@ import java.util.*;
  */
 public class Metodos {
 
-    private HashSet<Cliente> conjuntoClientes = new HashSet<Cliente>();
+    private HashMap<String, Cliente> mapaClientes = new HashMap<String, Cliente>();
     private ArrayList<Factura> totalFacturas = new ArrayList<Factura>();
     private HashMap<String, ArrayList<Llamada>> llamadasCliente = new HashMap<String, ArrayList<Llamada>>();
 
     public boolean addCliente(Cliente nuevo) {                     //1
-        boolean modificado = conjuntoClientes.add(nuevo);
-        if (modificado)
+        boolean modificado = mapaClientes.containsKey(nuevo.getDni());
+        if (modificado){
+            mapaClientes.put(nuevo.getDni(),nuevo);
             llamadasCliente.put(nuevo.getDni(), new ArrayList<Llamada>());
+        }
         return modificado;
     }
 
     private Optional<Cliente> recorrerConjuntoClientes(String dni) {
-        for (Cliente cliente : conjuntoClientes)
+        for (Cliente cliente : mapaClientes.values())
             if (cliente.getDni().equals(dni))
                 return Optional.of(cliente);
         return Optional.empty();
@@ -32,7 +34,11 @@ public class Metodos {
 
     public boolean removeCliente(String dni) {                //2
         Optional<Cliente> correcto = recorrerConjuntoClientes(dni);
-        return correcto.isPresent() && conjuntoClientes.remove(correcto.get());
+        if (correcto.isPresent()){
+            mapaClientes.remove(correcto.get().getDni());
+            return true;
+        }
+        return false;
     }
 
     public void cambiarTarifa(Cliente cliente, Tarifa nueva) {     //3
@@ -40,7 +46,8 @@ public class Metodos {
     }
 
     public Optional<Cliente> devuelveCliente(String dni) {                   //4
-        for (Cliente cliente : conjuntoClientes)
+        //TODO hay que cambiar para que sea mas eficiente, no hace falta el for.
+        for (Cliente cliente : mapaClientes.values())
             if (cliente.getDni().equals(dni))
                 return Optional.of(cliente);
         return Optional.empty();
@@ -48,7 +55,7 @@ public class Metodos {
 
     public ArrayList<Cliente> listaClientes() {                    //5
         ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-        for (Cliente cliente : conjuntoClientes)
+        for (Cliente cliente : mapaClientes.values())
             listaClientes.add(cliente);
         return listaClientes;
     }
@@ -71,32 +78,42 @@ public class Metodos {
         return llamadasCliente.get(dni);
     }
 
-    public double emitirFactura(Cliente cliente) {                 //8
+    public Factura emitirFactura(String dni) {                 //8
         double importe = 0;
-        ArrayList<Llamada> listaLlamadas = llamadasCliente.get(cliente.getDni());
-        Date fechaUltimaFactura = cliente.getUltimaFactura();
+        Optional<Cliente> cliente = devuelveCliente(dni);
+        ArrayList<Llamada> listaLlamadas = llamadasCliente.get(dni);
+        Date fechaUltimaFactura = cliente.get().getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
             if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
                 importe += llamada.getDuracion() * llamada.getTarifa().getPrecio();
         Factura nueva = new Factura();
-        nueva.setCliente(cliente);
+        nueva.setCliente(cliente.get());
         nueva.setFecha(new Date());
-        cliente.setUltimaFactura(new Date());
+        cliente.get().setUltimaFactura(new Date());
         nueva.setCodigo(totalFacturas.size());
         nueva.setPrecio(importe);
         totalFacturas.add(nueva);
-        return importe;
+        return nueva;
     }
 
     public Factura verFactura(int codigo) {                         //9
         return totalFacturas.get(codigo);
     }
 
-    public ArrayList<Factura> facturasCliente(Cliente cliente) {  //10
+    public ArrayList<Factura> facturasCliente(String dni) {  //10
         ArrayList<Factura> facturas = new ArrayList<Factura>();
         for (Factura factura : totalFacturas)
-            if (factura.getCliente().getDni().equals(cliente.getDni()))
+            if (factura.getCliente().getDni().equals(dni))
                 facturas.add(factura);
         return facturas;
+    }
+
+
+    public HashMap<String, Cliente> getMapaClientes() {
+        return mapaClientes;
+    }
+
+    public ArrayList<Factura> getTotalFacturas() {
+        return totalFacturas;
     }
 }

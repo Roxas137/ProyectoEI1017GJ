@@ -1,32 +1,24 @@
 package gestor;
 
 import atributos.Direccion;
+import atributos.Factura;
 import atributos.Llamada;
 import atributos.Tarifa;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
 import menu.MenuSwitch;
+import principal.FechaIntervalo;
 import principal.Main;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.Scanner;
+import java.time.DateTimeException;
+import java.util.*;
 
 public class GestorOpciones {
 
     private Metodos metodo = new Metodos();
 
-    //hecho
-    private String pedirDNI(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce el DNI del cliente: ");
-        String dni = sc.next();
-        sc.close();
-        return dni;
-    }
     //TODO
     public void salir() {
         // guardar datos en fichero
@@ -37,13 +29,10 @@ public class GestorOpciones {
         Cliente nuevo = new Empresa();
         boolean incorrecto;
         String opcion;
-        Scanner sc;
+        Scanner sc = new Scanner(System.in);
         do {
             incorrecto = false;
-            System.out.println("Elije el tipo de cliente que quieres añadir: Particular (P) / Empresa (E)");
-            sc = new Scanner(System.in);
-            opcion = sc.next();
-            opcion = opcion.toLowerCase();
+            opcion = pedirTipo();
             switch (opcion) {
                 case "p": //Particular
                     System.out.println("Apellido: ");
@@ -51,9 +40,6 @@ public class GestorOpciones {
                     break;
                 case "e": //Empresa
                     break;
-                default:
-                    System.out.println("Opcion no valida\n");
-                    incorrecto = true;
             }
         } while (incorrecto);
         System.out.println("Nombre: ");
@@ -141,32 +127,124 @@ public class GestorOpciones {
     public void verLlamadasCliente() {
         String dni = pedirDNI();
         for (Llamada llamada : metodo.listaLlamadas(dni)){
-            llamada.llamadaToString();
+            llamada.toString();
         }
     }
-
+    //falta comprobar
     public void emitirFactura() {
-
+        String dni = pedirDNI();
+        System.out.println(metodo.emitirFactura(dni));
     }
-
+    //falta comprobar
     public void verFactura() {
-
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el código de la factura: ");
+        int codigo = sc.nextInt();
+        //Comprobar codigo
+        System.out.println(metodo.getTotalFacturas().get(codigo).toString());
     }
-
+    //falta comprobar
     public void verFacturasCliente() {
-
+        String dni = pedirDNI();
+        ArrayList<Factura> facturas = metodo.facturasCliente(dni);
+        for (Factura factura : facturas)
+            System.out.println(factura.toString());
     }
-
+    //falta comprobar
     public void verClientesFechas() {
-
+        FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
+        String dni = pedirDNI();
+        Date inicio = pedirFecha("(Inicio)");
+        Date fin = pedirFecha("(Fin)");
+        try {
+            comprobarFechas(inicio, fin);
+        } catch (DateTimeException fechaIncorrecta) {
+            System.out.println("Fecha no válida");
+            return;
+        }
+        Collection<Cliente> clientes = metodo.getMapaClientes().values();
+        fechas.fechasIntervalo(clientes, inicio, fin);
+        for (Cliente cliente : fechas.getFechaCorrecta())
+            System.out.println(cliente.clienteToString());
     }
-
+    //falta comprobar
     public void verLlamadasClienteFechas() {
-
+        FechaIntervalo<Llamada> fechas = new FechaIntervalo<>();
+        String dni = pedirDNI();
+        Date inicio = pedirFecha("(Inicio)");
+        Date fin = pedirFecha("(Fin)");
+        try {
+            comprobarFechas(inicio, fin);
+        } catch (DateTimeException fechaIncorrecta) {
+            System.out.println("Fecha no válida");
+            return;
+        }
+        ArrayList<Llamada> llamadas = metodo.listaLlamadas(dni);
+        fechas.fechasIntervalo(llamadas, inicio, fin);
+        for (Llamada llamada : fechas.getFechaCorrecta())
+            System.out.println(llamada.toString());
     }
-
+    //falta comprobar
     public void verFacturasClienteFechas() {
-
+        FechaIntervalo<Factura> fechas = new FechaIntervalo<>();
+        String dni = pedirDNI();
+        Date inicio = pedirFecha(" (Inicio) ");
+        Date fin = pedirFecha(" (Fin) ");
+        try {
+            comprobarFechas(inicio, fin);
+        } catch (DateTimeException fechaIncorrecta) {
+            System.out.println("Fecha no válida");
+            return;
+        }
+        ArrayList<Factura> facturas = facturasCliente(dni);
+        fechas.fechasIntervalo(facturas, inicio, fin);
+        for (Factura factura : fechas.getFechaCorrecta())
+            System.out.println(factura.toString());
     }
 
+
+    private void comprobarFechas(Date inicio, Date fin) throws DateTimeException {
+        if (inicio.after(fin))
+            throw new DateTimeException("Fechas incorrectas");
+    }
+    private String pedirDNI(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el DNI del cliente: ");
+        String dni = sc.next();
+        sc.close();
+        return dni;
+    }
+    private Date pedirFecha(String detalle) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el día" + detalle + ": ");
+        int dia = sc.nextInt();
+        System.out.println("Introduce el mes:" + detalle + ": ");
+        int mes = sc.nextInt();
+        System.out.println("Introduce el año: " + detalle + ": ");
+        int año = sc.nextInt();
+        sc.close();
+        return new Date(año, mes, dia);
+    }
+    private ArrayList<Factura> facturasCliente(String dni) {
+        ArrayList<Factura> facturas = new ArrayList<>();
+        for (Factura factura : metodo.getTotalFacturas())
+            if (factura.getCliente().getDni().equals(dni))
+                facturas.add(factura);
+        return facturas;
+    }
+    private String pedirTipo() {
+        boolean correcto = false;
+        String opcion = "";
+        while (!correcto) {
+            System.out.println("Elije el tipo de cliente que quieres añadir: Particular (P) / Empresa (E)");
+            Scanner sc = new Scanner(System.in);
+            opcion = sc.next();
+            opcion = opcion.toLowerCase();
+            if (!correcto)
+                System.out.println("Opcion no valida\n");
+            else
+                correcto = true;
+        }
+        return opcion;
+    }
 }

@@ -45,7 +45,8 @@ public class Llamada implements Fecha{
         this.nTelefono = nTelefono;
     }
 
-    public String llamadaToString(){
+    @Override
+    public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Núm. Telefono:\t");
         sb.append(nTelefono);
