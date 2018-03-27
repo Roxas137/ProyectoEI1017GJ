@@ -31,10 +31,8 @@ public class Metodos {
     }
 
     public boolean removeCliente(String dni) {                //2
-        int tamanyoAntiguo = conjuntoClientes.size();
         Optional<Cliente> correcto = recorrerConjuntoClientes(dni);
-        conjuntoClientes.remove(correcto);
-        return tamanyoAntiguo != conjuntoClientes.size();
+        return correcto.isPresent() && conjuntoClientes.remove(correcto.get());
     }
 
     public void cambiarTarifa(Cliente cliente, Tarifa nueva) {     //3
@@ -61,16 +59,16 @@ public class Metodos {
         llamadasCliente.put(cliente.getDni(), aux);
     }
 
-    public void addLlamada(Cliente cliente) {                          //6b
-        ArrayList<Llamada> aux = llamadasCliente.get(cliente.getDni());
-        Llamada nueva = new Llamada();
-        nueva.setTarifa(cliente.getTarifa());
-        aux.add(nueva);
-        llamadasCliente.put(cliente.getDni(), aux);
-    }
+//    public void addLlamada(Cliente cliente) {                          //6b
+//        ArrayList<Llamada> aux = llamadasCliente.get(cliente.getDni());
+//        Llamada nueva = new Llamada();
+//        nueva.setTarifa(cliente.getTarifa());
+//        aux.add(nueva);
+//        llamadasCliente.put(cliente.getDni(), aux);
+//    }
 
-    public ArrayList<Llamada> listaLlamadas(Cliente cliente) {   //7
-        return llamadasCliente.get(cliente.getDni());
+    public ArrayList<Llamada> listaLlamadas(String dni) {   //7
+        return llamadasCliente.get(dni);
     }
 
     public double emitirFactura(Cliente cliente) {                 //8

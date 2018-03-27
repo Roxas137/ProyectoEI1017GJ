@@ -28,8 +28,6 @@ public class MenuSwitch {
         return sb.toString();
     }
 
-
-
     public void menuInicio() {
         System.out.println(getMenu());
         Scanner sc = new Scanner(System.in);

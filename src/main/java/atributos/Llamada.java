@@ -44,4 +44,25 @@ public class Llamada implements Fecha{
     public void setnTelefono(int nTelefono) {
         this.nTelefono = nTelefono;
     }
+
+    public String llamadaToString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Núm. Telefono:\t");
+        sb.append(nTelefono);
+        sb.append("\n");
+
+        sb.append("Fecha:\t\t\t");
+        sb.append(fecha.toString());
+        sb.append("\n");
+
+        sb.append("Duración:\t\t");
+        sb.append(duracion);
+        sb.append("\n");
+
+        sb.append("Tarifa:\t\t\t");
+        sb.append(tarifa.getPrecio() + " e/min");
+        sb.append("\n\n");
+
+        return sb.toString();
+    }
 }

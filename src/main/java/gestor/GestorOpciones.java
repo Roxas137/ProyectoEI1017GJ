@@ -19,12 +19,20 @@ public class GestorOpciones {
 
     private Metodos metodo = new Metodos();
 
+    //hecho
+    private String pedirDNI(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el DNI del cliente: ");
+        String dni = sc.next();
+        sc.close();
+        return dni;
+    }
     //TODO
     public void salir() {
         // guardar datos en fichero
         System.exit(0);
     }
-    //hehco
+    //hecho
     public void altaCliente() {
         Cliente nuevo = new Empresa();
         boolean incorrecto;
@@ -67,17 +75,11 @@ public class GestorOpciones {
     }
     //no funciona
     public void borrarCliente() {
-        System.out.println("Introduce el DNI del cliente que quieres eliminar: ");
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
-        metodo.removeCliente(dni);
+        metodo.removeCliente(pedirDNI());
     }
     //hecho
     public void cambiarTarifa() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introduzca su dni:");
-        String dni = sc.next();
-        Optional<Cliente> buscado = metodo.devuelveCliente(dni);
+        Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI());
         if (!buscado.isPresent()){
             System.out.println("No se encuentra el cliente\n");
         }else{
@@ -85,16 +87,15 @@ public class GestorOpciones {
             Cliente encontrado = buscado.get();
             System.out.println("Introduce la nueva tarifa: ");
             Tarifa nueva = new Tarifa();
+            Scanner sc = new Scanner(System.in);
             nueva.setPrecio(sc.nextDouble());
+            sc.close();
             metodo.cambiarTarifa(encontrado, nueva);
         }
     }
     //hecho
     public void verCliente() {
-        System.out.println("Introduce el DNI del cliente que deseas buscar: ");
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
-        Optional<Cliente> buscado = metodo.devuelveCliente(dni);
+        Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI());
         if (buscado.equals(Optional.empty())){
             System.out.println("No se encuentra el cliente\n");
         }else{
@@ -136,9 +137,12 @@ public class GestorOpciones {
             System.out.println("Llamada añadida");
         }
     }
-
+    //lanza noSuchElementException
     public void verLlamadasCliente() {
-
+        String dni = pedirDNI();
+        for (Llamada llamada : metodo.listaLlamadas(dni)){
+            llamada.llamadaToString();
+        }
     }
 
     public void emitirFactura() {
