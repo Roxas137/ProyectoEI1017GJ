@@ -61,7 +61,7 @@ public class Llamada implements Fecha{
         sb.append("\n");
 
         sb.append("Tarifa:\t\t\t");
-        sb.append(tarifa.getPrecio() + " e/min");
+        sb.append(tarifa.getPrecio());
         sb.append("\n\n");
 
         return sb.toString();

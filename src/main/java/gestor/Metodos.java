@@ -21,7 +21,7 @@ public class Metodos {
 
     public boolean addCliente(Cliente nuevo) {                     //1
         boolean modificado = mapaClientes.containsKey(nuevo.getDni());
-        if (modificado) {
+        if (!modificado) {
             mapaClientes.put(nuevo.getDni(), nuevo);
             llamadasCliente.put(nuevo.getDni(), new ArrayList<>());
         }
