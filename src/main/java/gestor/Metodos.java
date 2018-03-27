@@ -5,22 +5,25 @@ import atributos.Llamada;
 import atributos.Tarifa;
 import clientes.Cliente;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * Created by al361891 on 20/02/18.
  */
 public class Metodos {
 
-    private HashMap<String, Cliente> mapaClientes = new HashMap<String, Cliente>();
-    private ArrayList<Factura> totalFacturas = new ArrayList<Factura>();
-    private HashMap<String, ArrayList<Llamada>> llamadasCliente = new HashMap<String, ArrayList<Llamada>>();
+    private HashMap<String, Cliente> mapaClientes = new HashMap<>();
+    private ArrayList<Factura> totalFacturas = new ArrayList<>();
+    private HashMap<String, ArrayList<Llamada>> llamadasCliente = new HashMap<>();
 
     public boolean addCliente(Cliente nuevo) {                     //1
         boolean modificado = mapaClientes.containsKey(nuevo.getDni());
-        if (modificado){
-            mapaClientes.put(nuevo.getDni(),nuevo);
-            llamadasCliente.put(nuevo.getDni(), new ArrayList<Llamada>());
+        if (modificado) {
+            mapaClientes.put(nuevo.getDni(), nuevo);
+            llamadasCliente.put(nuevo.getDni(), new ArrayList<>());
         }
         return modificado;
     }
@@ -34,7 +37,7 @@ public class Metodos {
 
     public boolean removeCliente(String dni) {                //2
         Optional<Cliente> correcto = recorrerConjuntoClientes(dni);
-        if (correcto.isPresent()){
+        if (correcto.isPresent()) {
             mapaClientes.remove(correcto.get().getDni());
             return true;
         }
@@ -52,7 +55,7 @@ public class Metodos {
     }
 
     public ArrayList<Cliente> listaClientes() {                    //5
-        ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
         listaClientes.addAll(mapaClientes.values());
         return listaClientes;
     }
@@ -98,7 +101,7 @@ public class Metodos {
     }
 
     public ArrayList<Factura> facturasCliente(String dni) {  //10
-        ArrayList<Factura> facturas = new ArrayList<Factura>();
+        ArrayList<Factura> facturas = new ArrayList<>();
         for (Factura factura : totalFacturas)
             if (factura.getCliente().getDni().equals(dni))
                 facturas.add(factura);

@@ -23,7 +23,7 @@ public enum MenuOpciones {
 
     private String descripcion;
 
-    private MenuOpciones(String descripcion) {
+    MenuOpciones(String descripcion) {
         this.descripcion = descripcion;
     }
 

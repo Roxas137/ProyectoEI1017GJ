@@ -1,13 +1,7 @@
 package menu;
 
-import atributos.Llamada;
-import atributos.Tarifa;
-import clientes.Cliente;
-import clientes.Particular;
 import gestor.GestorOpciones;
-import gestor.Metodos;
 
-import java.util.Date;
 import java.util.Scanner;
 
 /**

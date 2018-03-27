@@ -5,7 +5,6 @@ import atributos.Tarifa;
 import principal.Fecha;
 
 import java.util.Date;
-import java.util.Optional;
 
 public abstract class Cliente implements Fecha { //abstract
     private Tarifa tarifa;
@@ -14,7 +13,9 @@ public abstract class Cliente implements Fecha { //abstract
     private String email;
     private Date fecha;//FechaAlta
     private Date ultimaFactura;
+
     abstract public String getNombre();
+
     abstract public void setNombre(String nombre);
 
     public Cliente() {
@@ -66,7 +67,7 @@ public abstract class Cliente implements Fecha { //abstract
         this.ultimaFactura = ultimaFactura;
     }
 
-    public String clienteToString(){
+    public String clienteToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre:\t\t\t");
         sb.append(this.getNombre());
