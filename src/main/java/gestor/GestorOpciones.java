@@ -240,7 +240,7 @@ public class GestorOpciones {
             Scanner sc = new Scanner(System.in);
             opcion = sc.next();
             opcion = opcion.toLowerCase();
-            if (!correcto)
+            if (!opcion.equals("p") && !opcion.equals("e"))
                 System.out.println("Opcion no valida\n");
             else
                 correcto = true;
