@@ -5,6 +5,7 @@ import atributos.Tarifa;
 import principal.Fecha;
 
 import java.util.Date;
+import java.util.Optional;
 
 public abstract class Cliente implements Fecha { //abstract
     private Tarifa tarifa;
@@ -12,8 +13,10 @@ public abstract class Cliente implements Fecha { //abstract
     private String dni;
     private String email;
     private Date fecha;//FechaAlta
-    private String nombre;
+    //private String nombre;
     private Date ultimaFactura;
+    abstract public String getNombre();
+    abstract public void setNombre(String nombre);
 
     public Cliente() {
         tarifa = new Tarifa();
@@ -21,7 +24,7 @@ public abstract class Cliente implements Fecha { //abstract
         dni = "";
         email = "";
         fecha = new Date();
-        nombre = "";
+        //nombre = "";
         ultimaFactura = new Date(1970, 1, 1);
     }
 
@@ -37,9 +40,9 @@ public abstract class Cliente implements Fecha { //abstract
         this.email = email;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+//    public void setNombre(String nombre) {
+//        this.nombre = nombre;
+//    }
 
     @Override
     public Date getFecha() {
@@ -48,10 +51,6 @@ public abstract class Cliente implements Fecha { //abstract
 
     public String getDni() {
         return dni;
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 
     public Tarifa getTarifa() {
@@ -75,7 +74,7 @@ public abstract class Cliente implements Fecha { //abstract
     public String clienteToString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre:\t\t\t");
-        sb.append(this.nombre);
+        sb.append(this.getNombre());
         sb.append("\n");
 
         sb.append("DNI:\t\t\t");

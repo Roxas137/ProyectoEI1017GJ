@@ -17,7 +17,7 @@ public class Factura implements Fecha{
        // tarifa = new Tarifa();
         codigo = 0;
         fecha = new Date();
-        cliente = new Particular(); //Por defecto, suponemos que es un cliente particular
+        cliente = new Particular(""); //Por defecto, suponemos que es un cliente particular
     }
 
     public Cliente getCliente() {

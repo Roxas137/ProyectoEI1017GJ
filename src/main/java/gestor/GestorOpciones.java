@@ -26,7 +26,7 @@ public class GestorOpciones {
     }
     //falta el apellido
     public void altaCliente() {
-        Cliente nuevo = new Particular();
+        Cliente nuevo = new Empresa();
         boolean incorrecto;
         String opcion;
         Scanner sc;
@@ -38,9 +38,10 @@ public class GestorOpciones {
             opcion = opcion.toLowerCase();
             switch (opcion) {
                 case "p": //Particular
+                    System.out.println("Apellido: ");
+                    nuevo = new Particular(sc.next());
                     break;
                 case "e": //Empresa
-                    nuevo = new Empresa();
                     break;
                 default:
                     System.out.println("Opcion no valida\n");
@@ -49,10 +50,6 @@ public class GestorOpciones {
         } while (incorrecto);
         System.out.println("Nombre: ");
         nuevo.setNombre(sc.next());
-        if (opcion.equals("p")) {
-            System.out.println("Apellido: ");
-            nuevo.setNombre(nuevo.getNombre() + " " + sc.next());//es setApellidos
-        }
         System.out.println("DNI: ");
         nuevo.setDni(sc.next());
         System.out.println("Codigo Postal: ");
@@ -68,7 +65,7 @@ public class GestorOpciones {
         metodo.addCliente(nuevo);
         System.out.println("Cliente Añadido Correctamente");
     }
-    //hecho
+    //no funciona
     public void borrarCliente() {
         System.out.println("Introduce el DNI del cliente que quieres eliminar: ");
         Scanner sc = new Scanner(System.in);
@@ -92,7 +89,7 @@ public class GestorOpciones {
             metodo.cambiarTarifa(encontrado, nueva);
         }
     }
-
+    //hecho
     public void verCliente() {
         System.out.println("Introduce el DNI del cliente que deseas buscar: ");
         Scanner sc = new Scanner(System.in);
@@ -104,7 +101,7 @@ public class GestorOpciones {
             System.out.println(buscado.get().clienteToString());
         }
     }
-
+    //hecho
     public void verTodosClientes() {
         System.out.println("Consultando Todos Los Clientes");
         Cliente unCliente;
@@ -119,7 +116,7 @@ public class GestorOpciones {
         Scanner fin = new Scanner(System.in);
         fin.next();*/
     }
-
+    //hecho (falta confirmar)
     public void altaLlamada() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");
