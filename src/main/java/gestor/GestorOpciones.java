@@ -27,12 +27,13 @@ public class GestorOpciones {
         Cliente nuevo = new Empresa();
         boolean incorrecto;
         String opcion;
-        Scanner sc = new Scanner(System.in);
         opcion = pedirTipo();
+        Scanner sc = new Scanner(System.in);
         switch (opcion) {
             case "p": //Particular
                 System.out.println("Apellido: ");
-                nuevo = new Particular(sc.next());
+                String apellido = sc.next();
+                nuevo = new Particular(apellido);
                 break;
             case "e": //Empresa
                 break;
