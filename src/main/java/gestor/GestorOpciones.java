@@ -166,7 +166,6 @@ public class GestorOpciones {
     //falta comprobar
     public void verClientesFechas() {
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
-        String dni = pedirDNI();
         Date inicio = pedirFecha("(Inicio)");
         Date fin = pedirFecha("(Fin)");
         try {
