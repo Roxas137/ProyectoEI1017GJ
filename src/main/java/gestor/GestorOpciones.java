@@ -43,7 +43,9 @@ public class GestorOpciones {
         System.out.println("DNI: ");
         nuevo.setDni(sc.next());
         System.out.println("Codigo Postal: ");
+        sc = sc.reset();
         int codpostal = sc.nextInt();
+        sc = sc.reset();
         System.out.println("Provincia: ");
         String provincia = sc.next();
         System.out.println("Poblacion: ");
@@ -53,8 +55,8 @@ public class GestorOpciones {
         System.out.println("email: ");
         nuevo.setEmail(sc.next());
         metodo.addCliente(nuevo);
-        System.out.println("Cliente Añadido Correctamente");
         sc.close();
+        System.out.println("Cliente Añadido Correctamente");
     }
 
     //no funciona
