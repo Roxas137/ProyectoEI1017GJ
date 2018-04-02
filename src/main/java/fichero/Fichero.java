@@ -2,10 +2,7 @@ package fichero;
 
 import gestor.Metodos;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 /**
  * Created by al361891 on 27/03/18.
@@ -13,8 +10,15 @@ import java.io.ObjectOutputStream;
 public class Fichero {
     String nombreFichero;
 
-    public void entrada(Metodos metodo){
-
+    public void entrada(Metodos metodo) {
+        try {
+            FileInputStream fis = new FileInputStream("datos.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            metodo = (Metodos) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void salida(Metodos metodo) {
