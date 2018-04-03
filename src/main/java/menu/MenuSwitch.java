@@ -22,9 +22,9 @@ public class MenuSwitch {
         return sb.toString();
     }
 
-    public void menuInicio() {
+    public void menuInicio(Scanner sc) {
         System.out.println(getMenu());
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Elije una opción:");
         byte opcion = sc.nextByte();
         MenuOpciones opcionMenu = MenuOpciones.getOpcion(opcion);
@@ -34,43 +34,43 @@ public class MenuSwitch {
                 gestor.salir();
                 break;
             case ALTA_CLIENTE:
-                gestor.altaCliente();
+                gestor.altaCliente(sc);
                 break;
             case BORRAR_CLIENTE:
-                gestor.borrarCliente();
+                gestor.borrarCliente(sc);
                 break;
             case CAMBIAR_TARIFA:
-                gestor.cambiarTarifa();
+                gestor.cambiarTarifa(sc);
                 break;
             case VER_CLIENTE:
-                gestor.verCliente();
+                gestor.verCliente(sc);
                 break;
             case VER_TODOS_CLIENTES:
                 gestor.verTodosClientes();
                 break;
             case ALTA_LLAMADA:
-                gestor.altaLlamada();
+                gestor.altaLlamada(sc);
                 break;
             case VER_LLAMADAS_CLIENTE:
-                gestor.verLlamadasCliente();
+                gestor.verLlamadasCliente(sc);
                 break;
             case EMITIR_FACTURA:
-                gestor.emitirFactura();
+                gestor.emitirFactura(sc);
                 break;
             case VER_FACTURA:
-                gestor.verFactura();
+                gestor.verFactura(sc);
                 break;
             case VER_FACTURAS_CLIENTE:
-                gestor.verFacturasCliente();
+                gestor.verFacturasCliente(sc);
                 break;
             case VER_CLIENTES_FECHAS:
-                gestor.verClientesFechas();
+                gestor.verClientesFechas(sc);
                 break;
             case VER_LLAMADAS_CLIENTE_FECHAS:
-                gestor.verLlamadasClienteFechas();
+                gestor.verLlamadasClienteFechas(sc);
                 break;
             case VER_FACTURAS_CLIENTE_FECHAS:
-                gestor.verFacturasClienteFechas();
+                gestor.verFacturasClienteFechas(sc);
                 break;
         }
     }
