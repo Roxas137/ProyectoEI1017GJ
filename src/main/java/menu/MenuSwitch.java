@@ -46,7 +46,7 @@ public class MenuSwitch {
                 gestor.verCliente(sc);
                 break;
             case VER_TODOS_CLIENTES:
-                gestor.verTodosClientes();
+                gestor.verTodosClientes(sc);
                 break;
             case ALTA_LLAMADA:
                 gestor.altaLlamada(sc);

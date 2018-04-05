@@ -100,7 +100,7 @@ public class GestorOpciones {
     }
 
     //hecho
-    public void verTodosClientes() {
+    public void verTodosClientes(Scanner sc) {
         System.out.println("Consultando Todos Los Clientes");
         Cliente unCliente;
         ArrayList<Cliente> listaDeClientes = metodo.listaClientes();
@@ -110,7 +110,6 @@ public class GestorOpciones {
             System.out.println("Tengo un nuevo cliente:");
             System.out.println(unCliente.clienteToString());
         }
-        Scanner sc = new Scanner(System.in);
         continuar(sc);
     }
 
