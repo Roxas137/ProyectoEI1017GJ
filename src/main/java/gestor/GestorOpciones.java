@@ -7,6 +7,7 @@ import atributos.Tarifa;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
+import fichero.Fichero;
 import principal.FechaIntervalo;
 
 import java.time.DateTimeException;
@@ -19,7 +20,15 @@ public class GestorOpciones {
     //TODO
     public void salir() {
         // guardar datos en Fichero
+        Fichero fichero = new Fichero();
+        fichero.salida(metodo);
         System.exit(0);
+    }
+
+    public void continuar(Scanner sc){
+        System.out.print("\nPulsa INTRO para continuar.\n");
+        sc.nextLine();
+        sc.nextLine();
     }
 
     //hecho
@@ -53,11 +62,13 @@ public class GestorOpciones {
         nuevo.setEmail(sc.next());
         metodo.addCliente(nuevo);
         System.out.println("Cliente Añadido Correctamente");
+        continuar(sc);
     }
 
-    //no funciona
+    //hecho
     public void borrarCliente(Scanner sc) {
         metodo.removeCliente(pedirDNI(sc));
+        continuar(sc);
     }
 
     //hecho
@@ -74,6 +85,7 @@ public class GestorOpciones {
             nueva.setPrecio(sc.nextDouble());
             metodo.cambiarTarifa(encontrado, nueva);
         }
+        continuar(sc);
     }
 
     //hecho
@@ -84,6 +96,7 @@ public class GestorOpciones {
         } else {
             System.out.println(buscado.get().clienteToString());
         }
+        continuar(sc);
     }
 
     //hecho
@@ -97,9 +110,8 @@ public class GestorOpciones {
             System.out.println("Tengo un nuevo cliente:");
             System.out.println(unCliente.clienteToString());
         }
-        /*System.out.println("Todos los clientes mostrados\nPulsa intro para continuar\n");
-        Scanner fin = new Scanner(System.in);
-        fin.next();*/
+        Scanner sc = new Scanner(System.in);
+        continuar(sc);
     }
 
     //hecho (falta confirmar)
@@ -122,6 +134,7 @@ public class GestorOpciones {
             metodo.addLlamada(encontrado, nueva);
             System.out.println("Llamada añadida");
         }
+        continuar(sc);
     }
 
     //lanza noSuchElementException
@@ -132,12 +145,14 @@ public class GestorOpciones {
                 System.out.println(llamada.toString());
         else
             System.out.println("El cliente no existe");
+        continuar(sc);
     }
 
     //falta comprobar
     public void emitirFactura(Scanner sc) {
         String dni = pedirDNI(sc);
         System.out.println(metodo.emitirFactura(dni));
+        continuar(sc);
     }
 
     //falta comprobar
@@ -147,6 +162,7 @@ public class GestorOpciones {
         int codigo = sc.nextInt();
         //Comprobar codigo
         System.out.println(metodo.getTotalFacturas().get(codigo).toString());
+        continuar(sc);
     }
 
     //falta comprobar
@@ -155,6 +171,7 @@ public class GestorOpciones {
         ArrayList<Factura> facturas = metodo.facturasCliente(dni);
         for (Factura factura : facturas)
             System.out.println(factura.toString());
+        continuar(sc);
     }
 
     //falta comprobar
@@ -172,6 +189,7 @@ public class GestorOpciones {
         fechas.fechasIntervalo(clientes, inicio, fin);
         for (Cliente cliente : fechas.getFechaCorrecta())
             System.out.println(cliente.clienteToString());
+        continuar(sc);
     }
 
     //falta comprobar
@@ -190,6 +208,7 @@ public class GestorOpciones {
         fechas.fechasIntervalo(llamadas, inicio, fin);
         for (Llamada llamada : fechas.getFechaCorrecta())
             System.out.println(llamada.toString());
+        continuar(sc);
     }
 
     //falta comprobar
@@ -208,6 +227,7 @@ public class GestorOpciones {
         fechas.fechasIntervalo(facturas, inicio, fin);
         for (Factura factura : fechas.getFechaCorrecta())
             System.out.println(factura.toString());
+        continuar(sc);
     }
 
 
