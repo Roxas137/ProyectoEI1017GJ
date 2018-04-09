@@ -15,7 +15,12 @@ import java.util.*;
 
 public class GestorOpciones {
 
-    private Metodos metodo = new Metodos();
+    private Metodos metodo;
+
+    public GestorOpciones(Metodos metodos){
+        metodo = metodos;
+    }
+
 
     //TODO
     public void salir() {
@@ -113,7 +118,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //hecho (falta confirmar)
+    //hecho
     public void altaLlamada(Scanner sc) {
         sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");
@@ -130,13 +135,14 @@ public class GestorOpciones {
             nueva.setnTelefono(sc.nextInt());
             System.out.println("Duracion:");
             nueva.setDuracion(sc.nextDouble());
+            nueva.setTarifa(encontrado.getTarifa());
             metodo.addLlamada(encontrado, nueva);
             System.out.println("Llamada añadida");
         }
         continuar(sc);
     }
 
-    //lanza noSuchElementException
+    //hecho
     public void verLlamadasCliente(Scanner sc) {
         String dni = pedirDNI(sc);
         if (metodo.getMapaClientes().containsKey(dni))
@@ -147,14 +153,14 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //falta comprobar
+    //factura se acumula
     public void emitirFactura(Scanner sc) {
         String dni = pedirDNI(sc);
         System.out.println(metodo.emitirFactura(dni));
         continuar(sc);
     }
 
-    //falta comprobar
+    //hecho
     public void verFactura(Scanner sc) {
         sc = new Scanner(System.in);
         System.out.println("Introduce el código de la factura: ");
@@ -164,7 +170,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //falta comprobar
+    //hecho
     public void verFacturasCliente(Scanner sc) {
         String dni = pedirDNI(sc);
         ArrayList<Factura> facturas = metodo.facturasCliente(dni);

@@ -6,10 +6,7 @@ import atributos.Tarifa;
 import clientes.Cliente;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by al361891 on 20/02/18.
@@ -79,9 +76,11 @@ public class Metodos implements Serializable {
         return llamadasCliente.get(dni);
     }
 
-    public Factura emitirFactura(String dni) {                 //8
+    public Factura emitirFactura(String dni) throws NoSuchElementException{                 //8
         double importe = 0;
         Optional<Cliente> cliente = devuelveCliente(dni);
+        if (!cliente.isPresent())
+            throw new NoSuchElementException("Cliente no encontrado");
         ArrayList<Llamada> listaLlamadas = llamadasCliente.get(dni);
         Date fechaUltimaFactura = cliente.get().getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
@@ -89,9 +88,11 @@ public class Metodos implements Serializable {
                 importe += llamada.getDuracion() * llamada.getTarifa().getPrecio();
         Factura nueva = new Factura();
         nueva.setCliente(cliente.get());
-        nueva.setFecha(new Date());
-        cliente.get().setUltimaFactura(new Date());
+        Date ahora = new Date();
+        nueva.setFecha(ahora);
+        cliente.get().setUltimaFactura(ahora);
         nueva.setCodigo(totalFacturas.size());
+        importe = Math.round(importe);
         nueva.setPrecio(importe);
         totalFacturas.add(nueva);
         return nueva;

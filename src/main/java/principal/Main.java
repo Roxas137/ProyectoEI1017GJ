@@ -12,8 +12,8 @@ public class Main {
     public void ejecuta(){
         //Leer Fichero
         Fichero fichero = new Fichero();
-        fichero.entrada(metodo);
-        MenuSwitch menu = new MenuSwitch();
+        metodo = fichero.entrada();
+        MenuSwitch menu = new MenuSwitch(metodo);
         Scanner sc = null;
         while (true) {
             menu.menuInicio(sc);

@@ -1,6 +1,7 @@
 package menu;
 
 import gestor.GestorOpciones;
+import gestor.Metodos;
 
 import java.util.Scanner;
 
@@ -9,7 +10,12 @@ import java.util.Scanner;
  */
 public class MenuSwitch {
 
-    private GestorOpciones gestor = new GestorOpciones();
+    private GestorOpciones gestor;
+
+    public MenuSwitch(Metodos metodos){
+        gestor = new GestorOpciones(metodos);
+    }
+
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();

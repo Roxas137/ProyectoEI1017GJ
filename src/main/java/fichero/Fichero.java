@@ -10,7 +10,8 @@ import java.io.*;
 public class Fichero {
     String nombreFichero;
 
-    public void entrada(Metodos metodo) {
+    public Metodos entrada() {
+        Metodos metodo = null;
         try {
             FileInputStream fis = new FileInputStream("datos.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -19,12 +20,15 @@ public class Fichero {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return metodo;
     }
 
     public void salida(Metodos metodo) {
         FileOutputStream fos = null;
+
         try {
-            fos = new FileOutputStream("datos.bin");
+            File fichero = new File("datos.bin");
+            fos = new FileOutputStream(fichero);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(metodo);
             oos.close();
