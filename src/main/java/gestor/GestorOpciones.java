@@ -34,7 +34,6 @@ public class GestorOpciones {
         sc.nextLine();
     }
 
-    //hecho
     public void altaCliente(Scanner sc) {
         Cliente nuevo = new Empresa();
         String opcion;
@@ -68,13 +67,11 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //hecho
     public void borrarCliente(Scanner sc) {
         metodo.removeCliente(pedirDNI(sc));
         continuar(sc);
     }
 
-    //hecho
     public void cambiarTarifa(Scanner sc) {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (!buscado.isPresent()) {
@@ -91,7 +88,6 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //hecho
     public void verCliente(Scanner sc) {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (buscado.equals(Optional.empty())) {
@@ -102,7 +98,6 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //hecho
     public void verTodosClientes(Scanner sc) {
         System.out.println("Consultando Todos Los Clientes");
         Cliente unCliente;
@@ -116,7 +111,6 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //hecho
     public void altaLlamada(Scanner sc) {
         sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");
@@ -140,7 +134,6 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //hecho
     public void verLlamadasCliente(Scanner sc) {
         String dni = pedirDNI(sc);
         if (metodo.getMapaClientes().containsKey(dni))
@@ -151,14 +144,12 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-
     public void emitirFactura(Scanner sc) {
         String dni = pedirDNI(sc);
         System.out.println(metodo.emitirFactura(dni));
         continuar(sc);
     }
 
-    //hecho
     public void verFactura(Scanner sc) {
         sc = new Scanner(System.in);
         System.out.println("Introduce el código de la factura: ");
@@ -168,7 +159,6 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //hecho
     public void verFacturasCliente(Scanner sc) {
         String dni = pedirDNI(sc);
         ArrayList<Factura> facturas = metodo.facturasCliente(dni);
