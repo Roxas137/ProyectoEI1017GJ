@@ -17,28 +17,19 @@ public class Metodos implements Serializable {
     private ArrayList<Factura> totalFacturas = new ArrayList<>();
     private HashMap<String, ArrayList<Llamada>> llamadasCliente = new HashMap<>();
 
-    public boolean addCliente(Cliente nuevo) {                     //1
+    public void addCliente(Cliente nuevo) {                     //1
         boolean modificado = mapaClientes.containsKey(nuevo.getDni());
         if (!modificado) {
             mapaClientes.put(nuevo.getDni(), nuevo);
             llamadasCliente.put(nuevo.getDni(), new ArrayList<>());
         }
-        return modificado;
-    }
-
-    private Optional<Cliente> recorrerConjuntoClientes(String dni) {
-        for (Cliente cliente : mapaClientes.values())
-            if (cliente.getDni().equals(dni))
-                return Optional.of(cliente);
-        return Optional.empty();
     }
 
     public void removeCliente(String dni) {                //2
-        Optional<Cliente> correcto = recorrerConjuntoClientes(dni);
-        if (!correcto.isPresent()) {
+        if (!mapaClientes.containsKey(dni)) {
             throw new NoSuchElementException("No se encuentra el cliente");
         }
-        mapaClientes.remove(correcto.get().getDni());
+        mapaClientes.remove(dni);
     }
 
     public void cambiarTarifa(Cliente cliente, Tarifa nueva) {     //3
