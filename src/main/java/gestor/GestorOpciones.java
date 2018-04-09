@@ -186,7 +186,8 @@ public class GestorOpciones {
             throw new DateTimeException("Fechas no validas");
         Collection<Cliente> clientes = metodo.getMapaClientes().values();
         fechas.fechasIntervalo(clientes, inicio, fin);
-        for (Cliente cliente : fechas.getFechaCorrecta())
+        ArrayList<Cliente> fechaCorrecta = fechas.getFechaCorrecta();
+        for (Cliente cliente : fechaCorrecta)
             System.out.println(cliente.clienteToString());
         continuar(sc);
     }
@@ -201,7 +202,8 @@ public class GestorOpciones {
             throw new DateTimeException("Fechas no validas");
         ArrayList<Llamada> llamadas = metodo.listaLlamadas(dni);
         fechas.fechasIntervalo(llamadas, inicio, fin);
-        for (Llamada llamada : fechas.getFechaCorrecta())
+        ArrayList<Llamada> fechaCorrecta = fechas.getFechaCorrecta();
+        for (Llamada llamada : fechaCorrecta)
             System.out.println(llamada.toString());
         continuar(sc);
     }
@@ -216,7 +218,8 @@ public class GestorOpciones {
             throw new DateTimeException("Fechas no validas");
         ArrayList<Factura> facturas = facturasCliente(dni);
         fechas.fechasIntervalo(facturas, inicio, fin);
-        for (Factura factura : fechas.getFechaCorrecta())
+        ArrayList<Factura> fechaCorrecta = fechas.getFechaCorrecta();
+        for (Factura factura : fechaCorrecta)
             System.out.println(factura.toString());
         continuar(sc);
     }
