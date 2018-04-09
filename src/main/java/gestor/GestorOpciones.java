@@ -180,16 +180,12 @@ public class GestorOpciones {
     }
 
     //falta comprobar
-    public void verClientesFechas(Scanner sc) {
+    public void verClientesFechas(Scanner sc) throws DateTimeException{
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
         Date inicio = pedirFecha("(Inicio)", sc);
         Date fin = pedirFecha("(Fin)", sc);
-        try {
-            comprobarFechas(inicio, fin);
-        } catch (DateTimeException fechaIncorrecta) {
-            System.out.println("Fecha no válida");
-            return;
-        }
+        if (inicio.compareTo(fin) < 0)
+            throw new DateTimeException("Fechas no validas");
         Collection<Cliente> clientes = metodo.getMapaClientes().values();
         fechas.fechasIntervalo(clientes, inicio, fin);
         for (Cliente cliente : fechas.getFechaCorrecta())
@@ -198,17 +194,13 @@ public class GestorOpciones {
     }
 
     //falta comprobar
-    public void verLlamadasClienteFechas(Scanner sc) {
+    public void verLlamadasClienteFechas(Scanner sc) throws DateTimeException{
         FechaIntervalo<Llamada> fechas = new FechaIntervalo<>();
         String dni = pedirDNI(sc);
         Date inicio = pedirFecha("(Inicio)", sc);
         Date fin = pedirFecha("(Fin)", sc);
-        try {
-            comprobarFechas(inicio, fin);
-        } catch (DateTimeException fechaIncorrecta) {
-            System.out.println("Fecha no válida");
-            return;
-        }
+        if (inicio.compareTo(fin) < 0)
+            throw new DateTimeException("Fechas no validas");
         ArrayList<Llamada> llamadas = metodo.listaLlamadas(dni);
         fechas.fechasIntervalo(llamadas, inicio, fin);
         for (Llamada llamada : fechas.getFechaCorrecta())
@@ -217,28 +209,18 @@ public class GestorOpciones {
     }
 
     //falta comprobar
-    public void verFacturasClienteFechas(Scanner sc) {
+    public void verFacturasClienteFechas(Scanner sc) throws DateTimeException{
         FechaIntervalo<Factura> fechas = new FechaIntervalo<>();
         String dni = pedirDNI(sc);
         Date inicio = pedirFecha(" (Inicio) ", sc);
         Date fin = pedirFecha(" (Fin) ", sc);
-        try {
-            comprobarFechas(inicio, fin);
-        } catch (DateTimeException fechaIncorrecta) {
-            System.out.println("Fecha no válida");
-            return;
-        }
+        if (inicio.compareTo(fin) < 0)
+            throw new DateTimeException("Fechas no validas");
         ArrayList<Factura> facturas = facturasCliente(dni);
         fechas.fechasIntervalo(facturas, inicio, fin);
         for (Factura factura : fechas.getFechaCorrecta())
             System.out.println(factura.toString());
         continuar(sc);
-    }
-
-
-    private void comprobarFechas(Date inicio, Date fin) throws DateTimeException {
-        if (inicio.after(fin))
-            throw new DateTimeException("Fechas incorrectas");
     }
 
     private String pedirDNI(Scanner sc) {

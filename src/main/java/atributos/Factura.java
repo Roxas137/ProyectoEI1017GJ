@@ -57,7 +57,7 @@ public class Factura implements Fecha, Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("Código de la factura: " + codigo + "\n");
         sb.append("Fecha de la factura: " + fecha.toString() + "\n");
-        sb.append("Cliente: " + cliente.clienteToString() + "\n");
+        sb.append("Cliente: " + "\n" + cliente.clienteToString() + "\n");
         sb.append("Precio de la factura: " + precio + "\n");
         return sb.toString();
     }
