@@ -20,7 +20,7 @@ public class Main {
             try {
                 menu.menuInicio(sc);
             }catch (Exception e){
-                System.out.println("Error.");
+                System.out.println("Error. Datos incorrectos\n");
                 e.printStackTrace();
             }
         }
