@@ -4,6 +4,7 @@ import fichero.Fichero;
 import gestor.Metodos;
 import menu.MenuSwitch;
 
+import java.time.DateTimeException;
 import java.util.Scanner;
 
 public class Main {
@@ -16,7 +17,12 @@ public class Main {
         MenuSwitch menu = new MenuSwitch(metodo);
         Scanner sc = null;
         while (true) {
-            menu.menuInicio(sc);
+            try {
+                menu.menuInicio(sc);
+            }catch (Exception e){
+                System.out.println("Error.");
+                e.printStackTrace();
+            }
         }
     }
 

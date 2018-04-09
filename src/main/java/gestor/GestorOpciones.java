@@ -184,7 +184,7 @@ public class GestorOpciones {
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
         Date inicio = pedirFecha("(Inicio)", sc);
         Date fin = pedirFecha("(Fin)", sc);
-        if (inicio.compareTo(fin) < 0)
+        if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         Collection<Cliente> clientes = metodo.getMapaClientes().values();
         fechas.fechasIntervalo(clientes, inicio, fin);
@@ -199,7 +199,7 @@ public class GestorOpciones {
         String dni = pedirDNI(sc);
         Date inicio = pedirFecha("(Inicio)", sc);
         Date fin = pedirFecha("(Fin)", sc);
-        if (inicio.compareTo(fin) < 0)
+        if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         ArrayList<Llamada> llamadas = metodo.listaLlamadas(dni);
         fechas.fechasIntervalo(llamadas, inicio, fin);
@@ -214,7 +214,7 @@ public class GestorOpciones {
         String dni = pedirDNI(sc);
         Date inicio = pedirFecha(" (Inicio) ", sc);
         Date fin = pedirFecha(" (Fin) ", sc);
-        if (inicio.compareTo(fin) < 0)
+        if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         ArrayList<Factura> facturas = facturasCliente(dni);
         fechas.fechasIntervalo(facturas, inicio, fin);

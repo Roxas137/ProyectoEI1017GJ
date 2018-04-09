@@ -20,8 +20,7 @@ public class FechaIntervalo<T extends Fecha> {
 
     public void fechasIntervalo(Collection<T> datos, Date fechaInicio, Date fechaFin){
         for(T dato : datos)
-            if (dato.getFecha().compareTo(fechaInicio) > 0 && dato.getFecha().compareTo(fechaFin) < 0)
+            if (dato.getFecha().after(fechaInicio) && dato.getFecha().before(fechaFin))
                 fechaCorrecta.add(dato);
     }
-
 }
