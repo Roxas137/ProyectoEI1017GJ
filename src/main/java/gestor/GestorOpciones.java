@@ -72,10 +72,10 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    public void cambiarTarifa(Scanner sc) {
+    public void cambiarTarifa(Scanner sc) throws NoSuchElementException{
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (!buscado.isPresent()) {
-            throw new NoSuchElementException("No se encuentra el cliente\n");
+            throw new NoSuchElementException();
         } else {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
@@ -88,9 +88,9 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    public void verCliente(Scanner sc) {
+    public void verCliente(Scanner sc) throws NoSuchElementException{
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
-        if (buscado.equals(Optional.empty())) {
+        if (!buscado.isPresent()) {
             throw new NoSuchElementException("No se encuentra el cliente");
         } else {
             System.out.println(buscado.get().clienteToString());
@@ -111,7 +111,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    public void altaLlamada(Scanner sc) {
+    public void altaLlamada(Scanner sc) throws NoSuchElementException{
         sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");
         String dni = sc.next();

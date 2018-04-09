@@ -25,7 +25,7 @@ public class Metodos implements Serializable {
         }
     }
 
-    public void removeCliente(String dni) {                //2
+    public void removeCliente(String dni) throws NoSuchElementException{                //2
         if (!mapaClientes.containsKey(dni)) {
             throw new NoSuchElementException("No se encuentra el cliente");
         }
