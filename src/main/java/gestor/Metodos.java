@@ -33,13 +33,12 @@ public class Metodos implements Serializable {
         return Optional.empty();
     }
 
-    public boolean removeCliente(String dni) {                //2
+    public void removeCliente(String dni) {                //2
         Optional<Cliente> correcto = recorrerConjuntoClientes(dni);
-        if (correcto.isPresent()) {
-            mapaClientes.remove(correcto.get().getDni());
-            return true;
+        if (!correcto.isPresent()) {
+            throw new NoSuchElementException("No se encuentra el cliente");
         }
-        return false;
+        mapaClientes.remove(correcto.get().getDni());
     }
 
     public void cambiarTarifa(Cliente cliente, Tarifa nueva) {     //3

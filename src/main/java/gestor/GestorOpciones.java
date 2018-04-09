@@ -22,9 +22,7 @@ public class GestorOpciones {
     }
 
 
-    //TODO
     public void salir() {
-        // guardar datos en Fichero
         Fichero fichero = new Fichero();
         fichero.salida(metodo);
         System.exit(0);
@@ -80,7 +78,7 @@ public class GestorOpciones {
     public void cambiarTarifa(Scanner sc) {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (!buscado.isPresent()) {
-            System.out.println("No se encuentra el cliente\n");
+            throw new NoSuchElementException("No se encuentra el cliente\n");
         } else {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
@@ -97,7 +95,7 @@ public class GestorOpciones {
     public void verCliente(Scanner sc) {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (buscado.equals(Optional.empty())) {
-            System.out.println("No se encuentra el cliente\n");
+            throw new NoSuchElementException("No se encuentra el cliente");
         } else {
             System.out.println(buscado.get().clienteToString());
         }
@@ -125,7 +123,7 @@ public class GestorOpciones {
         String dni = sc.next();
         Optional<Cliente> buscado = metodo.devuelveCliente(dni);
         if (!buscado.isPresent()) {
-            System.out.println("No se encuentra el cliente\n");
+            throw new NoSuchElementException("No se encuentra el cliente");
         }
         else {
             //pasar a string el cliente
@@ -153,7 +151,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //factura se acumula
+
     public void emitirFactura(Scanner sc) {
         String dni = pedirDNI(sc);
         System.out.println(metodo.emitirFactura(dni));
@@ -179,7 +177,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //falta comprobar
+    //TODO
     public void verClientesFechas(Scanner sc) throws DateTimeException{
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
         Date inicio = pedirFecha("(Inicio)", sc);
@@ -193,7 +191,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //falta comprobar
+    //TODO
     public void verLlamadasClienteFechas(Scanner sc) throws DateTimeException{
         FechaIntervalo<Llamada> fechas = new FechaIntervalo<>();
         String dni = pedirDNI(sc);
@@ -208,7 +206,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //falta comprobar
+    //TODO
     public void verFacturasClienteFechas(Scanner sc) throws DateTimeException{
         FechaIntervalo<Factura> fechas = new FechaIntervalo<>();
         String dni = pedirDNI(sc);
