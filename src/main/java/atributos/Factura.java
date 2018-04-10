@@ -8,14 +8,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Factura implements Fecha, Serializable{
-    //private Tarifa tarifa;
+    //private Basica tarifa;
     private int codigo;
     private Date fecha;
     private Cliente cliente;
     private double precio;
 
     public Factura() {
-       // tarifa = new Tarifa();
+       // tarifa = new Basica();
         codigo = 0;
         fecha = new Date();
         cliente = new Particular(""); //Por defecto, suponemos que es un cliente particular
@@ -30,7 +30,7 @@ public class Factura implements Fecha, Serializable{
         return fecha;
     }
 
-    /*public void setTarifa(Tarifa nueva){
+    /*public void setBasica(Basica nueva){
         tarifa = nueva;
     }*/
 

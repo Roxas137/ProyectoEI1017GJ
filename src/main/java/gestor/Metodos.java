@@ -2,7 +2,7 @@ package gestor;
 
 import atributos.Factura;
 import atributos.Llamada;
-import atributos.Tarifa;
+import tarifa.Basica;
 import clientes.Cliente;
 
 import java.io.Serializable;
@@ -32,8 +32,8 @@ public class Metodos implements Serializable {
         mapaClientes.remove(dni);
     }
 
-    public void cambiarTarifa(Cliente cliente, Tarifa nueva) {     //3
-        cliente.setTarifa(nueva);
+    public void cambiarTarifa(Cliente cliente, Basica nueva) {     //3
+        cliente.setBasica(nueva);
     }
 
     public Optional<Cliente> devuelveCliente(String dni) {                   //4
@@ -57,7 +57,7 @@ public class Metodos implements Serializable {
 //    public void addLlamada(Cliente cliente) {                          //6b
 //        ArrayList<Llamada> aux = llamadasCliente.get(cliente.getDni());
 //        Llamada nueva = new Llamada();
-//        nueva.setTarifa(cliente.getTarifa());
+//        nueva.setBasica(cliente.getBasica());
 //        aux.add(nueva);
 //        llamadasCliente.put(cliente.getDni(), aux);
 //    }
@@ -75,7 +75,7 @@ public class Metodos implements Serializable {
         Date fechaUltimaFactura = cliente.get().getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
             if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
-                importe += llamada.getDuracion() * llamada.getTarifa().getPrecio();
+                importe += llamada.getDuracion() * llamada.getBasica().getPrecio();
         Factura nueva = new Factura();
         nueva.setCliente(cliente.get());
         Date ahora = new Date();

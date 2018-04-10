@@ -3,7 +3,7 @@ package gestor;
 import atributos.Direccion;
 import atributos.Factura;
 import atributos.Llamada;
-import atributos.Tarifa;
+import tarifa.Basica;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
@@ -80,7 +80,7 @@ public class GestorOpciones {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
             System.out.println("Introduce la nueva tarifa: ");
-            Tarifa nueva = new Tarifa();
+            Basica nueva = new Basica();
             sc = new Scanner(System.in);
             nueva.setPrecio(sc.nextDouble());
             metodo.cambiarTarifa(encontrado, nueva);
@@ -127,7 +127,7 @@ public class GestorOpciones {
             nueva.setnTelefono(sc.nextInt());
             System.out.println("Duracion:");
             nueva.setDuracion(sc.nextDouble());
-            nueva.setTarifa(encontrado.getTarifa());
+            nueva.setBasica(encontrado.getBasica());
             metodo.addLlamada(encontrado, nueva);
             System.out.println("Llamada añadida");
         }

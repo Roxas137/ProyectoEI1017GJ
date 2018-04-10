@@ -1,11 +1,11 @@
-package atributos;
+package tarifa;
 
 import java.io.Serializable;
 
-public class Tarifa implements Serializable{
+public class Basica implements Serializable{
     private double precio;
 
-    public Tarifa(){
+    public Basica(){
         this.precio = 0.01;
     }
 

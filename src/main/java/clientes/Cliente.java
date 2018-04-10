@@ -1,14 +1,14 @@
 package clientes;
 
 import atributos.Direccion;
-import atributos.Tarifa;
+import tarifa.Basica;
 import principal.Fecha;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public abstract class Cliente implements Fecha, Serializable { //abstract
-    private Tarifa tarifa;
+    private Basica basica;
     private Direccion direccion;
     private String dni;
     private String email;
@@ -20,7 +20,7 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
     abstract public void setNombre(String nombre);
 
     public Cliente() {
-        tarifa = new Tarifa();
+        basica = new Basica();
         direccion = new Direccion();
         dni = "";
         email = "";
@@ -50,18 +50,18 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         return dni;
     }
 
-    public Tarifa getTarifa() {
-        return tarifa;
+    public Basica getBasica() {
+        return basica;
     }
 
     public Date getUltimaFactura() {
         return ultimaFactura;
     }
 
-    public void setTarifa(Tarifa tarifa) throws IllegalArgumentException {
-        if (tarifa.getPrecio() < 0)
-            throw new IllegalArgumentException("El precio de la tarifa no puede ser negativa.");
-        this.tarifa = tarifa;
+    public void setBasica(Basica basica) throws IllegalArgumentException {
+        if (basica.getPrecio() < 0)
+            throw new IllegalArgumentException("El precio de la basica no puede ser negativa.");
+        this.basica = basica;
     }
 
     public void setUltimaFactura(Date ultimaFactura) {
