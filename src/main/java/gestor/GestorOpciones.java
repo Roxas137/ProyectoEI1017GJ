@@ -4,6 +4,7 @@ import atributos.Direccion;
 import atributos.Factura;
 import atributos.Llamada;
 import tarifa.Basica;
+import tarifa.Tarifa;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
@@ -72,17 +73,37 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    public void cambiarTarifa(Scanner sc) throws NoSuchElementException{
+    //TODO
+    public void cambiarTarifa(Scanner sc) throws NoSuchElementException {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
-        if (!buscado.isPresent()) {
+        if (!buscado.isPresent())
             throw new NoSuchElementException();
-        } else {
+        else {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
-            System.out.println("Introduce la nueva tarifa: ");
-            Basica nueva = new Basica();
+            System.out.println("Introduce la nueva tarifa básica: ");
+            ArrayList<Tarifa> nueva = new ArrayList<>();
             sc = new Scanner(System.in);
-            nueva.setPrecio(sc.nextDouble());
+            Tarifa basica = new Basica();
+            basica.setPrecio(sc.nextDouble());
+            nueva.add(basica);
+            System.out.println("¿Quieres una tarifa reducida por horas? S/N");
+            String opcion = sc.next();
+            opcion = opcion.toLowerCase();
+            if (opcion.equals("s")) {
+                //Pedir hora inicio
+                //Pedir hora fin
+                //Pedir precio
+                //Añadir tarifa a nueva
+            }
+            System.out.println("¿Quieres una tarifa reducida por horas? S/N");
+            opcion = sc.next();
+            opcion = opcion.toLowerCase();
+            if (opcion.equals("s")) {
+                //Pedir dia
+                //Pedir precio
+                //Añadir tarifa a nueva
+            }
             metodo.cambiarTarifa(encontrado, nueva);
         }
         continuar(sc);
@@ -127,7 +148,9 @@ public class GestorOpciones {
             nueva.setnTelefono(sc.nextInt());
             System.out.println("Duracion:");
             nueva.setDuracion(sc.nextDouble());
-            nueva.setBasica(encontrado.getBasica());
+            //Mirar cuál es la mejor tarifa del cliente para la llamada
+            Tarifa precioMinimo = findTarifa(encontrado, nueva);
+            nueva.setTarifa(precioMinimo);
             metodo.addLlamada(encontrado, nueva);
             System.out.println("Llamada añadida");
         }
@@ -254,5 +277,16 @@ public class GestorOpciones {
                 correcto = true;
         }
         return opcion;
+    }
+
+    private Tarifa findTarifa(Cliente cliente, Llamada llamada) {
+        double precioMinimo = cliente.getTarifas().get(0).getPrecio();
+        Tarifa minima = cliente.getTarifas().get(0);
+        for (Tarifa tarifa : cliente.getTarifas()) {
+            if ()
+        }
+
+
+        return minima;
     }
 }

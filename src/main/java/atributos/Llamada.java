@@ -2,6 +2,7 @@ package atributos;
 
 import principal.Fecha;
 import tarifa.Basica;
+import tarifa.Tarifa;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,13 +11,13 @@ public class Llamada implements Fecha, Serializable{
     private int nTelefono;
     private Date fecha; //Fecha de la llamada
     private double duracion;
-    private Basica basica; //Basica en el momento de la llamada
+    private Tarifa tarifa; //Tarifa en el momento de la llamada
 
     public Llamada() {
         nTelefono = 0;
         fecha = new Date();
         duracion = 10;
-        basica = new Basica();
+        tarifa = new Basica();
     }
     @Override
     public Date getFecha() {
@@ -31,12 +32,12 @@ public class Llamada implements Fecha, Serializable{
         return duracion;
     }
 
-    public Basica getBasica() {
-        return basica;
+    public Tarifa getTarifa() {
+        return tarifa;
     }
 
-    public void setBasica(Basica basica) {
-        this.basica = basica;
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
     }
 
     public void setDuracion(double duracion) {
@@ -62,8 +63,8 @@ public class Llamada implements Fecha, Serializable{
         sb.append(duracion);
         sb.append("\n");
 
-        sb.append("Basica:\t\t\t");
-        sb.append(basica.getPrecio());
+        sb.append("Tarifa:\t\t\t");
+        sb.append(tarifa.getPrecio());
         sb.append("\n\n");
 
         return sb.toString();
