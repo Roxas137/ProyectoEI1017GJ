@@ -20,7 +20,7 @@ public class Fichero {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (metodo == null)
+        if (metodo == null) //caso en el que el fichero no existe o esta vacío
             return new Metodos();
         return metodo;
     }
