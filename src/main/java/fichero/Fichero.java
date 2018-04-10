@@ -20,6 +20,8 @@ public class Fichero {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (metodo == null)
+            return new Metodos();
         return metodo;
     }
 

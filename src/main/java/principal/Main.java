@@ -5,6 +5,7 @@ import gestor.Metodos;
 import menu.MenuSwitch;
 
 import java.time.DateTimeException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
@@ -19,8 +20,11 @@ public class Main {
         while (true) {
             try {
                 menu.menuInicio(sc);
-            }catch (Exception e){
-                System.out.println("Error. Datos incorrectos\n");
+            }catch (DateTimeException e){
+                System.out.println("Error. Fechas incorrectas\n");
+                e.printStackTrace();
+            }catch (NoSuchElementException e){
+                System.out.println("Error, cliente no encontrado");
                 e.printStackTrace();
             }
         }
