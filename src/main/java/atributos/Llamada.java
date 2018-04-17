@@ -11,13 +11,13 @@ public class Llamada implements Fecha, Serializable{
     private int nTelefono;
     private Date fecha; //Fecha de la llamada
     private double duracion;
-    private Tarifa tarifa; //Tarifa en el momento de la llamada
+    private double precio; //Tarifa en el momento de la llamada
 
     public Llamada() {
         nTelefono = 0;
         fecha = new Date();
         duracion = 10;
-        tarifa = new Basica();
+        precio = 0;
     }
     @Override
     public Date getFecha() {
@@ -32,12 +32,12 @@ public class Llamada implements Fecha, Serializable{
         return duracion;
     }
 
-    public Tarifa getTarifa() {
-        return tarifa;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setTarifa(Tarifa tarifa) {
-        this.tarifa = tarifa;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     public void setDuracion(double duracion) {
@@ -63,8 +63,8 @@ public class Llamada implements Fecha, Serializable{
         sb.append(duracion);
         sb.append("\n");
 
-        sb.append("Tarifa:\t\t\t");
-        sb.append(tarifa.getPrecio());
+        sb.append("Precio de la llamada:\t\t\t");
+        sb.append(precio);
         sb.append("\n\n");
 
         return sb.toString();

@@ -7,9 +7,10 @@ import principal.Fecha;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 public abstract class Cliente implements Fecha, Serializable { //abstract
-    private ArrayList<Tarifa> tarifas;
+    private HashSet<Tarifa> tarifas;
     private Direccion direccion;
     private String dni;
     private String email;
@@ -21,7 +22,7 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
     abstract public void setNombre(String nombre);
 
     public Cliente() {
-        tarifas = new ArrayList<Tarifa>();
+        tarifas = new HashSet<>();
         direccion = new Direccion();
         dni = "";
         email = "";
@@ -51,7 +52,7 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         return dni;
     }
 
-    public ArrayList<Tarifa> getTarifas() {
+    public HashSet<Tarifa> getTarifas() {
         return tarifas;
     }
 
@@ -59,10 +60,10 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         return ultimaFactura;
     }
 
-    public void setTarifas(ArrayList<Tarifa> tarifas) throws IllegalArgumentException {
+    public void setTarifas(HashSet<Tarifa> tarifas) throws IllegalArgumentException {
         for(Tarifa tarifa : tarifas)
             if (tarifa.getPrecio() < 0)
-                throw new IllegalArgumentException("El precio de la tarifa no puede ser negativa.");
+                throw new IllegalArgumentException("El precio de la tarifa no puede ser negativa:\n"+tarifa.toString());
         this.tarifas = tarifas;
     }
 

@@ -82,7 +82,7 @@ public class GestorOpciones {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
             System.out.println("Introduce la nueva tarifa básica: ");
-            ArrayList<Tarifa> nueva = new ArrayList<>();
+            HashSet<Tarifa> nueva = new HashSet<>();
             sc = new Scanner(System.in);
             Tarifa basica = new Basica();
             basica.setPrecio(sc.nextDouble());
@@ -149,8 +149,8 @@ public class GestorOpciones {
             System.out.println("Duracion:");
             nueva.setDuracion(sc.nextDouble());
             //Mirar cuál es la mejor tarifa del cliente para la llamada
-            Tarifa precioMinimo = findTarifa(encontrado, nueva);
-            nueva.setTarifa(precioMinimo);
+            double precioMinimo = findPrecioMinimo(encontrado, nueva); //
+            nueva.setPrecio(precioMinimo);
             metodo.addLlamada(encontrado, nueva);
             System.out.println("Llamada añadida");
         }
@@ -279,14 +279,22 @@ public class GestorOpciones {
         return opcion;
     }
 
-    private Tarifa findTarifa(Cliente cliente, Llamada llamada) {
-        double precioMinimo = cliente.getTarifas().get(0).getPrecio();
-        Tarifa minima = cliente.getTarifas().get(0);
-        for (Tarifa tarifa : cliente.getTarifas()) {
-            if ()
+    private double findPrecioMinimo(Cliente cliente, Llamada llamada) {
+        Iterator<Tarifa> it = cliente.getTarifas().iterator();
+        Tarifa primera = it.next();
+        double precioMinimo = precioLlamada(primera, llamada);
+        while (it.hasNext()){
+            Tarifa aux = it.next();
+            double otroPrecio = precioLlamada(aux, llamada);
+            if (precioMinimo > otroPrecio)
+                precioMinimo = otroPrecio;
         }
+        return precioMinimo;
+    }
+
+    private double precioLlamada (Tarifa tarifa, Llamada llamada){
 
 
-        return minima;
+
     }
 }

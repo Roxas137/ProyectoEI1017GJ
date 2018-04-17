@@ -1,5 +1,7 @@
 package tarifa;
 
+import atributos.Llamada;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -17,4 +19,6 @@ public abstract class Tarifa implements Serializable{
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    public abstract double calcularPrecio(Llamada llamada);
 }

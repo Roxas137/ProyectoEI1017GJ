@@ -32,7 +32,7 @@ public class Metodos implements Serializable {
         mapaClientes.remove(dni);
     }
 
-    public void cambiarTarifa(Cliente cliente, ArrayList<Tarifa> nueva) {     //3
+    public void cambiarTarifa(Cliente cliente, HashSet<Tarifa> nueva) {     //3
         cliente.setTarifas(nueva);
     }
 
@@ -75,7 +75,7 @@ public class Metodos implements Serializable {
         Date fechaUltimaFactura = cliente.get().getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
             if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
-                importe += llamada.getDuracion() * llamada.getTarifa().getPrecio();
+                importe += llamada.getPrecio();
         Factura nueva = new Factura();
         nueva.setCliente(cliente.get());
         Date ahora = new Date();
