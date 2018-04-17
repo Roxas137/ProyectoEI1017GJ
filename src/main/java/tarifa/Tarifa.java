@@ -4,6 +4,7 @@ import atributos.Llamada;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public abstract class Tarifa implements Serializable{
     private double precio;
@@ -20,5 +21,5 @@ public abstract class Tarifa implements Serializable{
         this.precio = precio;
     }
 
-    public abstract double calcularPrecio(Llamada llamada);
+    public abstract Optional<Double> calcularPrecio(Llamada llamada);
 }

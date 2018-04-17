@@ -4,6 +4,7 @@ import atributos.Direccion;
 import atributos.Factura;
 import atributos.Llamada;
 import tarifa.Basica;
+import tarifa.HoraReducida;
 import tarifa.Tarifa;
 import clientes.Cliente;
 import clientes.Empresa;
@@ -82,15 +83,16 @@ public class GestorOpciones {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
             System.out.println("Introduce la nueva tarifa básica: ");
-            HashSet<Tarifa> nueva = new HashSet<>();
+            HashSet<Tarifa> tarifas = new HashSet<>();
             sc = new Scanner(System.in);
             Tarifa basica = new Basica();
             basica.setPrecio(sc.nextDouble());
-            nueva.add(basica);
+            tarifas.add(basica);
             System.out.println("¿Quieres una tarifa reducida por horas? S/N");
             String opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
+                HoraReducida horaReducida = new HoraReducida();
                 //Pedir hora inicio
                 //Pedir hora fin
                 //Pedir precio
@@ -104,7 +106,7 @@ public class GestorOpciones {
                 //Pedir precio
                 //Añadir tarifa a nueva
             }
-            metodo.cambiarTarifa(encontrado, nueva);
+            metodo.cambiarTarifa(encontrado, tarifas);
         }
         continuar(sc);
     }
@@ -293,8 +295,6 @@ public class GestorOpciones {
     }
 
     private double precioLlamada (Tarifa tarifa, Llamada llamada){
-
-
-
+        return tarifa.calcularPrecio(llamada);
     }
 }
