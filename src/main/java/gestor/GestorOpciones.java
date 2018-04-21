@@ -3,6 +3,8 @@ package gestor;
 import atributos.Direccion;
 import atributos.Factura;
 import atributos.Llamada;
+import constructores.ConstructorClientes;
+import constructores.ConstructorTarifas;
 import tarifa.Basica;
 import tarifa.HoraReducida;
 import tarifa.Tarifa;
@@ -37,7 +39,8 @@ public class GestorOpciones {
     }
 
     public void altaCliente(Scanner sc) {
-        Cliente nuevo = new Empresa();
+        ConstructorClientes constructorClientes = new ConstructorClientes();
+        Cliente nuevo = constructorClientes.getInstanceEmpresa();
         String opcion;
         opcion = pedirTipo(sc);
         sc = new Scanner(System.in);
@@ -45,7 +48,7 @@ public class GestorOpciones {
             case "p": //Particular
                 System.out.println("Apellido: ");
                 String apellido = sc.next();
-                nuevo = new Particular(apellido);
+                nuevo = constructorClientes.getInstanceParticular(apellido);
                 break;
             case "e": //Empresa
                 break;
@@ -80,28 +83,30 @@ public class GestorOpciones {
         if (!buscado.isPresent())
             throw new NoSuchElementException();
         else {
+            ConstructorTarifas constructorTarifas = new ConstructorTarifas();
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
             System.out.println("Introduce la nueva tarifa básica: ");
             HashSet<Tarifa> tarifas = new HashSet<>();
             sc = new Scanner(System.in);
-            Tarifa basica = new Basica();
+            Tarifa basica = constructorTarifas.getInstanceBasica();
             basica.setPrecio(sc.nextDouble());
             tarifas.add(basica);
             System.out.println("¿Quieres una tarifa reducida por horas? S/N");
             String opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
-                HoraReducida horaReducida = new HoraReducida();
+                Tarifa horaReducida = constructorTarifas.getInstanceHoraReducida();
                 //Pedir hora inicio
                 //Pedir hora fin
                 //Pedir precio
                 //Añadir tarifa a nueva
             }
-            System.out.println("¿Quieres una tarifa reducida por horas? S/N");
+            System.out.println("¿Quieres una tarifa reducida por días? S/N");
             opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
+                Tarifa diaRecudido = constructorTarifas.getInstanceHoraReducida();
                 //Pedir dia
                 //Pedir precio
                 //Añadir tarifa a nueva
