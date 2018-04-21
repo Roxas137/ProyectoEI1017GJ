@@ -7,19 +7,25 @@ import java.util.Optional;
 /**
  * Created by al361891 on 10/04/18.
  */
-public class DiaReducido extends Tarifa {
-    private double precioDia;
+public class DiaReducido extends Extras {
+    private Tarifa diaReducido;
     private int dia;
+    private double precio;
 
     public DiaReducido() {
         super();
-        precioDia = 0;
-        dia = 0;
     }
+    //Que Tarifa guarde un atributo Extras y que hora y dia sean hijas de Extras
+    public DiaReducido (Tarifa diaReducido, int dia, double precio){
+        this.diaReducido = diaReducido;
+        this.dia = dia;
+        this.precio = precio;
+    }
+
     @Override
     public Optional<Double> calcularPrecio(Llamada llamada) {
         if (llamada.getFecha().getDay() == dia)
-            return Optional.of(precioDia*llamada.getDuracion());
-        return Optional.empty();
+            return Optional.of(precio*llamada.getDuracion());
+        return diaReducido.calcularPrecio(llamada);
     }
 }
