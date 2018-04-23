@@ -97,18 +97,18 @@ public class GestorOpciones {
                 if (compruebaHoras(horaInicio, horaFin))
                     throw new DateTimeException("Horas no validas");
                 basica = constructorTarifa.getInstanceHoraReducida(basica, horaInicio, horaFin, precio);
-                //Añadir tarifa a nueva
             }
             System.out.println("¿Quieres una tarifa reducida por días? S/N");
             opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
-                //Pedir dia
-                //Pedir precio
-                Tarifa diaRecudido = constructorTarifa.getInstanceHoraReducida();
-                //Añadir tarifa a nueva
+                System.out.println("Introduce un día de la semana (0(domingo)-6(sabado)):");
+                int dia = sc.nextInt();
+                System.out.println("Introduce el precio:");
+                double precio = sc.nextInt();
+                basica = constructorTarifa.getInstanceDiaReducido(basica, dia, precio);
             }
-            metodo.cambiarTarifa(encontrado, nueva);
+            metodo.cambiarTarifa(encontrado, basica);
         }
         continuar(sc);
     }
