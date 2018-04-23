@@ -32,8 +32,8 @@ public class Metodos implements Serializable {
         mapaClientes.remove(dni);
     }
 
-    public void cambiarTarifa(Cliente cliente, HashSet<Tarifa> nueva) {     //3
-        cliente.setTarifas(nueva);
+    public void cambiarTarifa(Cliente cliente, Tarifa nueva) {     //3
+        cliente.setTarifa(nueva);
     }
 
     public Optional<Cliente> devuelveCliente(String dni) {                   //4
@@ -57,7 +57,7 @@ public class Metodos implements Serializable {
 //    public void addLlamada(Cliente cliente) {                          //6b
 //        ArrayList<Llamada> aux = llamadasCliente.get(cliente.getDni());
 //        Llamada nueva = new Llamada();
-//        nueva.setTarifas(cliente.getTarifas());
+//        nueva.setTarifa(cliente.getTarifa());
 //        aux.add(nueva);
 //        llamadasCliente.put(cliente.getDni(), aux);
 //    }

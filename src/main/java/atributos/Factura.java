@@ -30,7 +30,7 @@ public class Factura implements Fecha, Serializable{
         return fecha;
     }
 
-    /*public void setTarifas(Tarifa nueva){
+    /*public void setTarifa(Tarifa nueva){
         tarifa = nueva;
     }*/
 

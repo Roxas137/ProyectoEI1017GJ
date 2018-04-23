@@ -1,28 +1,24 @@
 package clientes;
 
 import atributos.Direccion;
-import tarifa.Tarifa;
+import constructores.ConstructorTarifas;
 import principal.Fecha;
+import tarifa.Tarifa;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 
 public abstract class Cliente implements Fecha, Serializable { //abstract
-    private HashSet<Tarifa> tarifas;
+    private Tarifa tarifa;
     private Direccion direccion;
     private String dni;
     private String email;
     private Date fecha;//FechaAlta
     private Date ultimaFactura;
 
-    abstract public String getNombre();
-
-    abstract public void setNombre(String nombre);
-
     public Cliente() {
-        tarifas = new HashSet<>();
+        ConstructorTarifas constructorTarifas = new ConstructorTarifas();
+        tarifa = constructorTarifas.getInstanceBasica();
         direccion = new Direccion();
         dni = "";
         email = "";
@@ -31,12 +27,12 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         ultimaFactura = new Date(1970, 1, 1);
     }
 
+    abstract public String getNombre();
+
+    abstract public void setNombre(String nombre);
+
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
     }
 
     public void setEmail(String email) {
@@ -52,19 +48,22 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         return dni;
     }
 
-    public HashSet<Tarifa> getTarifas() {
-        return tarifas;
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(Tarifa tarifa) throws IllegalArgumentException {
+        if (tarifa.getPrecio() < 0)
+            throw new IllegalArgumentException("El precio de la tarifa no puede ser negativa:\n" + tarifa.toString());
+        this.tarifa = tarifa;
     }
 
     public Date getUltimaFactura() {
         return ultimaFactura;
-    }
-
-    public void setTarifas(HashSet<Tarifa> tarifas) throws IllegalArgumentException {
-        for(Tarifa tarifa : tarifas)
-            if (tarifa.getPrecio() < 0)
-                throw new IllegalArgumentException("El precio de la tarifa no puede ser negativa:\n"+tarifa.toString());
-        this.tarifas = tarifas;
     }
 
     public void setUltimaFactura(Date ultimaFactura) {

@@ -5,12 +5,8 @@ import atributos.Factura;
 import atributos.Llamada;
 import constructores.ConstructorClientes;
 import constructores.ConstructorTarifas;
-import tarifa.Basica;
-import tarifa.HoraReducida;
 import tarifa.Tarifa;
 import clientes.Cliente;
-import clientes.Empresa;
-import clientes.Particular;
 import fichero.Fichero;
 import principal.FechaIntervalo;
 
@@ -77,7 +73,8 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //TODO
+    //TODO Hay que hacer cambios, la tarifa se crea, no se cambia
+    //Cómo eliminar una tarifa del decorador
     public void cambiarTarifa(Scanner sc) throws NoSuchElementException {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (!buscado.isPresent())
@@ -86,32 +83,35 @@ public class GestorOpciones {
             ConstructorTarifas constructorTarifas = new ConstructorTarifas();
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
-            System.out.println("Introduce la nueva tarifa básica: ");
-            HashSet<Tarifa> tarifas = new HashSet<>();
-            sc = new Scanner(System.in);
-            Tarifa basica = constructorTarifas.getInstanceBasica();
-            basica.setPrecio(sc.nextDouble());
-            tarifas.add(basica);
+            System.out.println("¿Quieres modificar la tarifa básica? S/N");
+            String opcion = pedirOpcionSN(sc);
+            if (opcion.equals("s")) {
+                System.out.println("Introduce la nueva tarifa básica: ");
+                sc = new Scanner(System.in);
+                Tarifa basica = constructorTarifas.getInstanceBasica();
+                basica.setPrecio(sc.nextDouble());
+            }
             System.out.println("¿Quieres una tarifa reducida por horas? S/N");
-            String opcion = sc.next();
+            opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
-                Tarifa horaReducida = constructorTarifas.getInstanceHoraReducida();
+
                 //Pedir hora inicio
                 //Pedir hora fin
                 //Pedir precio
+                Tarifa horaReducida = constructorTarifas.getInstanceHoraReducida();
                 //Añadir tarifa a nueva
             }
             System.out.println("¿Quieres una tarifa reducida por días? S/N");
             opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
-                Tarifa diaRecudido = constructorTarifas.getInstanceHoraReducida();
                 //Pedir dia
                 //Pedir precio
+                Tarifa diaRecudido = constructorTarifas.getInstanceHoraReducida();
                 //Añadir tarifa a nueva
             }
-            metodo.cambiarTarifa(encontrado, tarifas);
+            metodo.cambiarTarifa(encontrado, nueva);
         }
         continuar(sc);
     }
@@ -197,7 +197,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //TODO
+
     public void verClientesFechas(Scanner sc) throws DateTimeException{
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
         Date inicio = pedirFecha("(Inicio)", sc);
@@ -247,8 +247,7 @@ public class GestorOpciones {
     private String pedirDNI(Scanner sc) {
         sc = new Scanner(System.in);
         System.out.println("Introduce el DNI del cliente: ");
-        String dni = sc.next();
-        return dni;
+        return sc.next();
     }
 
     private Date pedirFecha(String detalle, Scanner sc) {
@@ -287,19 +286,11 @@ public class GestorOpciones {
     }
 
     private double findPrecioMinimo(Cliente cliente, Llamada llamada) {
-        Iterator<Tarifa> it = cliente.getTarifas().iterator();
-        Tarifa primera = it.next();
-        double precioMinimo = precioLlamada(primera, llamada);
-        while (it.hasNext()){
-            Tarifa aux = it.next();
-            double otroPrecio = precioLlamada(aux, llamada);
-            if (precioMinimo > otroPrecio)
-                precioMinimo = otroPrecio;
-        }
-        return precioMinimo;
+        Optional<Double> precio = cliente.getTarifa().calcularPrecio(llamada);
+        return precio.isPresent() ? precio.get() : -1;
     }
 
-    private double precioLlamada (Tarifa tarifa, Llamada llamada){
-        return tarifa.calcularPrecio(llamada);
+    private String pedirOpcionSN (Scanner sc) {
+       return sc.next().toLowerCase();
     }
 }
