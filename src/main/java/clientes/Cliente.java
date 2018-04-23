@@ -1,7 +1,7 @@
 package clientes;
 
 import atributos.Direccion;
-import constructores.ConstructorTarifas;
+import constructores.ConstructorTarifa;
 import principal.Fecha;
 import tarifa.Tarifa;
 
@@ -17,8 +17,8 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
     private Date ultimaFactura;
 
     public Cliente() {
-        ConstructorTarifas constructorTarifas = new ConstructorTarifas();
-        tarifa = constructorTarifas.getInstanceBasica();
+        ConstructorTarifa constructorTarifa = new ConstructorTarifa();
+        tarifa = constructorTarifa.getInstanceBasica();
         direccion = new Direccion();
         dni = "";
         email = "";

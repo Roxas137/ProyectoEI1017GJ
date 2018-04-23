@@ -75,7 +75,7 @@ public class Metodos implements Serializable {
         Date fechaUltimaFactura = cliente.get().getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
             if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
-                importe += llamada.getPrecio();
+                importe += cliente.get().getTarifa().calcularPrecio(llamada).get();
         Factura nueva = new Factura();
         nueva.setCliente(cliente.get());
         Date ahora = new Date();

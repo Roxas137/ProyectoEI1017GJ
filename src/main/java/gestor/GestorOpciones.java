@@ -3,12 +3,12 @@ package gestor;
 import atributos.Direccion;
 import atributos.Factura;
 import atributos.Llamada;
-import constructores.ConstructorClientes;
-import constructores.ConstructorTarifas;
-import tarifa.Tarifa;
 import clientes.Cliente;
+import constructores.ConstructorCliente;
+import constructores.ConstructorTarifa;
 import fichero.Fichero;
 import principal.FechaIntervalo;
+import tarifa.Tarifa;
 
 import java.time.DateTimeException;
 import java.util.*;
@@ -17,7 +17,7 @@ public class GestorOpciones {
 
     private Metodos metodo;
 
-    public GestorOpciones(Metodos metodos){
+    public GestorOpciones(Metodos metodos) {
         metodo = metodos;
     }
 
@@ -28,15 +28,15 @@ public class GestorOpciones {
         System.exit(0);
     }
 
-    public void continuar(Scanner sc){
+    public void continuar(Scanner sc) {
         System.out.print("\nPulsa INTRO para continuar.\n");
         sc.nextLine();
         sc.nextLine();
     }
 
     public void altaCliente(Scanner sc) {
-        ConstructorClientes constructorClientes = new ConstructorClientes();
-        Cliente nuevo = constructorClientes.getInstanceEmpresa();
+        ConstructorCliente constructorCliente = new ConstructorCliente();
+        Cliente nuevo = constructorCliente.getInstanceEmpresa();
         String opcion;
         opcion = pedirTipo(sc);
         sc = new Scanner(System.in);
@@ -44,7 +44,7 @@ public class GestorOpciones {
             case "p": //Particular
                 System.out.println("Apellido: ");
                 String apellido = sc.next();
-                nuevo = constructorClientes.getInstanceParticular(apellido);
+                nuevo = constructorCliente.getInstanceParticular(apellido);
                 break;
             case "e": //Empresa
                 break;
@@ -73,33 +73,30 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //TODO Hay que hacer cambios, la tarifa se crea, no se cambia
-    //Cómo eliminar una tarifa del decorador
-    public void cambiarTarifa(Scanner sc) throws NoSuchElementException {
+    public void cambiarTarifa(Scanner sc) throws NoSuchElementException, DateTimeException {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (!buscado.isPresent())
             throw new NoSuchElementException();
         else {
-            ConstructorTarifas constructorTarifas = new ConstructorTarifas();
-            //pasar a string el cliente
+            ConstructorTarifa constructorTarifa = new ConstructorTarifa();
             Cliente encontrado = buscado.get();
-            System.out.println("¿Quieres modificar la tarifa básica? S/N");
-            String opcion = pedirOpcionSN(sc);
-            if (opcion.equals("s")) {
-                System.out.println("Introduce la nueva tarifa básica: ");
-                sc = new Scanner(System.in);
-                Tarifa basica = constructorTarifas.getInstanceBasica();
-                basica.setPrecio(sc.nextDouble());
-            }
+            System.out.println("Introduce la nueva tarifa básica");
+            sc = new Scanner(System.in);
+            Tarifa basica = constructorTarifa.getInstanceBasica();
+            basica.setPrecio(sc.nextDouble());
             System.out.println("¿Quieres una tarifa reducida por horas? S/N");
-            opcion = sc.next();
+            String opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
-
-                //Pedir hora inicio
-                //Pedir hora fin
-                //Pedir precio
-                Tarifa horaReducida = constructorTarifas.getInstanceHoraReducida();
+                System.out.println("Introduce una hora de inicio (0-23):");
+                int horaInicio = sc.nextInt();
+                System.out.println("Introduce una hora de fin (0-23):");
+                int horaFin = sc.nextInt();
+                System.out.println("Introduce el precio:");
+                double precio = sc.nextDouble();
+                if (compruebaHoras(horaInicio, horaFin))
+                    throw new DateTimeException("Horas no validas");
+                basica = constructorTarifa.getInstanceHoraReducida(basica, horaInicio, horaFin, precio);
                 //Añadir tarifa a nueva
             }
             System.out.println("¿Quieres una tarifa reducida por días? S/N");
@@ -108,7 +105,7 @@ public class GestorOpciones {
             if (opcion.equals("s")) {
                 //Pedir dia
                 //Pedir precio
-                Tarifa diaRecudido = constructorTarifas.getInstanceHoraReducida();
+                Tarifa diaRecudido = constructorTarifa.getInstanceHoraReducida();
                 //Añadir tarifa a nueva
             }
             metodo.cambiarTarifa(encontrado, nueva);
@@ -116,7 +113,7 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    public void verCliente(Scanner sc) throws NoSuchElementException{
+    public void verCliente(Scanner sc) throws NoSuchElementException {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
         if (!buscado.isPresent()) {
             throw new NoSuchElementException("No se encuentra el cliente");
@@ -139,15 +136,14 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    public void altaLlamada(Scanner sc) throws NoSuchElementException{
+    public void altaLlamada(Scanner sc) throws NoSuchElementException {
         sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");
         String dni = sc.next();
         Optional<Cliente> buscado = metodo.devuelveCliente(dni);
         if (!buscado.isPresent()) {
             throw new NoSuchElementException("No se encuentra el cliente");
-        }
-        else {
+        } else {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
             Llamada nueva = new Llamada();
@@ -198,7 +194,7 @@ public class GestorOpciones {
     }
 
 
-    public void verClientesFechas(Scanner sc) throws DateTimeException{
+    public void verClientesFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
         Date inicio = pedirFecha("(Inicio)", sc);
         Date fin = pedirFecha("(Fin)", sc);
@@ -213,7 +209,7 @@ public class GestorOpciones {
     }
 
     //TODO
-    public void verLlamadasClienteFechas(Scanner sc) throws DateTimeException{
+    public void verLlamadasClienteFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Llamada> fechas = new FechaIntervalo<>();
         String dni = pedirDNI(sc);
         Date inicio = pedirFecha("(Inicio)", sc);
@@ -229,7 +225,7 @@ public class GestorOpciones {
     }
 
     //TODO
-    public void verFacturasClienteFechas(Scanner sc) throws DateTimeException{
+    public void verFacturasClienteFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Factura> fechas = new FechaIntervalo<>();
         String dni = pedirDNI(sc);
         Date inicio = pedirFecha(" (Inicio) ", sc);
@@ -290,7 +286,11 @@ public class GestorOpciones {
         return precio.isPresent() ? precio.get() : -1;
     }
 
-    private String pedirOpcionSN (Scanner sc) {
-       return sc.next().toLowerCase();
+    private String pedirOpcionSN(Scanner sc) {
+        return sc.next().toLowerCase();
+    }
+
+    private boolean compruebaHoras(int horaInicio, int horaFin) {
+        return horaInicio < horaFin;
     }
 }

@@ -4,7 +4,7 @@ import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
 
-public class ConstructorClientes {
+public class ConstructorCliente {
     public Cliente getInstanceEmpresa() {
         return new Empresa();
     }

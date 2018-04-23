@@ -5,7 +5,7 @@ import tarifa.DiaReducido;
 import tarifa.HoraReducida;
 import tarifa.Tarifa;
 
-public class ConstructorTarifas {
+public class ConstructorTarifa {
     public Tarifa getInstanceBasica() {
         return new Basica();
     }
