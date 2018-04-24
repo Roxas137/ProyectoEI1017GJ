@@ -50,7 +50,7 @@ public class Factura implements Fecha, Serializable {
     public String toString() {
         return  "Código de la factura: " + codigo + "\n" +
                 "Fecha de la factura: " + fecha.toString() + "\n" +
-                "Cliente: " + "\n" + cliente.clienteToString() + "\n" +
+                "Cliente: " + "\n" + cliente.toString() + "\n" +
                 "Precio de la factura: " + precio + "\n";
     }
 }

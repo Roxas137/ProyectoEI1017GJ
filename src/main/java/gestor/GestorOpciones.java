@@ -118,7 +118,7 @@ public class GestorOpciones {
         if (!buscado.isPresent()) {
             throw new NoSuchElementException("No se encuentra el cliente");
         } else {
-            System.out.println(buscado.get().clienteToString());
+            System.out.println(buscado.get().toString());
         }
         continuar(sc);
     }
@@ -131,7 +131,7 @@ public class GestorOpciones {
         while (it.hasNext()) {
             unCliente = it.next();
             System.out.println("Tengo un nuevo cliente:");
-            System.out.println(unCliente.clienteToString());
+            System.out.println(unCliente.toString());
         }
         continuar(sc);
     }
@@ -204,7 +204,7 @@ public class GestorOpciones {
         fechas.fechasIntervalo(clientes, inicio, fin);
         ArrayList<Cliente> fechaCorrecta = fechas.getFechaCorrecta();
         for (Cliente cliente : fechaCorrecta)
-            System.out.println(cliente.clienteToString());
+            System.out.println(cliente.toString());
         continuar(sc);
     }
 

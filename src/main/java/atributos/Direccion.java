@@ -18,8 +18,8 @@ public class Direccion implements Serializable {
         this.provincia = provincia;
         this.poblacion = poblacion;
     }
-
-    public String direccionToString() {
+    @Override
+    public String toString() {
         return (codigoPostal + " " + provincia + " " + poblacion);
     }
 }

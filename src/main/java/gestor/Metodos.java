@@ -54,14 +54,6 @@ public class Metodos implements Serializable {
         llamadasCliente.put(cliente.getDni(), aux);
     }
 
-//    public void addLlamada(Cliente cliente) {                          //6b
-//        ArrayList<Llamada> aux = llamadasCliente.get(cliente.getDni());
-//        Llamada nueva = new Llamada();
-//        nueva.setTarifa(cliente.getTarifa());
-//        aux.add(nueva);
-//        llamadasCliente.put(cliente.getDni(), aux);
-//    }
-
     public ArrayList<Llamada> listaLlamadas(String dni) {   //7
         return llamadasCliente.get(dni);
     }

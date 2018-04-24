@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Llamada implements Fecha, Serializable {
     private int nTelefono;
-    private Date fecha; //Fecha de la llamada
+    private final Date fecha; //Fecha de la llamada
     private double duracion;
     private double precio; //Precio de la llamada
 
@@ -21,10 +21,6 @@ public class Llamada implements Fecha, Serializable {
     @Override
     public Date getFecha() {
         return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public double getDuracion() {
@@ -49,23 +45,9 @@ public class Llamada implements Fecha, Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Núm. Telefono:\t");
-        sb.append(nTelefono);
-        sb.append("\n");
-
-        sb.append("Fecha:\t\t\t");
-        sb.append(fecha.toString());
-        sb.append("\n");
-
-        sb.append("Duración:\t\t");
-        sb.append(duracion);
-        sb.append("\n");
-
-        sb.append("Precio de la llamada:\t\t\t");
-        sb.append(precio);
-        sb.append("\n\n");
-
-        return sb.toString();
+        return "Núm. Telefono:\t" + nTelefono + "\n" +
+                "Fecha:\t\t\t" + fecha.toString() + "\n" +
+                "Duración:\t\t" + duracion + "\n" +
+                "Precio de la llamada:\t\t\t" + precio + "\n\n";
     }
 }

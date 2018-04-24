@@ -8,7 +8,6 @@ import java.io.*;
  * Created by al361891 on 27/03/18.
  */
 public class Fichero {
-    String nombreFichero;
 
     public Metodos entrada() {
         Metodos metodo = null;
@@ -20,14 +19,11 @@ public class Fichero {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (metodo == null) //caso en el que el fichero no existe o esta vacío
-            return new Metodos();
-        return metodo;
+        return metodo != null ? metodo : new Metodos();
     }
 
     public void salida(Metodos metodo) {
-        FileOutputStream fos = null;
-
+        FileOutputStream fos;
         try {
             File fichero = new File("datos.bin");
             fos = new FileOutputStream(fichero);

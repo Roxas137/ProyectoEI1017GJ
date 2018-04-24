@@ -70,28 +70,12 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         this.ultimaFactura = ultimaFactura;
     }
 
-    public String clienteToString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nombre:\t\t\t");
-        sb.append(this.getNombre());
-        sb.append("\n");
-
-        sb.append("DNI:\t\t\t");
-        sb.append(this.dni);
-        sb.append("\n");
-
-        sb.append("Direccion:\t\t");
-        sb.append(this.direccion.direccionToString());
-        sb.append("\n");
-
-        sb.append("Email:\t\t\t");
-        sb.append(this.email);
-        sb.append("\n");
-
-        sb.append("Fecha de alta:\t");
-        sb.append(this.fecha.toString());
-        sb.append("\n\n");
-
-        return sb.toString();
+    @Override
+    public String toString() {
+        return "Nombre:\t\t\t" + this.getNombre() + "\n" +
+                "DNI:\t\t\t" + dni + "\n" +
+                "Direccion:\t\t" + direccion.toString() + "\n" +
+                "Email:\t\t\t" + email + "\n" +
+                "Fecha de alta:\t" + fecha.toString() + "\n\n";
     }
 }

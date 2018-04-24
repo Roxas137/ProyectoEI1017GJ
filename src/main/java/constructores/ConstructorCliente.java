@@ -9,10 +9,6 @@ public class ConstructorCliente {
         return new Empresa();
     }
 
-    public Cliente getInstanceParticular() {
-        return new Particular("");
-    }
-
     public Cliente getInstanceParticular(String apellido) {
         return new Particular(apellido);
     }
