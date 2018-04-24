@@ -8,8 +8,8 @@ import java.util.Optional;
  * Created by al361891 on 10/04/18.
  */
 public class HoraReducida extends Extras{
-    private int horaInicio;
-    private int horaFin;
+    private final int horaInicio;
+    private final int horaFin;
 
     public HoraReducida (Tarifa horaReducida, int horaInicio, int horaFin, double precio) {
         super(horaReducida);

@@ -1,17 +1,15 @@
 package atributos;
 
 import principal.Fecha;
-import tarifa.Basica;
-import tarifa.Tarifa;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Llamada implements Fecha, Serializable{
+public class Llamada implements Fecha, Serializable {
     private int nTelefono;
     private Date fecha; //Fecha de la llamada
     private double duracion;
-    private double precio; //Tarifa en el momento de la llamada
+    private double precio; //Precio de la llamada
 
     public Llamada() {
         nTelefono = 0;
@@ -19,6 +17,7 @@ public class Llamada implements Fecha, Serializable{
         duracion = 10;
         precio = 0;
     }
+
     @Override
     public Date getFecha() {
         return fecha;
@@ -32,6 +31,10 @@ public class Llamada implements Fecha, Serializable{
         return duracion;
     }
 
+    public void setDuracion(double duracion) {
+        this.duracion = duracion;
+    }
+
     public double getPrecio() {
         return precio;
     }
@@ -40,16 +43,12 @@ public class Llamada implements Fecha, Serializable{
         this.precio = precio;
     }
 
-    public void setDuracion(double duracion) {
-        this.duracion = duracion;
-    }
-
     public void setnTelefono(int nTelefono) {
         this.nTelefono = nTelefono;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Núm. Telefono:\t");
         sb.append(nTelefono);

@@ -7,14 +7,14 @@ import java.util.Optional;
 /**
  * Created by al361891 on 10/04/18.
  */
-public class Basica extends Tarifa{
+public class Basica extends Tarifa {
 
-    public Basica(){
+    public Basica() {
         super();
     }
 
     @Override
     public Optional<Double> calcularPrecio(Llamada llamada) {
-        return Optional.of(llamada.getDuracion()*getPrecio());
+        return Optional.of(llamada.getDuracion() * getPrecio());
     }
 }

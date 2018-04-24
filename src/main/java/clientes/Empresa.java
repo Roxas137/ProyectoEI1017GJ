@@ -4,16 +4,16 @@ public class Empresa extends Cliente {
 
     private String nombre;
 
-    public Empresa(){
+    public Empresa() {
         super();
         this.nombre = "";
     }
 
-    public void setNombre(String nombre){
-        this.nombre = nombre;
+    public String getNombre() {
+        return this.nombre;
     }
 
-    public String getNombre(){
-        return this.nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

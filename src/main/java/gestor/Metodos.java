@@ -2,8 +2,8 @@ package gestor;
 
 import atributos.Factura;
 import atributos.Llamada;
-import tarifa.Tarifa;
 import clientes.Cliente;
+import tarifa.Tarifa;
 
 import java.io.Serializable;
 import java.util.*;
@@ -25,7 +25,7 @@ public class Metodos implements Serializable {
         }
     }
 
-    public void removeCliente(String dni) throws NoSuchElementException{                //2
+    public void removeCliente(String dni) throws NoSuchElementException {                //2
         if (!mapaClientes.containsKey(dni)) {
             throw new NoSuchElementException("No se encuentra el cliente");
         }
@@ -66,7 +66,7 @@ public class Metodos implements Serializable {
         return llamadasCliente.get(dni);
     }
 
-    public Factura emitirFactura(String dni) throws NoSuchElementException{                 //8
+    public Factura emitirFactura(String dni) throws NoSuchElementException {                 //8
         double importe = 0;
         Optional<Cliente> cliente = devuelveCliente(dni);
         if (!cliente.isPresent())
@@ -75,7 +75,7 @@ public class Metodos implements Serializable {
         Date fechaUltimaFactura = cliente.get().getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
             if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
-                importe += cliente.get().getTarifa().calcularPrecio(llamada).get();
+                importe += llamada.getPrecio() * llamada.getDuracion();
         Factura nueva = new Factura();
         nueva.setCliente(cliente.get());
         Date ahora = new Date();

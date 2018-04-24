@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Main {
     public Metodos metodo = new Metodos();
 
-    public void ejecuta(){
+    public void ejecuta() {
         //Leer Fichero
         Fichero fichero = new Fichero();
         metodo = fichero.entrada();
@@ -20,10 +20,10 @@ public class Main {
         while (true) {
             try {
                 menu.menuInicio(sc);
-            }catch (DateTimeException e){
+            } catch (DateTimeException e) {
                 System.out.println("Error. Fechas incorrectas\n");
                 e.printStackTrace();
-            }catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println("Error, cliente no encontrado");
                 e.printStackTrace();
             }

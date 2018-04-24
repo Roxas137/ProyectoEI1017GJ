@@ -283,7 +283,7 @@ public class GestorOpciones {
 
     private double findPrecioMinimo(Cliente cliente, Llamada llamada) {
         Optional<Double> precio = cliente.getTarifa().calcularPrecio(llamada);
-        return precio.isPresent() ? precio.get() : -1;
+        return precio.orElse(-1d);
     }
 
     private String pedirOpcionSN(Scanner sc) {

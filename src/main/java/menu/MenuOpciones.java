@@ -27,10 +27,11 @@ public enum MenuOpciones {
         this.descripcion = descripcion;
     }
 
-    public String getDescripcion(){
-        return descripcion;
-    }
     public static MenuOpciones getOpcion(int posicion) {
         return values()[posicion];
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 }

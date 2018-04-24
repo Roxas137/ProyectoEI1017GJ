@@ -4,10 +4,10 @@ import atributos.Llamada;
 
 import java.util.Optional;
 
-public abstract class Extras extends Tarifa{
+public abstract class Extras extends Tarifa {
     private Tarifa tarifa;
 
-    public Extras (Tarifa tarifa) {
+    public Extras(Tarifa tarifa) {
         this.tarifa = tarifa;
     }
 

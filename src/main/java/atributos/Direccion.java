@@ -2,24 +2,24 @@ package atributos;
 
 import java.io.Serializable;
 
-public class Direccion implements Serializable{
-    private int codigoPostal;
-    private String provincia;
-    private String poblacion;
+public class Direccion implements Serializable {
+    private final int codigoPostal;
+    private final String provincia;
+    private final String poblacion;
 
-    public Direccion(){
+    public Direccion() {
         codigoPostal = 0;
         provincia = "";
         poblacion = "";
     }
 
-    public Direccion(int codigoPostal, String provincia, String poblacion){
+    public Direccion(int codigoPostal, String provincia, String poblacion) {
         this.codigoPostal = codigoPostal;
         this.provincia = provincia;
         this.poblacion = poblacion;
     }
 
-    public String direccionToString(){
-        return (codigoPostal+" "+provincia+" "+poblacion);
+    public String direccionToString() {
+        return (codigoPostal + " " + provincia + " " + poblacion);
     }
 }

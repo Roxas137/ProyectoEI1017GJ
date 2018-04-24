@@ -3,13 +3,12 @@ package tarifa;
 import atributos.Llamada;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Optional;
 
-public abstract class Tarifa implements Serializable{
+public abstract class Tarifa implements Serializable {
     private double precio;
 
-    public Tarifa(){
+    public Tarifa() {
         this.precio = 0.01;
     }
 

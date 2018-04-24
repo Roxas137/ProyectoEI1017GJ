@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by al361891 on 13/03/18.
  */
 public class FechaIntervalo<T extends Fecha> {
-    private ArrayList<T> fechaCorrecta;
+    private final ArrayList<T> fechaCorrecta;
 
     public FechaIntervalo(){
         fechaCorrecta = new ArrayList<>();

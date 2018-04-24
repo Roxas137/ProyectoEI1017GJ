@@ -8,7 +8,7 @@ import java.util.Optional;
  * Created by al361891 on 10/04/18.
  */
 public class DiaReducido extends Extras {
-    private int dia;
+    private final int dia;
 
     //Que Tarifa guarde un atributo Extras y que hora y dia sean hijas de Extras
     public DiaReducido(Tarifa diaReducido, int dia, double precio) {

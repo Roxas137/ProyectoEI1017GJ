@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public abstract class Cliente implements Fecha, Serializable { //abstract
+    private final Date fecha;//FechaAlta
     private Tarifa tarifa;
     private Direccion direccion;
     private String dni;
     private String email;
-    private Date fecha;//FechaAlta
     private Date ultimaFactura;
 
     public Cliente() {

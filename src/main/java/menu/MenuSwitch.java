@@ -12,7 +12,7 @@ public class MenuSwitch {
 
     private GestorOpciones gestor;
 
-    public MenuSwitch(Metodos metodos){
+    public MenuSwitch(Metodos metodos) {
         gestor = new GestorOpciones(metodos);
     }
 
