@@ -28,30 +28,21 @@ public class GestorOpciones {
         System.exit(0);
     }
 
-    public void continuar(Scanner sc) {
-        System.out.print("\nPulsa INTRO para continuar.\n");
-        sc.nextLine();
-        sc.nextLine();
-    }
-
     public void altaCliente(Scanner sc) {
         ConstructorCliente constructorCliente = new ConstructorCliente();
+        //Inicializamos el cliente como empresa y si es un particular luego lo cambiamos
         Cliente nuevo = constructorCliente.getInstanceEmpresa();
         String opcion;
         opcion = pedirTipo(sc);
         sc = new Scanner(System.in);
-        switch (opcion) {
-            case "p": //Particular
-                System.out.println("Apellido: ");
-                String apellido = sc.next();
-                nuevo = constructorCliente.getInstanceParticular(apellido);
-                break;
-            case "e": //Empresa
-                break;
+        if (opcion.equals("p")) { //Particular
+            System.out.println("Apellido: ");
+            String apellido = sc.next();
+            nuevo = constructorCliente.getInstanceParticular(apellido);
         }
         System.out.println("Nombre: ");
         nuevo.setNombre(sc.next());
-        System.out.println("DNI: ");
+        System.out.println(opcion.equals("p") ? "DNI: " : "CIF: ");
         nuevo.setDni(sc.next());
         System.out.println("Codigo Postal: ");
         int codpostal = sc.nextInt();
@@ -292,5 +283,11 @@ public class GestorOpciones {
 
     private boolean compruebaHoras(int horaInicio, int horaFin) {
         return horaInicio < horaFin;
+    }
+
+    private void continuar(Scanner sc) {
+        System.out.print("\nPulsa INTRO para continuar.\n");
+        sc.nextLine();
+        sc.nextLine();
     }
 }
