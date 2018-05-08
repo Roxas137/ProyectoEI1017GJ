@@ -1,4 +1,4 @@
-package atributos;
+package controlador.atributos;
 
 import java.io.Serializable;
 

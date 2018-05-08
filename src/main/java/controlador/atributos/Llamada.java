@@ -1,6 +1,6 @@
-package atributos;
+package controlador.atributos;
 
-import principal.Fecha;
+import controlador.principal.Fecha;
 
 import java.io.Serializable;
 import java.util.Date;

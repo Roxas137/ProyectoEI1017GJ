@@ -1,6 +1,6 @@
-package tarifa;
+package controlador.tarifa;
 
-import atributos.Llamada;
+import controlador.atributos.Llamada;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package clientes;
+package controlador.clientes;
 
 public class Empresa extends Cliente {
 

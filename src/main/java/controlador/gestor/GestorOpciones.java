@@ -1,14 +1,14 @@
-package gestor;
+package controlador.gestor;
 
-import atributos.Direccion;
-import atributos.Factura;
-import atributos.Llamada;
-import clientes.Cliente;
-import constructores.ConstructorCliente;
-import constructores.ConstructorTarifa;
-import fichero.Fichero;
-import principal.FechaIntervalo;
-import tarifa.Tarifa;
+import controlador.atributos.Direccion;
+import controlador.atributos.Factura;
+import controlador.atributos.Llamada;
+import controlador.clientes.Cliente;
+import controlador.constructores.ConstructorCliente;
+import controlador.constructores.ConstructorTarifa;
+import controlador.fichero.Fichero;
+import controlador.principal.FechaIntervalo;
+import controlador.tarifa.Tarifa;
 
 import java.time.DateTimeException;
 import java.util.*;
@@ -71,11 +71,11 @@ public class GestorOpciones {
         else {
             ConstructorTarifa constructorTarifa = new ConstructorTarifa();
             Cliente encontrado = buscado.get();
-            System.out.println("Introduce la nueva tarifa básica");
+            System.out.println("Introduce la nueva controlador.tarifa básica");
             sc = new Scanner(System.in);
             Tarifa basica = constructorTarifa.getInstanceBasica();
             basica.setPrecio(sc.nextDouble());
-            System.out.println("¿Quieres una tarifa reducida por horas? S/N");
+            System.out.println("¿Quieres una controlador.tarifa reducida por horas? S/N");
             String opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
@@ -89,7 +89,7 @@ public class GestorOpciones {
                     throw new DateTimeException("Horas no validas");
                 basica = constructorTarifa.getInstanceHoraReducida(basica, horaInicio, horaFin, precio);
             }
-            System.out.println("¿Quieres una tarifa reducida por días? S/N");
+            System.out.println("¿Quieres una controlador.tarifa reducida por días? S/N");
             opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
@@ -106,11 +106,10 @@ public class GestorOpciones {
 
     public void verCliente(Scanner sc) throws NoSuchElementException {
         Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
-        if (!buscado.isPresent()) {
+        if (!buscado.isPresent())
             throw new NoSuchElementException("No se encuentra el cliente");
-        } else {
+        else
             System.out.println(buscado.get().toString());
-        }
         continuar(sc);
     }
 
@@ -142,7 +141,7 @@ public class GestorOpciones {
             nueva.setnTelefono(sc.nextInt());
             System.out.println("Duracion:");
             nueva.setDuracion(sc.nextDouble());
-            //Mirar cuál es la mejor tarifa del cliente para la llamada
+            //Mirar cuál es la mejor controlador.tarifa del cliente para la llamada
             double precioMinimo = findPrecioMinimo(encontrado, nueva); //
             nueva.setPrecio(precioMinimo);
             metodo.addLlamada(encontrado, nueva);

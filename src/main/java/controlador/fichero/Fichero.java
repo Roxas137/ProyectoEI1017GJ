@@ -1,6 +1,6 @@
-package fichero;
+package controlador.fichero;
 
-import gestor.Metodos;
+import controlador.gestor.Metodos;
 
 import java.io.*;
 

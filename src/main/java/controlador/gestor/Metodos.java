@@ -1,9 +1,9 @@
-package gestor;
+package controlador.gestor;
 
-import atributos.Factura;
-import atributos.Llamada;
-import clientes.Cliente;
-import tarifa.Tarifa;
+import controlador.atributos.Factura;
+import controlador.atributos.Llamada;
+import controlador.clientes.Cliente;
+import controlador.tarifa.Tarifa;
 
 import java.io.Serializable;
 import java.util.*;

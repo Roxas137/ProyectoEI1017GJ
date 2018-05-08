@@ -1,4 +1,4 @@
-package clientes;
+package controlador.clientes;
 
 /**
  * Created by al361891 on 20/02/18.

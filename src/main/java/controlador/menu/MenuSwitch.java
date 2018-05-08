@@ -1,7 +1,7 @@
-package menu;
+package controlador.menu;
 
-import gestor.GestorOpciones;
-import gestor.Metodos;
+import controlador.gestor.GestorOpciones;
+import controlador.gestor.Metodos;
 
 import java.util.Scanner;
 

@@ -1,9 +1,9 @@
-package constructores;
+package controlador.constructores;
 
-import tarifa.Basica;
-import tarifa.DiaReducido;
-import tarifa.HoraReducida;
-import tarifa.Tarifa;
+import controlador.tarifa.Basica;
+import controlador.tarifa.DiaReducido;
+import controlador.tarifa.HoraReducida;
+import controlador.tarifa.Tarifa;
 
 public class ConstructorTarifa {
     public Tarifa getInstanceBasica() {

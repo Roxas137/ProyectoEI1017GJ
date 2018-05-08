@@ -1,8 +1,8 @@
-package principal;
+package controlador.principal;
 
-import fichero.Fichero;
-import gestor.Metodos;
-import menu.MenuSwitch;
+import controlador.fichero.Fichero;
+import controlador.gestor.Metodos;
+import controlador.menu.MenuSwitch;
 
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
