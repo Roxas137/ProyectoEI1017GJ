@@ -28,9 +28,9 @@ public class MenuSwitch {
         return sb.toString();
     }
 
-    public void menuInicio(Scanner sc) {
+    public void menuInicio() {
         System.out.println(getMenu());
-        sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("Elije una opción:");
         byte opcion = sc.nextByte();
         MenuOpciones opcionMenu = MenuOpciones.getOpcion(opcion);
@@ -46,7 +46,7 @@ public class MenuSwitch {
                 gestor.borrarCliente(sc);
                 break;
             case CAMBIAR_TARIFA:
-                gestor.cambiarTarifa(sc);
+                gestor.cambiarTarifa();
                 break;
             case VER_CLIENTE:
                 gestor.verCliente(sc);
@@ -55,7 +55,7 @@ public class MenuSwitch {
                 gestor.verTodosClientes(sc);
                 break;
             case ALTA_LLAMADA:
-                gestor.altaLlamada(sc);
+                gestor.altaLlamada();
                 break;
             case VER_LLAMADAS_CLIENTE:
                 gestor.verLlamadasCliente(sc);
@@ -64,7 +64,7 @@ public class MenuSwitch {
                 gestor.emitirFactura(sc);
                 break;
             case VER_FACTURA:
-                gestor.verFactura(sc);
+                gestor.verFactura();
                 break;
             case VER_FACTURAS_CLIENTE:
                 gestor.verFacturasCliente(sc);

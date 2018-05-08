@@ -16,10 +16,9 @@ public class Main {
         Fichero fichero = new Fichero();
         metodo = fichero.entrada();
         MenuSwitch menu = new MenuSwitch(metodo);
-        Scanner sc = null;
         while (true) {
             try {
-                menu.menuInicio(sc);
+                menu.menuInicio();
             } catch (DateTimeException e) {
                 System.out.println("Error. Fechas incorrectas\n");
                 e.printStackTrace();

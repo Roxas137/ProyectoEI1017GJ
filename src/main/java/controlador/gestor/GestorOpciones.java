@@ -28,13 +28,13 @@ public class GestorOpciones {
         System.exit(0);
     }
 
-    public void altaCliente(Scanner sc) {
+    public void altaCliente() {
         ConstructorCliente constructorCliente = new ConstructorCliente();
         //Inicializamos el cliente como empresa y si es un particular luego lo cambiamos
         Cliente nuevo = constructorCliente.getInstanceEmpresa();
         String opcion;
-        opcion = pedirTipo(sc);
-        sc = new Scanner(System.in);
+        opcion = pedirTipo();
+        Scanner sc = new Scanner(System.in);
         if (opcion.equals("p")) { //Particular
             System.out.println("Apellido: ");
             String apellido = sc.next();
@@ -60,19 +60,19 @@ public class GestorOpciones {
     }
 
     public void borrarCliente(Scanner sc) {
-        metodo.removeCliente(pedirDNI(sc));
+        metodo.removeCliente(pedirDNI());
         continuar(sc);
     }
 
-    public void cambiarTarifa(Scanner sc) throws NoSuchElementException, DateTimeException {
-        Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
+    public void cambiarTarifa() throws NoSuchElementException, DateTimeException {
+        Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI());
+        Scanner sc = new Scanner(System.in);
         if (!buscado.isPresent())
             throw new NoSuchElementException();
         else {
             ConstructorTarifa constructorTarifa = new ConstructorTarifa();
             Cliente encontrado = buscado.get();
             System.out.println("Introduce la nueva controlador.tarifa básica");
-            sc = new Scanner(System.in);
             Tarifa basica = constructorTarifa.getInstanceBasica();
             basica.setPrecio(sc.nextDouble());
             System.out.println("¿Quieres una controlador.tarifa reducida por horas? S/N");
@@ -105,7 +105,7 @@ public class GestorOpciones {
     }
 
     public void verCliente(Scanner sc) throws NoSuchElementException {
-        Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI(sc));
+        Optional<Cliente> buscado = metodo.devuelveCliente(pedirDNI());
         if (!buscado.isPresent())
             throw new NoSuchElementException("No se encuentra el cliente");
         else
@@ -117,17 +117,16 @@ public class GestorOpciones {
         System.out.println("Consultando Todos Los Clientes");
         Cliente unCliente;
         ArrayList<Cliente> listaDeClientes = metodo.listaClientes();
-        Iterator<Cliente> it = listaDeClientes.iterator();
-        while (it.hasNext()) {
-            unCliente = it.next();
+        for (Cliente listaDeCliente : listaDeClientes) {
+            unCliente = listaDeCliente;
             System.out.println("Tengo un nuevo cliente:");
             System.out.println(unCliente.toString());
         }
         continuar(sc);
     }
 
-    public void altaLlamada(Scanner sc) throws NoSuchElementException {
-        sc = new Scanner(System.in);
+    public void altaLlamada() throws NoSuchElementException {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca su dni:");
         String dni = sc.next();
         Optional<Cliente> buscado = metodo.devuelveCliente(dni);
@@ -151,7 +150,7 @@ public class GestorOpciones {
     }
 
     public void verLlamadasCliente(Scanner sc) {
-        String dni = pedirDNI(sc);
+        String dni = pedirDNI();
         if (metodo.getMapaClientes().containsKey(dni))
             for (Llamada llamada : metodo.listaLlamadas(dni))
                 System.out.println(llamada.toString());
@@ -161,13 +160,13 @@ public class GestorOpciones {
     }
 
     public void emitirFactura(Scanner sc) {
-        String dni = pedirDNI(sc);
+        String dni = pedirDNI();
         System.out.println(metodo.emitirFactura(dni));
         continuar(sc);
     }
 
-    public void verFactura(Scanner sc) {
-        sc = new Scanner(System.in);
+    public void verFactura() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el código de la factura: ");
         int codigo = sc.nextInt();
         //Comprobar codigo
@@ -176,7 +175,7 @@ public class GestorOpciones {
     }
 
     public void verFacturasCliente(Scanner sc) {
-        String dni = pedirDNI(sc);
+        String dni = pedirDNI();
         ArrayList<Factura> facturas = metodo.facturasCliente(dni);
         for (Factura factura : facturas)
             System.out.println(factura.toString());
@@ -186,8 +185,8 @@ public class GestorOpciones {
 
     public void verClientesFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
-        Date inicio = pedirFecha("(Inicio)", sc);
-        Date fin = pedirFecha("(Fin)", sc);
+        Date inicio = pedirFecha("(Inicio)");
+        Date fin = pedirFecha("(Fin)");
         if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         Collection<Cliente> clientes = metodo.getMapaClientes().values();
@@ -198,12 +197,11 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //TODO
     public void verLlamadasClienteFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Llamada> fechas = new FechaIntervalo<>();
-        String dni = pedirDNI(sc);
-        Date inicio = pedirFecha("(Inicio)", sc);
-        Date fin = pedirFecha("(Fin)", sc);
+        String dni = pedirDNI();
+        Date inicio = pedirFecha("(Inicio)");
+        Date fin = pedirFecha("(Fin)");
         if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         ArrayList<Llamada> llamadas = metodo.listaLlamadas(dni);
@@ -214,12 +212,11 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    //TODO
     public void verFacturasClienteFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Factura> fechas = new FechaIntervalo<>();
-        String dni = pedirDNI(sc);
-        Date inicio = pedirFecha(" (Inicio) ", sc);
-        Date fin = pedirFecha(" (Fin) ", sc);
+        String dni = pedirDNI();
+        Date inicio = pedirFecha(" (Inicio) ");
+        Date fin = pedirFecha(" (Fin) ");
         if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         ArrayList<Factura> facturas = facturasCliente(dni);
@@ -230,14 +227,14 @@ public class GestorOpciones {
         continuar(sc);
     }
 
-    private String pedirDNI(Scanner sc) {
-        sc = new Scanner(System.in);
+    private String pedirDNI() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el DNI del cliente: ");
         return sc.next();
     }
 
-    private Date pedirFecha(String detalle, Scanner sc) {
-        sc = new Scanner(System.in);
+    private Date pedirFecha(String detalle) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el día" + detalle + ": ");
         int dia = sc.nextInt();
         System.out.println("Introduce el mes:" + detalle + ": ");
@@ -255,10 +252,10 @@ public class GestorOpciones {
         return facturas;
     }
 
-    private String pedirTipo(Scanner sc) {
+    private String pedirTipo() {
         boolean correcto = false;
         String opcion = "";
-        sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         while (!correcto) {
             System.out.println("Elije el tipo de cliente que quieres añadir: Particular (P) / Empresa (E)");
             opcion = sc.next();
