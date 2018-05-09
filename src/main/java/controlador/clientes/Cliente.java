@@ -6,15 +6,15 @@ import controlador.principal.Fecha;
 import controlador.tarifa.Tarifa;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public abstract class Cliente implements Fecha, Serializable { //abstract
-    private final Date fecha;//FechaAlta
+    private final GregorianCalendar fecha;
     private Tarifa tarifa;
     private Direccion direccion;
     private String dni;
     private String email;
-    private Date ultimaFactura;
+    private GregorianCalendar ultimaFactura;
 
     public Cliente() {
         ConstructorTarifa constructorTarifa = new ConstructorTarifa();
@@ -22,9 +22,9 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         direccion = new Direccion();
         dni = "";
         email = "";
-        fecha = new Date();
+        fecha = new GregorianCalendar();
         //nombre = "";
-        ultimaFactura = new Date(1970, 1, 1);
+        ultimaFactura = new GregorianCalendar(1970, 1, 1);
     }
 
     abstract public String getNombre();
@@ -40,7 +40,7 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
     }
 
     @Override
-    public Date getFecha() {
+    public GregorianCalendar getFecha() {
         return fecha;
     }
 
@@ -62,11 +62,11 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
         this.tarifa = tarifa;
     }
 
-    public Date getUltimaFactura() {
+    public GregorianCalendar getUltimaFactura() {
         return ultimaFactura;
     }
 
-    public void setUltimaFactura(Date ultimaFactura) {
+    public void setUltimaFactura(GregorianCalendar ultimaFactura) {
         this.ultimaFactura = ultimaFactura;
     }
 

@@ -40,7 +40,7 @@ public class MenuSwitch {
                 gestor.salir();
                 break;
             case ALTA_CLIENTE:
-                gestor.altaCliente(sc);
+                gestor.altaCliente();
                 break;
             case BORRAR_CLIENTE:
                 gestor.borrarCliente(sc);

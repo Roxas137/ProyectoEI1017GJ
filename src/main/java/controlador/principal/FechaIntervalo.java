@@ -2,7 +2,7 @@ package controlador.principal;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by al361891 on 13/03/18.
@@ -10,7 +10,7 @@ import java.util.Date;
 public class FechaIntervalo<T extends Fecha> {
     private final ArrayList<T> fechaCorrecta;
 
-    public FechaIntervalo(){
+    public FechaIntervalo() {
         fechaCorrecta = new ArrayList<>();
     }
 
@@ -18,8 +18,8 @@ public class FechaIntervalo<T extends Fecha> {
         return fechaCorrecta;
     }
 
-    public void fechasIntervalo(Collection<T> datos, Date fechaInicio, Date fechaFin){
-        for(T dato : datos)
+    public void fechasIntervalo(Collection<T> datos, GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+        for (T dato : datos)
             if (dato.getFecha().after(fechaInicio) && dato.getFecha().before(fechaFin))
                 fechaCorrecta.add(dato);
     }

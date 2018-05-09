@@ -43,9 +43,7 @@ public class Metodos implements Serializable {
     }
 
     public ArrayList<Cliente> listaClientes() {                    //5
-        ArrayList<Cliente> listaClientes = new ArrayList<>();
-        listaClientes.addAll(mapaClientes.values());
-        return listaClientes;
+        return new ArrayList<>(mapaClientes.values());
     }
 
     public void addLlamada(Cliente cliente, Llamada llamada) {    //6
@@ -64,13 +62,13 @@ public class Metodos implements Serializable {
         if (!cliente.isPresent())
             throw new NoSuchElementException("Cliente no encontrado");
         ArrayList<Llamada> listaLlamadas = llamadasCliente.get(dni);
-        Date fechaUltimaFactura = cliente.get().getUltimaFactura();
+        GregorianCalendar fechaUltimaFactura = cliente.get().getUltimaFactura();
         for (Llamada llamada : listaLlamadas)
             if (llamada.getFecha().compareTo(fechaUltimaFactura) > 0)
                 importe += llamada.getPrecio() * llamada.getDuracion();
         Factura nueva = new Factura();
         nueva.setCliente(cliente.get());
-        Date ahora = new Date();
+        GregorianCalendar ahora = new GregorianCalendar();
         nueva.setFecha(ahora);
         cliente.get().setUltimaFactura(ahora);
         nueva.setCodigo(totalFacturas.size());

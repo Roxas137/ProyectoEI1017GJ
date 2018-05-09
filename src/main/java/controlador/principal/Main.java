@@ -6,7 +6,6 @@ import controlador.menu.MenuSwitch;
 
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Main {
     public Metodos metodo = new Metodos();

@@ -2,6 +2,7 @@ package controlador.tarifa;
 
 import controlador.atributos.Llamada;
 
+import java.util.Calendar;
 import java.util.Optional;
 
 /**
@@ -19,9 +20,9 @@ public class DiaReducido extends Extras {
 
     @Override
     public Optional<Double> calcularPrecio(Llamada llamada) {
-        Optional<Double> precio = getTarifa().calcularPrecio(llamada);
-        if (llamada.getFecha().getDay() == dia)
-            precio = Optional.of(precioMinimo(precio.get(), getPrecio() * llamada.getDuracion()));
-        return precio;
+        double precio = getTarifa().calcularPrecio(llamada);
+        if (llamada.getFecha().get(Calendar.DAY_OF_WEEK) == dia)
+            precio = (precioMinimo(precio, getPrecio() * llamada.getDuracion()));
+        return Optional.of(precio);
     }
 }

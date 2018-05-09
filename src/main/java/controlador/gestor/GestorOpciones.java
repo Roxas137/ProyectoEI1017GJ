@@ -185,8 +185,8 @@ public class GestorOpciones {
 
     public void verClientesFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Cliente> fechas = new FechaIntervalo<>();
-        Date inicio = pedirFecha("(Inicio)");
-        Date fin = pedirFecha("(Fin)");
+        GregorianCalendar inicio = pedirFecha("(Inicio)");
+        GregorianCalendar fin = pedirFecha("(Fin)");
         if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         Collection<Cliente> clientes = metodo.getMapaClientes().values();
@@ -200,8 +200,8 @@ public class GestorOpciones {
     public void verLlamadasClienteFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Llamada> fechas = new FechaIntervalo<>();
         String dni = pedirDNI();
-        Date inicio = pedirFecha("(Inicio)");
-        Date fin = pedirFecha("(Fin)");
+        GregorianCalendar inicio = pedirFecha("(Inicio)");
+        GregorianCalendar fin = pedirFecha("(Fin)");
         if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         ArrayList<Llamada> llamadas = metodo.listaLlamadas(dni);
@@ -215,8 +215,8 @@ public class GestorOpciones {
     public void verFacturasClienteFechas(Scanner sc) throws DateTimeException {
         FechaIntervalo<Factura> fechas = new FechaIntervalo<>();
         String dni = pedirDNI();
-        Date inicio = pedirFecha(" (Inicio) ");
-        Date fin = pedirFecha(" (Fin) ");
+        GregorianCalendar inicio = pedirFecha(" (Inicio) ");
+        GregorianCalendar fin = pedirFecha(" (Fin) ");
         if (inicio.after(fin))
             throw new DateTimeException("Fechas no validas");
         ArrayList<Factura> facturas = facturasCliente(dni);
@@ -233,7 +233,7 @@ public class GestorOpciones {
         return sc.next();
     }
 
-    private Date pedirFecha(String detalle) {
+    private GregorianCalendar pedirFecha(String detalle) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce el día" + detalle + ": ");
         int dia = sc.nextInt();
@@ -241,7 +241,7 @@ public class GestorOpciones {
         int mes = sc.nextInt();
         System.out.println("Introduce el año: " + detalle + ": ");
         int anyo = sc.nextInt();
-        return new Date(anyo, mes, dia);
+        return new GregorianCalendar(anyo, mes, dia);
     }
 
     private ArrayList<Factura> facturasCliente(String dni) {

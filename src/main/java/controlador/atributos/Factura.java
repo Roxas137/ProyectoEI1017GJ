@@ -5,17 +5,17 @@ import controlador.clientes.Particular;
 import controlador.principal.Fecha;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Factura implements Fecha, Serializable {
     private int codigo;
-    private Date fecha;
+    private GregorianCalendar fecha;
     private Cliente cliente;
     private double precio;
 
     public Factura() {
         codigo = 0;
-        fecha = new Date();
+        fecha = new GregorianCalendar();
         cliente = new Particular(""); //Por defecto, suponemos que es un cliente particular
     }
 
@@ -28,11 +28,11 @@ public class Factura implements Fecha, Serializable {
     }
 
     @Override
-    public Date getFecha() {
+    public GregorianCalendar getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(GregorianCalendar fecha) {
         this.fecha = fecha;
     }
 
@@ -48,7 +48,7 @@ public class Factura implements Fecha, Serializable {
 
     @Override
     public String toString() {
-        return  "Código de la factura: " + codigo + "\n" +
+        return "Código de la factura: " + codigo + "\n" +
                 "Fecha de la factura: " + fecha.toString() + "\n" +
                 "Cliente: " + "\n" + cliente.toString() + "\n" +
                 "Precio de la factura: " + precio + "\n";
