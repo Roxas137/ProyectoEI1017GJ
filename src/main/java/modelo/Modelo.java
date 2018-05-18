@@ -1,4 +1,6 @@
 package modelo;
 
-public interface Modelo {
+public class Modelo implements InterfazModelo {
+
+
 }

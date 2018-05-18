@@ -1,4 +1,5 @@
 package vista;
 
-public interface Vista {
+public class Vista implements InterfazVista {
+    //Añadir botones y todo eso
 }

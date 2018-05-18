@@ -130,9 +130,9 @@ public class GestorOpciones {
         System.out.println("Introduzca su dni:");
         String dni = sc.next();
         Optional<Cliente> buscado = metodo.devuelveCliente(dni);
-        if (!buscado.isPresent()) {
+        if (!buscado.isPresent())
             throw new NoSuchElementException("No se encuentra el cliente");
-        } else {
+        else {
             //pasar a string el cliente
             Cliente encontrado = buscado.get();
             Llamada nueva = new Llamada();
@@ -269,8 +269,7 @@ public class GestorOpciones {
     }
 
     private double findPrecioMinimo(Cliente cliente, Llamada llamada) {
-        Optional<Double> precio = cliente.getTarifa().calcularPrecio(llamada);
-        return precio.orElse(-1d);
+        return cliente.getTarifa().calcularPrecio(llamada);
     }
 
     private String pedirOpcionSN(Scanner sc) {
