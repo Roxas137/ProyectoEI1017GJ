@@ -162,9 +162,9 @@ public class Vista implements InterfazVista {
         JLabel dniLabel = new JLabel("DNI:");
         contenedor.add(dniLabel);
         contenedor.add(dni);
-        JButton anyadir = new JButton("Añadir");
-        anyadir.setAlignmentX(Component.LEFT_ALIGNMENT);
-        contenedor.add(anyadir);
+        JButton borrar = new JButton("Borrar");
+        borrar.setAlignmentX(Component.LEFT_ALIGNMENT);
+        contenedor.add(borrar);
         ventana.pack();
         ventana.setVisible(true);
     }
