@@ -3,6 +3,7 @@ package vista;
 import controlador.Controlador;
 import controlador.gestor.GestorOpciones;
 import modelo.Modelo;
+import modelo.clientes.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -154,8 +155,244 @@ public class Vista implements InterfazVista {
     }
 
     private void ventanaBorrarCliente(){
-
+        JFrame ventana = new JFrame("Borrar un cliente");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField dni = new JTextField(9);
+        JLabel dniLabel = new JLabel("DNI:");
+        contenedor.add(dniLabel);
+        contenedor.add(dni);
+        JButton anyadir = new JButton("Añadir");
+        anyadir.setAlignmentX(Component.LEFT_ALIGNMENT);
+        contenedor.add(anyadir);
+        ventana.pack();
+        ventana.setVisible(true);
     }
+
+    private void ventanaCambiarTarifa(){
+        JFrame ventana = new JFrame("Cambiar Tarifa");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField dni = new JTextField(9);
+        JLabel dniLabel = new JLabel("DNI:");
+        contenedor.add(dniLabel);
+        contenedor.add(dni);
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+    //todo mostrar el cliente buscado
+    private void ventanaVerCliente(){
+        JFrame ventana = new JFrame("Ver cliente");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField dni = new JTextField(9);
+        JLabel dniLabel = new JLabel("DNI:");
+        contenedor.add(dniLabel);
+        contenedor.add(dni);
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaVerTodosClientes(){
+        //ventana con una lista de los datos de todos los clientes
+        JFrame ventana = new JFrame("Ver Todos los Clientes");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaAltaLlamada(){
+        JFrame ventana = new JFrame("Alta llamada");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField dni = new JTextField(9);
+        JLabel dniLabel = new JLabel("DNI:");
+        contenedor.add(dniLabel);
+        contenedor.add(dni);
+
+        JTextField telefono = new JTextField(9);
+        JLabel telefonoLabel = new JLabel("Telefono:");
+        contenedor.add(telefonoLabel);
+        contenedor.add(telefono);
+
+        JTextField duracion = new JTextField(9);
+        JLabel duracionLabel = new JLabel("Duracion:");
+        contenedor.add(duracionLabel);
+        contenedor.add(duracion);
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaVerLlamadas(){
+        JFrame ventana = new JFrame("Ver llamadas");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField dni = new JTextField(9);
+        JLabel dniLabel = new JLabel("DNI:");
+        contenedor.add(dniLabel);
+        contenedor.add(dni);
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaEmitirFactura(){
+        JFrame ventana = new JFrame("Emitir factura");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField dni = new JTextField(9);
+        JLabel dniLabel = new JLabel("DNI:");
+        contenedor.add(dniLabel);
+        contenedor.add(dni);
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaVerFactura(){
+        JFrame ventana = new JFrame("Ver Factura");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField factura = new JTextField(9);
+        JLabel facturaLabel = new JLabel("Código de la factura:");
+        contenedor.add(facturaLabel);
+        contenedor.add(factura);
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaVerFacturasCliente(){
+        JFrame ventana = new JFrame("Ver Facturas de un cliente");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField dni = new JTextField(9);
+        JLabel dniLabel = new JLabel("DNI:");
+        contenedor.add(dniLabel);
+        contenedor.add(dni);
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaVerClientesFechas(){
+        JFrame ventana = new JFrame("Ver Clientes entre fechas");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        JTextField diaInicio = new JTextField(9);
+        JLabel diaInicioLabel = new JLabel("Dia Inicio:");
+        contenedor.add(diaInicioLabel);
+        contenedor.add(diaInicio);
+        JTextField mesInicio = new JTextField(9);
+        JLabel mesInicioLabel = new JLabel("Mes Inicio:");
+        contenedor.add(mesInicioLabel);
+        contenedor.add(mesInicio);
+        JTextField anyoInicio = new JTextField(9);
+        JLabel anyoInicioLabel = new JLabel("Año Inicio:");
+        contenedor.add(anyoInicioLabel);
+        contenedor.add(anyoInicio);
+
+        JTextField diaFin = new JTextField(9);
+        JLabel diaFinLabel = new JLabel("Dia Fin:");
+        contenedor.add(diaFinLabel);
+        contenedor.add(diaFin);
+        JTextField mesFin = new JTextField(9);
+        JLabel mesFinLabel = new JLabel("Mes Fin:");
+        contenedor.add(mesFinLabel);
+        contenedor.add(mesFin);
+        JTextField anyoFin = new JTextField(9);
+        JLabel anyoFinLabel = new JLabel("Año Fin:");
+        contenedor.add(anyoFinLabel);
+        contenedor.add(anyoFin);
+
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaVerLlamadasFechas(){
+        JFrame ventana = new JFrame("Ver llamadas entre fechas");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+
+        JTextField diaInicio = new JTextField(9);
+        JLabel diaInicioLabel = new JLabel("Dia Inicio:");
+        contenedor.add(diaInicioLabel);
+        contenedor.add(diaInicio);
+        JTextField mesInicio = new JTextField(9);
+        JLabel mesInicioLabel = new JLabel("Mes Inicio:");
+        contenedor.add(mesInicioLabel);
+        contenedor.add(mesInicio);
+        JTextField anyoInicio = new JTextField(9);
+        JLabel anyoInicioLabel = new JLabel("Año Inicio:");
+        contenedor.add(anyoInicioLabel);
+        contenedor.add(anyoInicio);
+
+        JTextField diaFin = new JTextField(9);
+        JLabel diaFinLabel = new JLabel("Dia Fin:");
+        contenedor.add(diaFinLabel);
+        contenedor.add(diaFin);
+        JTextField mesFin = new JTextField(9);
+        JLabel mesFinLabel = new JLabel("Mes Fin:");
+        contenedor.add(mesFinLabel);
+        contenedor.add(mesFin);
+        JTextField anyoFin = new JTextField(9);
+        JLabel anyoFinLabel = new JLabel("Año Fin:");
+        contenedor.add(anyoFinLabel);
+        contenedor.add(anyoFin);
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
+    private void ventanaVerFacturasFechas(){
+        JFrame ventana = new JFrame("Ver Facturas entre fechas");
+        Container contenedor = ventana.getContentPane();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+
+        JTextField diaInicio = new JTextField(9);
+        JLabel diaInicioLabel = new JLabel("Dia Inicio:");
+        contenedor.add(diaInicioLabel);
+        contenedor.add(diaInicio);
+        JTextField mesInicio = new JTextField(9);
+        JLabel mesInicioLabel = new JLabel("Mes Inicio:");
+        contenedor.add(mesInicioLabel);
+        contenedor.add(mesInicio);
+        JTextField anyoInicio = new JTextField(9);
+        JLabel anyoInicioLabel = new JLabel("Año Inicio:");
+        contenedor.add(anyoInicioLabel);
+        contenedor.add(anyoInicio);
+
+        JTextField diaFin = new JTextField(9);
+        JLabel diaFinLabel = new JLabel("Dia Fin:");
+        contenedor.add(diaFinLabel);
+        contenedor.add(diaFin);
+        JTextField mesFin = new JTextField(9);
+        JLabel mesFinLabel = new JLabel("Mes Fin:");
+        contenedor.add(mesFinLabel);
+        contenedor.add(mesFin);
+        JTextField anyoFin = new JTextField(9);
+        JLabel anyoFinLabel = new JLabel("Año Fin:");
+        contenedor.add(anyoFinLabel);
+        contenedor.add(anyoFin);
+
+        ventana.pack();
+        ventana.setVisible(true);
+    }
+
 
     public void creaGUI(GestorOpciones gestor) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -190,40 +427,42 @@ public class Vista implements InterfazVista {
                     ventanaAltaCliente();
                     break;
                 case "Borrar un cliente":
-
+                    ventanaBorrarCliente();
                     break;
                 case "Cambiar la tarifa":
-
+                    ventanaCambiarTarifa();
                     break;
                 case "Ver un cliente":
-
+                    ventanaVerCliente();
                     break;
                 case "Ver todos los clientes":
-
+                    //listar los clientes y pasar la lista a la ventana
+                    //List<Cliente> clientes = controlador.verTodosClientes();
+                    ventanaVerTodosClientes(/*clientes*/);
                     break;
                 case "Dar de alta una llamada":
-
+                    ventanaAltaLlamada();
                     break;
                 case "Ver las llamadas de un cliente":
-
+                    ventanaVerLlamadas();
                     break;
                 case "Emitir una factura":
-
+                    ventanaEmitirFactura();
                     break;
                 case "Ver una factura":
-
+                    ventanaVerFactura();
                     break;
                 case "Ver las facturas de un cliente":
-
+                    ventanaVerFacturasCliente();
                     break;
                 case "Ver los clientes dados de alta entre dos fechas":
-
+                    ventanaVerClientesFechas();
                     break;
                 case "Ver llamadas entre dos fechas":
-
+                    ventanaVerLlamadasFechas();
                     break;
                 case "Ver las facturas de un cliente entre dos fechas":
-
+                    ventanaVerFacturasFechas();
                     break;
 
             }

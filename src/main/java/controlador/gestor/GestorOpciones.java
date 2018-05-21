@@ -72,10 +72,10 @@ public class GestorOpciones {
         else {
             ConstructorTarifa constructorTarifa = new ConstructorTarifa();
             Cliente encontrado = buscado.get();
-            System.out.println("Introduce la nueva modelo.tarifa básica");
+            System.out.println("Introduce la nueva tarifa básica");
             Tarifa basica = constructorTarifa.getInstanceBasica();
             basica.setPrecio(sc.nextDouble());
-            System.out.println("¿Quieres una modelo.tarifa reducida por horas? S/N");
+            System.out.println("¿Quieres una tarifa reducida por horas? S/N");
             String opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
@@ -89,7 +89,7 @@ public class GestorOpciones {
                     throw new DateTimeException("Horas no validas");
                 basica = constructorTarifa.getInstanceHoraReducida(basica, horaInicio, horaFin, precio);
             }
-            System.out.println("¿Quieres una modelo.tarifa reducida por días? S/N");
+            System.out.println("¿Quieres una tarifa reducida por días? S/N");
             opcion = sc.next();
             opcion = opcion.toLowerCase();
             if (opcion.equals("s")) {
