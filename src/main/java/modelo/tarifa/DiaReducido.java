@@ -20,9 +20,9 @@ public class DiaReducido extends Extras {
 
     @Override
     public Optional<Double> calcularPrecio(Llamada llamada) {
-        double precio = getTarifa().calcularPrecio(llamada);
+        Optional<Double> precio = getTarifa().calcularPrecio(llamada);
         if (llamada.getFecha().get(Calendar.DAY_OF_WEEK) == dia)
-            precio = (precioMinimo(precio, getPrecio() * llamada.getDuracion()));
-        return Optional.of(precio);
+            precio = Optional.of(precioMinimo(precio.get(), getPrecio() * llamada.getDuracion()));
+        return precio;
     }
 }
