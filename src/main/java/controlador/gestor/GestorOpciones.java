@@ -1,12 +1,12 @@
 package controlador.gestor;
 
+import controlador.fichero.Fichero;
 import modelo.atributos.Direccion;
 import modelo.atributos.Factura;
 import modelo.atributos.Llamada;
 import modelo.clientes.Cliente;
 import modelo.constructores.ConstructorCliente;
 import modelo.constructores.ConstructorTarifa;
-import controlador.fichero.Fichero;
 import modelo.fecha.FechaIntervalo;
 import modelo.tarifa.Tarifa;
 
@@ -273,9 +273,9 @@ public class GestorOpciones {
         return precio.orElse(-1d);
     }
 
-    private String pedirOpcionSN(Scanner sc) {
-        return sc.next().toLowerCase();
-    }
+    //private String pedirOpcionSN(Scanner sc) {
+    //  return sc.next().toLowerCase();
+    //}
 
     private boolean compruebaHoras(int horaInicio, int horaFin) {
         return horaInicio < horaFin;
