@@ -1,9 +1,9 @@
-package controlador.constructores;
+package modelo.constructores;
 
-import controlador.tarifa.Basica;
-import controlador.tarifa.DiaReducido;
-import controlador.tarifa.HoraReducida;
-import controlador.tarifa.Tarifa;
+import modelo.tarifa.Basica;
+import modelo.tarifa.DiaReducido;
+import modelo.tarifa.HoraReducida;
+import modelo.tarifa.Tarifa;
 
 public class ConstructorTarifa {
     public Tarifa getInstanceBasica() {

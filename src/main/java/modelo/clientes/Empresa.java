@@ -1,4 +1,4 @@
-package controlador.clientes;
+package modelo.clientes;
 
 public class Empresa extends Cliente {
 

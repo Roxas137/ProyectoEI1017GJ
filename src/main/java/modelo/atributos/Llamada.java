@@ -1,6 +1,6 @@
-package controlador.atributos;
+package modelo.atributos;
 
-import controlador.principal.Fecha;
+import modelo.fecha.Fecha;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;

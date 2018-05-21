@@ -1,6 +1,6 @@
-package controlador.tarifa;
+package modelo.tarifa;
 
-import controlador.atributos.Llamada;
+import modelo.atributos.Llamada;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public abstract class Tarifa implements Serializable {
         this.precio = precio;
     }
 
-    public abstract double calcularPrecio(Llamada llamada);
+    public abstract Optional<Double> calcularPrecio(Llamada llamada);
 
     public double precioMinimo(double precio1, double precio2) {
         return precio1 < precio2 ? precio1 : precio2;

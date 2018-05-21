@@ -1,9 +1,9 @@
-package controlador.clientes;
+package modelo.clientes;
 
-import controlador.atributos.Direccion;
-import controlador.constructores.ConstructorTarifa;
-import controlador.principal.Fecha;
-import controlador.tarifa.Tarifa;
+import modelo.atributos.Direccion;
+import modelo.constructores.ConstructorTarifa;
+import modelo.fecha.Fecha;
+import modelo.tarifa.Tarifa;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -58,7 +58,7 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
 
     public void setTarifa(Tarifa tarifa) throws IllegalArgumentException {
         if (tarifa.getPrecio() < 0)
-            throw new IllegalArgumentException("El precio de la controlador.tarifa no puede ser negativa:\n" + tarifa.toString());
+            throw new IllegalArgumentException("El precio de la modelo.tarifa no puede ser negativa:\n" + tarifa.toString());
         this.tarifa = tarifa;
     }
 

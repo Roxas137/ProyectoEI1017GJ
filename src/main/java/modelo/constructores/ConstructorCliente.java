@@ -1,8 +1,8 @@
-package controlador.constructores;
+package modelo.constructores;
 
-import controlador.clientes.Cliente;
-import controlador.clientes.Empresa;
-import controlador.clientes.Particular;
+import modelo.clientes.Cliente;
+import modelo.clientes.Empresa;
+import modelo.clientes.Particular;
 
 public class ConstructorCliente {
     public Cliente getInstanceEmpresa() {

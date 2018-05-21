@@ -1,4 +1,4 @@
-package controlador.atributos;
+package modelo.atributos;
 
 import java.io.Serializable;
 
