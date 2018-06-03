@@ -1,20 +1,23 @@
 package vista;
 
+import com.sun.javaws.util.JfxHelper;
 import controlador.Controlador;
 import controlador.gestor.GestorOpciones;
 import modelo.Modelo;
+import modelo.atributos.Direccion;
 import modelo.clientes.Cliente;
+import modelo.clientes.Empresa;
+import modelo.clientes.Particular;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Vista implements InterfazVista {
     private Controlador controlador;
     private Modelo modelo;
+    private boolean esParticular;
     //Añadir botones y todo eso
 
     public void setControlador(Controlador controlador) {
@@ -25,7 +28,275 @@ public class Vista implements InterfazVista {
         this.modelo = modelo;
     }
 
+    class VentanaPrincipal extends WindowAdapter {
+        GestorOpciones gestorOpciones;
 
+        private VentanaPrincipal(GestorOpciones gestor) {
+            gestorOpciones = gestor;
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            //Guardar en el fichero y salir
+            gestorOpciones.salir();
+        }
+    }
+
+    public void creaGUI(GestorOpciones gestor) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                opcionCLF(gestor);
+            }
+        });
+    }
+
+
+    private void opcionCLF(GestorOpciones gestor){
+        JFrame ventana = new JFrame("Ventana Principal");
+        Container contenedor = ventana.getContentPane();
+        Toolkit screen = Toolkit.getDefaultToolkit();
+        ventana.setSize(screen.getScreenSize().width/2,screen.getScreenSize().height/5);
+        ventana.setLocation(screen.getScreenSize().width/4, screen.getScreenSize().height/3);
+        JTextField elegirOpcion = new JTextField("Elige una opcion:");
+        elegirOpcion.setEditable(false);
+        JButton clientes = new JButton("Clientes");
+        JButton llamadas = new JButton("LLamadas");
+        JButton facturas = new JButton("Facturas");
+
+        clientes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton boton = (JButton) e.getSource();
+                String opcion = boton.getText();
+                switch (opcion){
+                    case "Clientes":
+                        //abrir la ventana de clientes
+                        ventanaClientes(gestor);
+                        ventana.setVisible(false);
+                        break;
+                    case "Llamadas":
+                        //abrir la ventana de llamadas
+                        ventanaLlamadas(gestor);
+                        ventana.setVisible(false);
+                        break;
+                    case "Facturas":
+                        //abrir la ventana de Facturas
+                        ventanaFacturas(gestor);
+                        ventana.setVisible(false);
+                        break;
+                }
+            }
+        });
+        llamadas.addActionListener(clientes.getActionListeners()[0]);
+        facturas.addActionListener(clientes.getActionListeners()[0]);
+        //texto de opcion:
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        elegirOpcion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contenedor.add(elegirOpcion);
+        //botones
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        clientes.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contenedor.add(clientes);
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        llamadas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contenedor.add(llamadas);
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
+        facturas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contenedor.add(facturas);
+
+        ventana.addWindowListener(new VentanaPrincipal(gestor));
+        //ventana.pack();
+        ventana.setVisible(true);
+    }
+
+
+    private void ventanaClientes(GestorOpciones gestor){
+        JFrame ventana = new JFrame();
+        Toolkit screen = Toolkit.getDefaultToolkit();
+        ventana.setLocation(screen.getScreenSize().width/2, screen.getScreenSize().height/4);
+        JPanel panel = new JPanel();
+        JTabbedPane pestañas = new JTabbedPane();
+        JPanel altaCliente = new JPanel();
+        JPanel borrarCliente = new JPanel();
+        JPanel verCliente = new JPanel();
+        JPanel verTodosClientes = new JPanel();
+        JPanel cambiarTarifa = new JPanel();
+        JPanel verClienteEntreFechas = new JPanel();
+
+        //---------------------
+        //----Alta Cliente-----
+        //---------------------
+        esParticular = false;
+        altaCliente.setLayout(new BoxLayout(altaCliente, BoxLayout.PAGE_AXIS));
+        JRadioButton empresa = new JRadioButton("Empresa");
+        empresa.setActionCommand("empresa");
+        JRadioButton particular = new JRadioButton("Particular");
+        particular.setActionCommand("particular");
+        ButtonGroup grupo = new ButtonGroup();
+        grupo.add(empresa);
+        grupo.add(particular);
+        JTextField nombre = new JTextField(20);
+        JLabel nombreLabel = new JLabel("Nombre:");
+        JTextField apellidos = new JTextField(20);
+        JLabel apellidosLabel = new JLabel("Apellidos:");
+        JTextField dni = new JTextField(20);
+        JLabel dniLabel = new JLabel("DNI/CIF:");
+        JTextField codpostal = new JTextField(20);
+        JLabel codpostalLabel = new JLabel("Codigo Postal:");
+        JTextField provincia = new JTextField(20);
+        JLabel provinciaLabel = new JLabel("Provincia:");
+        JTextField poblacion = new JTextField(20);
+        JLabel poblacionLabel = new JLabel("Poblacion:");
+        JTextField email = new JTextField(20);
+        JLabel emailLabel = new JLabel("E-mail:");
+
+        ItemListener partempr = new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                JRadioButton boton = (JRadioButton) e.getSource();
+                String opcion = boton.getText();
+                switch (opcion){
+                    case "particular":
+                        esParticular = true;
+                        apellidos.setEnabled(true);
+                        break;
+                    case "empresa":
+                        esParticular = false;
+                        apellidos.setEnabled(false);
+                }
+            }
+        };
+
+        empresa.addItemListener(partempr);
+        particular.addItemListener(partempr);
+        altaCliente.add(empresa);
+        altaCliente.add(particular);
+        altaCliente.add(nombreLabel);
+        altaCliente.add(nombre);
+        altaCliente.add(apellidosLabel);
+        altaCliente.add(apellidos);
+        altaCliente.add(dniLabel);
+        altaCliente.add(dni);
+        altaCliente.add(codpostalLabel);
+        altaCliente.add(codpostal);
+        altaCliente.add(provinciaLabel);
+        altaCliente.add(provincia);
+        altaCliente.add(poblacionLabel);
+        altaCliente.add(poblacion);
+        altaCliente.add(emailLabel);
+        altaCliente.add(email);
+
+        JButton anyadir = new JButton("Añadir");
+        altaCliente.add(anyadir);
+        anyadir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Cliente cliente;
+                if (esParticular) {
+                    cliente = new Particular(apellidos.getText());
+                }
+                else{
+                    cliente = new Empresa();
+                }
+                cliente.setNombre(nombre.getText());
+                Direccion direccion = new Direccion(Integer.parseInt(codpostal.getText()), provincia.getText(), poblacion.getText());
+                cliente.setDireccion(direccion);
+                cliente.setDni(dni.getText());
+                cliente.setEmail(email.getText());
+                gestor.getMetodo().addCliente(cliente);
+            }
+        });
+
+        //---------------------
+        //---Borrar Cliente----
+        //---------------------
+        borrarCliente.setLayout(new BoxLayout(borrarCliente, BoxLayout.PAGE_AXIS));
+        JTextField dni2 = new JTextField(20);
+        JLabel dniLabel2 = new JLabel("DNI/CIF:");
+        borrarCliente.add(dniLabel2);
+        borrarCliente.add(dni2);
+        JButton borrar = new JButton("Borrar");
+        borrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gestor.getMetodo().removeCliente(dni2.getText());
+            }
+        });
+        borrarCliente.add(borrar);
+
+        //---------------------
+        //-----Ver Cliente-----
+        //---------------------
+        JTextField dni3 = new JTextField(20);
+        JLabel dniLabel3 = new JLabel("DNI/CIF:");
+        verCliente.setLayout(new BoxLayout(verCliente, BoxLayout.PAGE_AXIS));
+        verCliente.add(dniLabel3);
+        verCliente.add(dni3);
+
+        JPanel jp = new JPanel();
+        JTextArea area = new JTextArea(20, 40);
+        JScrollPane jScrollPane = new JScrollPane(area);
+        area.setEditable(false);
+        jp.add(jScrollPane);
+        verCliente.add(jp);
+        JButton buscar = new JButton("Buscar");
+        buscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                area.append(gestor.getMetodo().devuelveCliente(dni3.getText()).toString());
+            }
+        });
+        verCliente.add(buscar);
+
+
+        //----------------------------
+        //---Ver Todos Los Clientes---
+        //----------------------------
+        verTodosClientes.setLayout(new BoxLayout(verTodosClientes, BoxLayout.PAGE_AXIS));
+        JPanel panelClientes = new JPanel();
+        JTextArea area1 = new JTextArea(20,40);
+        JScrollPane jScrollPane1 = new JScrollPane(area1);
+        panelClientes.add(jScrollPane1);
+        JButton actualizar = new JButton("Actualizar");
+        actualizar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Cliente> listaClientes = gestor.getMetodo().listaClientes();
+                for (Cliente unCliente : listaClientes){
+                    area1.append(unCliente.toString());
+                }
+                area1.append("-------------------------------------------------------------------------------------------------\n");
+            }
+        });
+        verTodosClientes.add(actualizar);
+        verTodosClientes.add(panelClientes);
+
+
+
+        pestañas.addTab("Alta Cliente", altaCliente);
+        pestañas.addTab("Borrar Cliente", borrarCliente);
+        pestañas.addTab("Ver Cliente", verCliente);
+        pestañas.addTab("Ver Todos Los Clientes", verTodosClientes);
+        pestañas.addTab("Cambiar Tarifa", cambiarTarifa);
+        pestañas.addTab("Ver Cliente entre Fechas", verClienteEntreFechas);
+
+        panel.add(pestañas);
+        ventana.setContentPane(panel);
+        ventana.setVisible(true);
+        ventana.pack();
+        ventana.addWindowListener(new VentanaPrincipal(gestor));
+    }
+
+    private void ventanaLlamadas(GestorOpciones gestor){
+
+    }
+
+    private void ventanaFacturas(GestorOpciones gestor){
+
+    }
+
+/*
     private void ventanaPrincipal(GestorOpciones gestorOpciones) {
         JFrame ventana = new JFrame("Gestión de llamadas");
         //JPanel opciones = new JPanel();
@@ -394,29 +665,6 @@ public class Vista implements InterfazVista {
     }
 
 
-    public void creaGUI(GestorOpciones gestor) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ventanaPrincipal(gestor);
-            }
-        });
-    }
-
-    class VentanaPrincipal extends WindowAdapter {
-        GestorOpciones gestorOpciones;
-
-        private VentanaPrincipal(GestorOpciones gestor) {
-            gestorOpciones = gestor;
-        }
-
-        @Override
-        public void windowClosing(WindowEvent e) {
-            //Guardar en el fichero y salir
-            gestorOpciones.salir();
-        }
-    }
-
     class Escuchador implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JButton boton = (JButton) e.getSource();
@@ -438,7 +686,7 @@ public class Vista implements InterfazVista {
                 case "Ver todos los clientes":
                     //listar los clientes y pasar la lista a la ventana
                     //List<Cliente> clientes = controlador.verTodosClientes();
-                    ventanaVerTodosClientes(/*clientes*/);
+                    ventanaVerTodosClientes();
                     break;
                 case "Dar de alta una llamada":
                     ventanaAltaLlamada();
@@ -469,5 +717,5 @@ public class Vista implements InterfazVista {
         }
 
     }
-
+*/
 }

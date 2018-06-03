@@ -17,6 +17,10 @@ public class GestorOpciones {
 
     private Metodos metodo;
 
+    public Metodos getMetodo() {
+        return metodo;
+    }
+
     public GestorOpciones(Metodos metodos) {
         metodo = metodos;
     }
