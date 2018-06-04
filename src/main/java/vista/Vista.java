@@ -151,25 +151,6 @@ public class Vista implements InterfazVista {
         JTextField email = new JTextField(20);
         JLabel emailLabel = new JLabel("E-mail:");
 
-        ItemListener partempr = new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                JRadioButton boton = (JRadioButton) e.getSource();
-                String opcion = boton.getText();
-                switch (opcion){
-                    case "particular":
-                        esParticular = true;
-                        apellidos.setEnabled(true);
-                        break;
-                    case "empresa":
-                        esParticular = false;
-                        apellidos.setEnabled(false);
-                }
-            }
-        };
-
-        empresa.addItemListener(partempr);
-        particular.addItemListener(partempr);
         altaCliente.add(empresa);
         altaCliente.add(particular);
         altaCliente.add(nombreLabel);
@@ -186,6 +167,38 @@ public class Vista implements InterfazVista {
         altaCliente.add(poblacion);
         altaCliente.add(emailLabel);
         altaCliente.add(email);
+        empresa.setSelected(true);
+        apellidosLabel.setEnabled(false);
+        apellidos.setEnabled(false);
+
+        ItemListener partempr = new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                JRadioButton boton = (JRadioButton) e.getSource();
+                String opcion = boton.getText();
+                if (e.getStateChange() == ItemEvent.SELECTED && opcion.equals("Empresa")){
+                    esParticular = false;
+                    apellidosLabel.setEnabled(false);
+                    apellidos.setEnabled(false);
+                }else if (e.getStateChange() == ItemEvent.SELECTED && opcion.equals("Particular")){
+                    esParticular = true;
+                    apellidosLabel.setEnabled(true);
+                    apellidos.setEnabled(true);
+                }
+                /*switch (opcion) {
+                    case "particular":
+                        esParticular = true;
+                        apellidos.setEnabled(true);
+                        break;
+                    case "empresa":
+                        esParticular = false;
+                        apellidos.setEnabled(false);
+                        break;
+                }*/
+            }
+        };
+        empresa.addItemListener(partempr);
+        particular.addItemListener(partempr);
 
         JButton anyadir = new JButton("Añadir");
         altaCliente.add(anyadir);
@@ -194,11 +207,13 @@ public class Vista implements InterfazVista {
             public void actionPerformed(ActionEvent e) {
                 Cliente cliente;
                 if (esParticular) {
+                    if (apellidos.getText().equals("")) return;
                     cliente = new Particular(apellidos.getText());
                 }
                 else{
                     cliente = new Empresa();
                 }
+                if (nombre.getText().equals("") || dni.getText().equals("")) return;
                 cliente.setNombre(nombre.getText());
                 Direccion direccion = new Direccion(Integer.parseInt(codpostal.getText()), provincia.getText(), poblacion.getText());
                 cliente.setDireccion(direccion);
@@ -244,7 +259,12 @@ public class Vista implements InterfazVista {
         buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                area.append(gestor.getMetodo().devuelveCliente(dni3.getText()).toString());
+                String cliente = gestor.getMetodo().devuelveCliente(dni3.getText()).toString();
+                if (cliente.equals("Optional.empty"))
+                    area.append("Cliente no encontrado\n");
+                else
+                    area.append(cliente.replace("Optional[", ""));
+                area.append("--------------------------------------------------------\n");
             }
         });
         verCliente.add(buscar);

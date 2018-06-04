@@ -6,6 +6,7 @@ import modelo.fecha.Fecha;
 import modelo.tarifa.Tarifa;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public abstract class Cliente implements Fecha, Serializable { //abstract
@@ -72,10 +73,10 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
 
     @Override
     public String toString() {
-        return "Nombre:\t\t\t" + this.getNombre() + "\n" +
-                "DNI:\t\t\t" + dni + "\n" +
-                "Direccion:\t\t" + direccion.toString() + "\n" +
-                "Email:\t\t\t" + email + "\n" +
-                "Fecha de alta:\t" + fecha.toString() + "\n\n";
+        return "Nombre:\t" + this.getNombre() + "\n" +
+                "DNI:\t" + dni + "\n" +
+                "Direccion:\t" + direccion.toString() + "\n" +
+                "Email:\t" + email + "\n" +
+                "Fecha de alta:\t" + fecha.get(Calendar.DAY_OF_MONTH) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR) + "\n\n";
     }
 }
