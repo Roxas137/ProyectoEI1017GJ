@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class Vista implements InterfazVista {
     private Controlador controlador;
@@ -114,7 +115,7 @@ public class Vista implements InterfazVista {
     private void ventanaClientes(GestorOpciones gestor){
         JFrame ventana = new JFrame();
         Toolkit screen = Toolkit.getDefaultToolkit();
-        ventana.setLocation(screen.getScreenSize().width/2, screen.getScreenSize().height/4);
+        ventana.setLocation(screen.getScreenSize().width/3, screen.getScreenSize().height/6);
         JPanel panel = new JPanel();
         JTabbedPane pestañas = new JTabbedPane();
         JPanel altaCliente = new JPanel();
@@ -124,11 +125,16 @@ public class Vista implements InterfazVista {
         JPanel cambiarTarifa = new JPanel();
         JPanel verClienteEntreFechas = new JPanel();
 
-        //---------------------
-        //----Alta Cliente-----
-        //---------------------
+        //---------------------------
+        //-------Alta Cliente--------
+        //---------------------------
         esParticular = false;
         altaCliente.setLayout(new BoxLayout(altaCliente, BoxLayout.PAGE_AXIS));
+        JPanel jpAlta = new JPanel();
+        JTextArea areaAlta = new JTextArea(8, 35);
+        JScrollPane scrollAlta = new JScrollPane(areaAlta);
+        areaAlta.setEditable(false);
+        jpAlta.add(scrollAlta);
         JRadioButton empresa = new JRadioButton("Empresa");
         empresa.setActionCommand("empresa");
         JRadioButton particular = new JRadioButton("Particular");
@@ -137,11 +143,11 @@ public class Vista implements InterfazVista {
         grupo.add(empresa);
         grupo.add(particular);
         JTextField nombre = new JTextField(20);
-        JLabel nombreLabel = new JLabel("Nombre:");
+        JLabel nombreLabel = new JLabel("(*)Nombre:");
         JTextField apellidos = new JTextField(20);
         JLabel apellidosLabel = new JLabel("Apellidos:");
         JTextField dni = new JTextField(20);
-        JLabel dniLabel = new JLabel("DNI/CIF:");
+        JLabel dniLabel = new JLabel("(*)DNI/CIF:");
         JTextField codpostal = new JTextField(20);
         JLabel codpostalLabel = new JLabel("Codigo Postal:");
         JTextField provincia = new JTextField(20);
@@ -150,23 +156,27 @@ public class Vista implements InterfazVista {
         JLabel poblacionLabel = new JLabel("Poblacion:");
         JTextField email = new JTextField(20);
         JLabel emailLabel = new JLabel("E-mail:");
+        JPanel datosAlta = new JPanel();
+        datosAlta.setLayout(new BoxLayout(datosAlta, BoxLayout.PAGE_AXIS));
 
-        altaCliente.add(empresa);
-        altaCliente.add(particular);
-        altaCliente.add(nombreLabel);
-        altaCliente.add(nombre);
-        altaCliente.add(apellidosLabel);
-        altaCliente.add(apellidos);
-        altaCliente.add(dniLabel);
-        altaCliente.add(dni);
-        altaCliente.add(codpostalLabel);
-        altaCliente.add(codpostal);
-        altaCliente.add(provinciaLabel);
-        altaCliente.add(provincia);
-        altaCliente.add(poblacionLabel);
-        altaCliente.add(poblacion);
-        altaCliente.add(emailLabel);
-        altaCliente.add(email);
+        datosAlta.add(empresa);
+        datosAlta.add(particular);
+        datosAlta.add(nombreLabel);
+        datosAlta.add(nombre);
+        datosAlta.add(apellidosLabel);
+        datosAlta.add(apellidos);
+        datosAlta.add(dniLabel);
+        datosAlta.add(dni);
+        datosAlta.add(codpostalLabel);
+        datosAlta.add(codpostal);
+        datosAlta.add(provinciaLabel);
+        datosAlta.add(provincia);
+        datosAlta.add(poblacionLabel);
+        datosAlta.add(poblacion);
+        datosAlta.add(emailLabel);
+        datosAlta.add(email);
+        altaCliente.add(datosAlta);
+        altaCliente.add(jpAlta);
         empresa.setSelected(true);
         apellidosLabel.setEnabled(false);
         apellidos.setEnabled(false);
@@ -213,44 +223,65 @@ public class Vista implements InterfazVista {
                 else{
                     cliente = new Empresa();
                 }
-                if (nombre.getText().equals("") || dni.getText().equals("")) return;
+                if (nombre.getText().equals("") || dni.getText().equals("")){
+                    areaAlta.append("No se ha podido añadir el cliente:\nLos campos marcados con (*) son obligatorios\n\n");
+                    return;
+                }
                 cliente.setNombre(nombre.getText());
                 Direccion direccion = new Direccion(Integer.parseInt(codpostal.getText()), provincia.getText(), poblacion.getText());
                 cliente.setDireccion(direccion);
                 cliente.setDni(dni.getText());
                 cliente.setEmail(email.getText());
                 gestor.getMetodo().addCliente(cliente);
+                areaAlta.append("Cliente añadido correctamente\n\n");
             }
         });
 
-        //---------------------
-        //---Borrar Cliente----
-        //---------------------
+        //---------------------------
+        //------Borrar Cliente-------
+        //---------------------------
         borrarCliente.setLayout(new BoxLayout(borrarCliente, BoxLayout.PAGE_AXIS));
+        JPanel jpborrado = new JPanel();
+        JTextArea areaBorrado = new JTextArea(20, 35);
+        JScrollPane scrollBorrado = new JScrollPane(areaBorrado);
+        areaBorrado.setEditable(false);
+        jpborrado.add(scrollBorrado);
         JTextField dni2 = new JTextField(20);
         JLabel dniLabel2 = new JLabel("DNI/CIF:");
-        borrarCliente.add(dniLabel2);
-        borrarCliente.add(dni2);
+        JPanel jpDatosBorrado = new JPanel();
+
+        jpDatosBorrado.add(dniLabel2);
+        jpDatosBorrado.add(dni2);
         JButton borrar = new JButton("Borrar");
+        jpDatosBorrado.add(borrar);
+        borrarCliente.add(jpDatosBorrado);
+        borrarCliente.add(jpborrado);
         borrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gestor.getMetodo().removeCliente(dni2.getText());
+                try {
+                    gestor.getMetodo().removeCliente(dni2.getText());
+                    areaBorrado.append("Cliente con dni: " + dni2.getText() + "\nBorrado Correctamente\n\n");
+                }catch (NoSuchElementException exc){
+                    areaBorrado.append("Cliente no encontrado\n\n");
+                }
             }
         });
-        borrarCliente.add(borrar);
 
-        //---------------------
-        //-----Ver Cliente-----
-        //---------------------
+
+        //---------------------------
+        //--------Ver Cliente--------
+        //---------------------------
+        verCliente.setLayout(new BoxLayout(verCliente, BoxLayout.PAGE_AXIS));
         JTextField dni3 = new JTextField(20);
         JLabel dniLabel3 = new JLabel("DNI/CIF:");
-        verCliente.setLayout(new BoxLayout(verCliente, BoxLayout.PAGE_AXIS));
-        verCliente.add(dniLabel3);
-        verCliente.add(dni3);
+        JPanel datosVerCliente = new JPanel();
+        datosVerCliente.add(dniLabel3);
+        datosVerCliente.add(dni3);
+        verCliente.add(datosVerCliente);
 
         JPanel jp = new JPanel();
-        JTextArea area = new JTextArea(20, 40);
+        JTextArea area = new JTextArea(20, 35);
         JScrollPane jScrollPane = new JScrollPane(area);
         area.setEditable(false);
         jp.add(jScrollPane);
@@ -275,7 +306,8 @@ public class Vista implements InterfazVista {
         //----------------------------
         verTodosClientes.setLayout(new BoxLayout(verTodosClientes, BoxLayout.PAGE_AXIS));
         JPanel panelClientes = new JPanel();
-        JTextArea area1 = new JTextArea(20,40);
+        JTextArea area1 = new JTextArea(20,35);
+        area1.setEditable(false);
         JScrollPane jScrollPane1 = new JScrollPane(area1);
         panelClientes.add(jScrollPane1);
         JButton actualizar = new JButton("Actualizar");
@@ -286,11 +318,21 @@ public class Vista implements InterfazVista {
                 for (Cliente unCliente : listaClientes){
                     area1.append(unCliente.toString());
                 }
-                area1.append("-------------------------------------------------------------------------------------------------\n");
+                area1.append("-----------------------------------------------------------------------\n");
             }
         });
         verTodosClientes.add(actualizar);
         verTodosClientes.add(panelClientes);
+
+        //----------------------------
+        //-------Cambiar Tarifa-------
+        //----------------------------
+
+
+
+        //-----------------------------
+        //--Ver Clientes Entre Fechas--
+        //-----------------------------
 
 
 
