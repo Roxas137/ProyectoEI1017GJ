@@ -1,5 +1,6 @@
 package vista;
 
+import com.sun.xml.internal.messaging.saaj.soap.JpegDataContentHandler;
 import controlador.Controlador;
 import controlador.gestor.GestorOpciones;
 import modelo.Modelo;
@@ -8,6 +9,7 @@ import modelo.clientes.Cliente;
 import modelo.clientes.Empresa;
 import modelo.clientes.Particular;
 import modelo.constructores.ConstructorTarifa;
+import modelo.fecha.FechaIntervalo;
 import modelo.tarifa.DiaReducido;
 import modelo.tarifa.Tarifa;
 
@@ -15,6 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.NoSuchElementException;
 
 public class Vista implements InterfazVista {
@@ -423,12 +426,71 @@ public class Vista implements InterfazVista {
         //--Ver Clientes Entre Fechas--
         //-----------------------------
         verClienteEntreFechas.setLayout(new BoxLayout(verClienteEntreFechas, BoxLayout.PAGE_AXIS));
-        /*
-         *
-         *
-         * */
+        JPanel datosFechaInicio = new JPanel();
+        JPanel datosFechaFin = new JPanel();
+        JLabel fechaInicioLabel = new JLabel("Dia/Mes/Año :");
+        JTextField diaInicio = new JTextField(2);
+        JLabel barra1 = new JLabel("/");
+        JTextField mesInicio = new JTextField(2);
+        JLabel barra2 = new JLabel("/");
+        JTextField anyoInicio = new JTextField(4);
+        datosFechaInicio.add(fechaInicioLabel);
+        datosFechaInicio.add(diaInicio);
+        datosFechaInicio.add(barra1);
+        datosFechaInicio.add(mesInicio);
+        datosFechaInicio.add(barra2);
+        datosFechaInicio.add(anyoInicio);
+        JLabel fechaFinLabel = new JLabel("Dia/Mes/Año :");
+        JTextField diaFin = new JTextField(2);
+        JLabel barra3 = new JLabel("/");
+        JTextField mesFin = new JTextField(2);
+        JLabel barra4 = new JLabel("/");
+        JTextField anyoFin = new JTextField(4);
+        datosFechaFin.add(fechaFinLabel);
+        datosFechaFin.add(diaFin);
+        datosFechaFin.add(barra3);
+        datosFechaFin.add(mesFin);
+        datosFechaFin.add(barra4);
+        datosFechaFin.add(anyoFin);
+
+        JPanel panelClientesFechas = new JPanel();
+        JTextArea areaClientesFechas = new JTextArea(15,35);
+        JScrollPane scrollClientesFechas = new JScrollPane(areaClientesFechas);
+        panelClientesFechas.add(scrollClientesFechas);
+
+        JButton buscarClientesFechas = new JButton("Buscar");
+        buscarClientesFechas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FechaIntervalo<Cliente> fechaIntervalo = new FechaIntervalo<>();
+                int dIni = Integer.parseInt(diaInicio.getText());
+                int mIni = Integer.parseInt(mesInicio.getText());
+                int aIni = Integer.parseInt(anyoInicio.getText());
+                int dFin = Integer.parseInt(diaFin.getText());
+                int mFin = Integer.parseInt(mesFin.getText());
+                int aFin = Integer.parseInt(anyoFin.getText());
+                GregorianCalendar inicio = new GregorianCalendar(aIni, mIni, dIni);
+                GregorianCalendar fin = new GregorianCalendar(aFin, mFin,dFin);
+                fechaIntervalo.fechasIntervalo(gestor.getMetodo().listaClientes(), inicio, fin);
+                areaClientesFechas.setText("");
+                for (Cliente cliente : fechaIntervalo.getFechaCorrecta()){
+                    areaClientesFechas.append(cliente.toString());
+                }
+            }
+        });
+
+        verClienteEntreFechas.add(new JLabel("Fecha Inicio:"));
+        verClienteEntreFechas.add(datosFechaInicio);
+        verClienteEntreFechas.add(new JLabel("Fecha Fin:"));
+        verClienteEntreFechas.add(datosFechaFin);
+        verClienteEntreFechas.add(buscarClientesFechas);
+        verClienteEntreFechas.add(panelClientesFechas);
 
 
+
+        //-------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------
         pestañas.addTab("Alta Cliente", altaCliente);
         pestañas.addTab("Borrar Cliente", borrarCliente);
         pestañas.addTab("Ver Cliente", verCliente);

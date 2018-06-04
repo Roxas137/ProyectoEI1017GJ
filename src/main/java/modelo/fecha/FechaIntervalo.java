@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
  * Created by al361891 on 13/03/18.
  */
 public class FechaIntervalo<T extends Fecha> {
-    private final ArrayList<T> fechaCorrecta;
+    private ArrayList<T> fechaCorrecta;
 
     public FechaIntervalo() {
         fechaCorrecta = new ArrayList<>();
