@@ -5,6 +5,7 @@ import controlador.Controlador;
 import controlador.gestor.GestorOpciones;
 import modelo.Modelo;
 import modelo.atributos.Direccion;
+import modelo.atributos.Factura;
 import modelo.atributos.Llamada;
 import modelo.clientes.Cliente;
 import modelo.clientes.Empresa;
@@ -464,6 +465,12 @@ public class Vista implements InterfazVista {
         buscarClientesFechas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (diaFin.getText().equals("") || diaInicio.getText().equals("")
+                        || mesFin.getText().equals("") || mesInicio.getText().equals("")
+                        || anyoFin.getText().equals("") || anyoInicio.getText().equals("")){
+                    areaClientesFechas.append("Debes rellenar todos los campos\n\n");
+                    return;
+                }
                 FechaIntervalo<Cliente> fechaIntervalo = new FechaIntervalo<>();
                 int dIni = Integer.parseInt(diaInicio.getText());
                 int mIni = Integer.parseInt(mesInicio.getText()) -1;
@@ -583,6 +590,7 @@ public class Vista implements InterfazVista {
         JButton verLasLlamadas = new JButton("Ver Llamadas");
         JPanel panelVerLlamadas = new JPanel();
         JTextArea areaVerLlamadas = new JTextArea(20,35);
+        areaVerLlamadas.setEditable(false);
         JScrollPane scrollVerLlamadas = new JScrollPane(areaVerLlamadas);
         panelVerLlamadas.add(scrollVerLlamadas);
         verLasLlamadas.addActionListener(new ActionListener() {
@@ -643,6 +651,7 @@ public class Vista implements InterfazVista {
 
         JPanel panelLlamadasFechas = new JPanel();
         JTextArea areaLlamadasFechas = new JTextArea(15,35);
+        areaLlamadasFechas.setEditable(false);
         JScrollPane scrollLlamadasFechas = new JScrollPane(areaLlamadasFechas);
         panelLlamadasFechas.add(scrollLlamadasFechas);
 
@@ -693,7 +702,139 @@ public class Vista implements InterfazVista {
     }
 
     private void ventanaFacturas(GestorOpciones gestor) {
+        JFrame ventana = new JFrame();
+        Toolkit screen = Toolkit.getDefaultToolkit();
+        ventana.setLocation(screen.getScreenSize().width / 3, screen.getScreenSize().height / 6);
+        JPanel panel = new JPanel();
+        JTabbedPane pestanyas = new JTabbedPane();
+        JPanel emitirFactura = new JPanel();
+        JPanel verFactura = new JPanel();
+        JPanel verFacturasCliente = new JPanel();
+        JPanel verFacturasClienteFechas = new JPanel();
 
+        //------------------------------------
+        //----------Emitir Factura------------
+        //------------------------------------
+        emitirFactura.setLayout(new BoxLayout(emitirFactura, BoxLayout.PAGE_AXIS));
+        JPanel dniEmitirFactura = new JPanel();
+        JLabel dniEmitirFacLabel = new JLabel("DNI/CIF:");
+        JTextField dniEmitirFac = new JTextField(10);
+        dniEmitirFactura.add(dniEmitirFacLabel);
+        dniEmitirFactura.add(dniEmitirFac);
+        JButton emitir = new JButton("Emitir");
+        JPanel panelEmitirFactura = new JPanel();
+        JTextArea areaEmitirFactura = new JTextArea(20,35);
+        areaEmitirFactura.setEditable(false);
+        JScrollPane scrollEmitirFactura = new JScrollPane(areaEmitirFactura);
+        panelEmitirFactura.add(scrollEmitirFactura);
+        emitir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaEmitirFactura.setText("");
+                if (dniEmitirFac.getText().equals("")){
+                    areaEmitirFactura.append("Introduce un DNI\n\n");
+                    return;
+                }
+                try{
+                    Factura factura = gestor.getMetodo().emitirFactura(dniEmitirFac.getText());
+                    areaEmitirFactura.append(factura.toString());
+                }catch (NoSuchElementException excep){
+                    areaEmitirFactura.append("No se ha encontrado el cliente\n\n");
+                }
+            }
+        });
+        emitirFactura.add(dniEmitirFactura);
+        emitirFactura.add(emitir);
+        emitirFactura.add(panelEmitirFactura);
+
+        //------------------------------------
+        //-----------Ver Factura--------------
+        //------------------------------------
+        verFactura.setLayout(new BoxLayout(verFactura, BoxLayout.PAGE_AXIS));
+        JPanel panelCodFactura = new JPanel();
+        JLabel codFacturaLabel = new JLabel("Codigo de Factura:");
+        JTextField codFactura = new JTextField(5);
+        panelCodFactura.add(codFacturaLabel);
+        panelCodFactura.add(codFactura);
+        JButton buscarFactura = new JButton("Buscar");
+        JPanel panelVerFac = new JPanel();
+        JTextArea areaVerFac = new JTextArea(20,35);
+        JScrollPane scrollVerFac = new JScrollPane(areaVerFac);
+        panelVerFac.add(scrollVerFac);
+        buscarFactura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaVerFac.setText("");
+                if (codFactura.getText().equals("")){
+                    areaVerFac.append("Debes introducir un codigo de factura\n\n");
+                    return;
+                }
+                try{
+                    Factura factura = gestor.getMetodo().verFactura(Integer.parseInt(codFactura.getText()));
+                    areaVerFac.append(factura.toString());
+                }catch (NoSuchElementException exc){
+                    areaVerFac.append("No se ha encontrado la factura\n\n");
+                }
+            }
+        });
+        verFactura.add(panelCodFactura);
+        verFactura.add(buscarFactura);
+        verFactura.add(panelVerFac);
+
+
+        //------------------------------------
+        //-------Ver Facturas Cliente---------
+        //------------------------------------
+        verFacturasCliente.setLayout(new BoxLayout(verFacturasCliente, BoxLayout.PAGE_AXIS));
+        JPanel dniVerFacturaCliente = new JPanel();
+        JLabel dniVerFacClienteLabel = new JLabel("DNI/CIF:");
+        JTextField dniVerFacCliente = new JTextField(10);
+        dniVerFacturaCliente.add(dniVerFacClienteLabel);
+        dniVerFacturaCliente.add(dniVerFacCliente);
+        JButton buscarFacturasCliente = new JButton("Buscar");
+        JPanel panelVerFacCliente = new JPanel();
+        JTextArea areaVerFacCliente = new JTextArea(20,35);
+        JScrollPane scrollVerFacCliente = new JScrollPane(areaVerFacCliente);
+        panelVerFacCliente.add(scrollVerFacCliente);
+        buscarFacturasCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaVerFacCliente.setText("");
+                if (dniVerFacCliente.getText().equals("")){
+                    areaVerFacCliente.append("Debes introducir un DNI\n\n");
+                    return;
+                }
+                try{
+                    ArrayList<Factura> facturas = gestor.getMetodo().facturasCliente(dniVerFacCliente.getText());
+                    for (Factura factura : facturas){
+                        areaVerFacCliente.append(factura.toString());
+                    }
+                }catch (NoSuchElementException exc){
+                    areaVerFacCliente.append("Cliente no encontrado\n\n");
+                }
+            }
+        });
+        verFacturasCliente.add(dniVerFacturaCliente);
+        verFacturasCliente.add(buscarFacturasCliente);
+        verFacturasCliente.add(panelVerFacCliente);
+
+
+        //------------------------------------
+        //----Ver Facturas Cliente Fechas-----
+        //------------------------------------
+
+
+
+        pestanyas.addTab("Emitir Factura", emitirFactura);
+        pestanyas.addTab("Ver Factura", verFactura);
+        pestanyas.addTab("Ver Facturas de un Cliente", verFacturasCliente);
+        pestanyas.addTab("Ver Facturas de un Cliente por Fechas", verFacturasClienteFechas);
+
+        panel.add(pestanyas);
+        ventana.setContentPane(panel);
+        ventana.setVisible(true);
+        ventana.pack();
+        ventana.addWindowListener(new VentanaPrincipal(gestor));
     }
 
     class VentanaPrincipal extends WindowAdapter {

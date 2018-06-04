@@ -5,6 +5,7 @@ import modelo.clientes.Particular;
 import modelo.fecha.Fecha;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Factura implements Fecha, Serializable {
@@ -48,9 +49,12 @@ public class Factura implements Fecha, Serializable {
 
     @Override
     public String toString() {
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int mes = fecha.get(Calendar.MONTH) + 1;
+        int anyo = fecha.get(Calendar.YEAR);
         return "Código de la factura: " + codigo + "\n" +
-                "Fecha de la factura: " + fecha.toString() + "\n" +
-                "Cliente: " + "\n" + cliente.toString() + "\n" +
+                "Fecha de la factura: " + dia + "/" + mes + "/" + anyo + "\n" +
+                "Cliente: " + "\n" + cliente.toString() +
                 "Precio de la factura: " + precio + "\n";
     }
 }
