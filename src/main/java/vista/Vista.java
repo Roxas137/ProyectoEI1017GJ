@@ -5,9 +5,11 @@ import controlador.Controlador;
 import controlador.gestor.GestorOpciones;
 import modelo.Modelo;
 import modelo.atributos.Direccion;
+import modelo.atributos.Llamada;
 import modelo.clientes.Cliente;
 import modelo.clientes.Empresa;
 import modelo.clientes.Particular;
+import modelo.constructores.ConstructorCliente;
 import modelo.constructores.ConstructorTarifa;
 import modelo.fecha.FechaIntervalo;
 import modelo.tarifa.DiaReducido;
@@ -53,7 +55,7 @@ public class Vista implements InterfazVista {
         JTextField elegirOpcion = new JTextField("Elige una opcion:");
         elegirOpcion.setEditable(false);
         JButton clientes = new JButton("Clientes");
-        JButton llamadas = new JButton("LLamadas");
+        JButton llamadas = new JButton("Llamadas");
         JButton facturas = new JButton("Facturas");
 
         clientes.addActionListener(new ActionListener() {
@@ -107,7 +109,7 @@ public class Vista implements InterfazVista {
         Toolkit screen = Toolkit.getDefaultToolkit();
         ventana.setLocation(screen.getScreenSize().width / 3, screen.getScreenSize().height / 6);
         JPanel panel = new JPanel();
-        JTabbedPane pestañas = new JTabbedPane();
+        JTabbedPane pestanyas = new JTabbedPane();
         JPanel altaCliente = new JPanel();
         JPanel borrarCliente = new JPanel();
         JPanel verCliente = new JPanel();
@@ -464,10 +466,10 @@ public class Vista implements InterfazVista {
             public void actionPerformed(ActionEvent e) {
                 FechaIntervalo<Cliente> fechaIntervalo = new FechaIntervalo<>();
                 int dIni = Integer.parseInt(diaInicio.getText());
-                int mIni = Integer.parseInt(mesInicio.getText());
+                int mIni = Integer.parseInt(mesInicio.getText()) -1;
                 int aIni = Integer.parseInt(anyoInicio.getText());
                 int dFin = Integer.parseInt(diaFin.getText());
-                int mFin = Integer.parseInt(mesFin.getText());
+                int mFin = Integer.parseInt(mesFin.getText()) -1;
                 int aFin = Integer.parseInt(anyoFin.getText());
                 GregorianCalendar inicio = new GregorianCalendar(aIni, mIni, dIni);
                 GregorianCalendar fin = new GregorianCalendar(aFin, mFin,dFin);
@@ -491,14 +493,14 @@ public class Vista implements InterfazVista {
         //-------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------
-        pestañas.addTab("Alta Cliente", altaCliente);
-        pestañas.addTab("Borrar Cliente", borrarCliente);
-        pestañas.addTab("Ver Cliente", verCliente);
-        pestañas.addTab("Ver Todos Los Clientes", verTodosClientes);
-        pestañas.addTab("Cambiar Tarifa", cambiarTarifa);
-        pestañas.addTab("Ver Cliente entre Fechas", verClienteEntreFechas);
+        pestanyas.addTab("Alta Cliente", altaCliente);
+        pestanyas.addTab("Borrar Cliente", borrarCliente);
+        pestanyas.addTab("Ver Cliente", verCliente);
+        pestanyas.addTab("Ver Todos Los Clientes", verTodosClientes);
+        pestanyas.addTab("Cambiar Tarifa", cambiarTarifa);
+        pestanyas.addTab("Ver Cliente entre Fechas", verClienteEntreFechas);
 
-        panel.add(pestañas);
+        panel.add(pestanyas);
         ventana.setContentPane(panel);
         ventana.setVisible(true);
         ventana.pack();
@@ -506,7 +508,188 @@ public class Vista implements InterfazVista {
     }
 
     private void ventanaLlamadas(GestorOpciones gestor) {
+        JFrame ventana = new JFrame();
+        Toolkit screen = Toolkit.getDefaultToolkit();
+        ventana.setLocation(screen.getScreenSize().width / 3, screen.getScreenSize().height / 6);
+        JPanel panel = new JPanel();
+        JTabbedPane pestanyas = new JTabbedPane();
+        JPanel altaLlamada = new JPanel();
+        JPanel verLlamadasCliente = new JPanel();
+        JPanel verLlamadasClienteFechas = new JPanel();
 
+        //------------------------------------
+        //----------Alta Llamada--------------
+        //------------------------------------
+        altaLlamada.setLayout(new BoxLayout(altaLlamada, BoxLayout.PAGE_AXIS));
+        JPanel dniLlamada = new JPanel();
+        JTextField dniAltaLlamada = new JTextField(20);
+        JLabel dniAltaLlamadaLabel = new JLabel("DNI/CIF:");
+        dniLlamada.add(dniAltaLlamadaLabel);
+        dniLlamada.add(dniAltaLlamada);
+        JPanel telefonoAltaLlamada = new JPanel();
+        JLabel telLlamadaLabel = new JLabel("nº Telefono:");
+        JTextField telLlamada = new JTextField(20);
+        telefonoAltaLlamada.add(telLlamadaLabel);
+        telefonoAltaLlamada.add(telLlamada);
+        JPanel duracionAltaLlamada = new JPanel();
+        JLabel duracionLlamadaLabel = new JLabel("Duración:");
+        JTextField duracionLlamada = new JTextField(20);
+        duracionAltaLlamada.add(duracionLlamadaLabel);
+        duracionAltaLlamada.add(duracionLlamada);
+        JButton darDeAltaLlamada = new JButton("Dar de alta la llamada");
+        JPanel panelAltaLlamada = new JPanel();
+        JTextArea areaAltaLlamada = new JTextArea(20,35);
+        areaAltaLlamada.setEditable(false);
+        JScrollPane scrollAltaLlamada = new JScrollPane(areaAltaLlamada);
+        panelAltaLlamada.add(scrollAltaLlamada);
+
+        darDeAltaLlamada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dniAltaLlamada.getText().equals("") || telLlamada.getText().equals("") || duracionLlamada.getText().equals("")){
+                    areaAltaLlamada.append("Debes rellenar todos los campos\n\n");
+                    return;
+                }
+                if (gestor.getMetodo().devuelveCliente(dniAltaLlamada.getText()).isPresent()){
+                    Cliente cliente = gestor.getMetodo().devuelveCliente(dniAltaLlamada.getText()).get();
+                    Llamada llamada = new Llamada();
+                    llamada.setDuracion(Double.parseDouble(duracionLlamada.getText()));
+                    llamada.setnTelefono(Integer.parseInt(telLlamada.getText()));
+                    Double precio = gestor.findPrecioMinimo(cliente, llamada);
+                    llamada.setPrecio(precio);
+                    gestor.getMetodo().addLlamada(cliente, llamada);
+                    areaAltaLlamada.append("Llamada añadida correctamente\n\n");
+                }else {
+                    areaAltaLlamada.append("Cliente no encontrado\n\n");
+                }
+            }
+        });
+
+        altaLlamada.add(dniLlamada);
+        altaLlamada.add(telefonoAltaLlamada);
+        altaLlamada.add(duracionAltaLlamada);
+        altaLlamada.add(darDeAltaLlamada);
+        altaLlamada.add(panelAltaLlamada);
+
+        //------------------------------------
+        //----------Ver Llamadas--------------
+        //------------------------------------
+        verLlamadasCliente.setLayout(new BoxLayout(verLlamadasCliente, BoxLayout.PAGE_AXIS));
+        JPanel dniVerLlamadasCliente = new JPanel();
+        JTextField dniVerLlamada = new JTextField(20);
+        JLabel dniVerLlamadaLabel = new JLabel("DNI/CIF:");
+        dniVerLlamadasCliente.add(dniVerLlamadaLabel);
+        dniVerLlamadasCliente.add(dniVerLlamada);
+        JButton verLasLlamadas = new JButton("Ver Llamadas");
+        JPanel panelVerLlamadas = new JPanel();
+        JTextArea areaVerLlamadas = new JTextArea(20,35);
+        JScrollPane scrollVerLlamadas = new JScrollPane(areaVerLlamadas);
+        panelVerLlamadas.add(scrollVerLlamadas);
+        verLasLlamadas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dniVerLlamada.getText().equals("")){
+                    areaVerLlamadas.append("Introduce un dni\n\n");
+                    return;
+                }
+                if (gestor.getMetodo().devuelveCliente(dniVerLlamada.getText()).isPresent()){
+                    for (Llamada llamada : gestor.getMetodo().listaLlamadas(dniVerLlamada.getText())){
+                        areaVerLlamadas.append(llamada.toString());
+                    }
+                }else{
+                    areaVerLlamadas.append("Cliente no encontrado\n\n");
+                }
+            }
+        });
+        verLlamadasCliente.add(dniVerLlamadasCliente);
+        verLlamadasCliente.add(verLasLlamadas);
+        verLlamadasCliente.add(panelVerLlamadas);
+
+        //------------------------------------
+        //-------Ver Llamadas Fechas----------
+        //------------------------------------
+        verLlamadasClienteFechas.setLayout(new BoxLayout(verLlamadasClienteFechas, BoxLayout.PAGE_AXIS));
+        JPanel dniClienteLlamadas = new JPanel();
+        JTextField dniLlamadaFechas = new JTextField(20);
+        JLabel dniLlamadaFechasLabel = new JLabel("DNI/CIF:");
+        dniClienteLlamadas.add(dniLlamadaFechasLabel);
+        dniClienteLlamadas.add(dniLlamadaFechas);
+        JPanel datosFechaInicio = new JPanel();
+        JPanel datosFechaFin = new JPanel();
+        JLabel fechaInicioLabel = new JLabel("Dia/Mes/Año :");
+        JTextField diaInicio = new JTextField(2);
+        JLabel barra1 = new JLabel("/");
+        JTextField mesInicio = new JTextField(2);
+        JLabel barra2 = new JLabel("/");
+        JTextField anyoInicio = new JTextField(4);
+        datosFechaInicio.add(fechaInicioLabel);
+        datosFechaInicio.add(diaInicio);
+        datosFechaInicio.add(barra1);
+        datosFechaInicio.add(mesInicio);
+        datosFechaInicio.add(barra2);
+        datosFechaInicio.add(anyoInicio);
+        JLabel fechaFinLabel = new JLabel("Dia/Mes/Año :");
+        JTextField diaFin = new JTextField(2);
+        JLabel barra3 = new JLabel("/");
+        JTextField mesFin = new JTextField(2);
+        JLabel barra4 = new JLabel("/");
+        JTextField anyoFin = new JTextField(4);
+        datosFechaFin.add(fechaFinLabel);
+        datosFechaFin.add(diaFin);
+        datosFechaFin.add(barra3);
+        datosFechaFin.add(mesFin);
+        datosFechaFin.add(barra4);
+        datosFechaFin.add(anyoFin);
+
+        JPanel panelLlamadasFechas = new JPanel();
+        JTextArea areaLlamadasFechas = new JTextArea(15,35);
+        JScrollPane scrollLlamadasFechas = new JScrollPane(areaLlamadasFechas);
+        panelLlamadasFechas.add(scrollLlamadasFechas);
+
+        JButton buscarClientesFechas = new JButton("Buscar");
+        buscarClientesFechas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dniLlamadaFechas.getText().equals("")
+                        || diaFin.getText().equals("") || diaInicio.getText().equals("")
+                        || mesFin.getText().equals("") || mesInicio.getText().equals("")
+                        || anyoFin.getText().equals("") || anyoInicio.getText().equals("")){
+                    areaLlamadasFechas.append("Debes rellenar todos los campos\n\n");
+                    return;
+                }
+                FechaIntervalo<Llamada> fechaIntervalo = new FechaIntervalo<>();
+                int dIni = Integer.parseInt(diaInicio.getText());
+                int mIni = Integer.parseInt(mesInicio.getText()) -1;
+                int aIni = Integer.parseInt(anyoInicio.getText());
+                int dFin = Integer.parseInt(diaFin.getText());
+                int mFin = Integer.parseInt(mesFin.getText()) -1;
+                int aFin = Integer.parseInt(anyoFin.getText());
+                GregorianCalendar inicio = new GregorianCalendar(aIni, mIni, dIni);
+                GregorianCalendar fin = new GregorianCalendar(aFin, mFin,dFin);
+                fechaIntervalo.fechasIntervalo(gestor.getMetodo().listaLlamadas(dniLlamadaFechas.getText()), inicio, fin);
+                areaLlamadasFechas.setText("");
+                for (Llamada llamada : fechaIntervalo.getFechaCorrecta()) {
+                    areaLlamadasFechas.append(llamada.toString());
+                }
+            }
+        });
+
+        verLlamadasClienteFechas.add(dniClienteLlamadas);
+        verLlamadasClienteFechas.add(datosFechaInicio);
+        verLlamadasClienteFechas.add(datosFechaFin);
+        verLlamadasClienteFechas.add(buscarClientesFechas);
+        verLlamadasClienteFechas.add(panelLlamadasFechas);
+
+
+        pestanyas.addTab("Alta Llamada", altaLlamada);
+        pestanyas.addTab("Ver Llamadas", verLlamadasCliente);
+        pestanyas.addTab("Ver Llamadas entre Fechas", verLlamadasClienteFechas);
+
+        panel.add(pestanyas);
+        ventana.setContentPane(panel);
+        ventana.setVisible(true);
+        ventana.pack();
+        ventana.addWindowListener(new VentanaPrincipal(gestor));
     }
 
     private void ventanaFacturas(GestorOpciones gestor) {

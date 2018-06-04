@@ -272,7 +272,7 @@ public class GestorOpciones {
         return opcion;
     }
 
-    private double findPrecioMinimo(Cliente cliente, Llamada llamada) {
+    public double findPrecioMinimo(Cliente cliente, Llamada llamada) {
         Optional<Double> precio = cliente.getTarifa().calcularPrecio(llamada);
         return precio.orElse(-1d);
     }

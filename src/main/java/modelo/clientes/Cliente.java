@@ -73,10 +73,13 @@ public abstract class Cliente implements Fecha, Serializable { //abstract
 
     @Override
     public String toString() {
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int mes = fecha.get(Calendar.MONTH) + 1;
+        int anyo = fecha.get(Calendar.YEAR);
         return "Nombre:\t" + this.getNombre() + "\n" +
                 "DNI:\t" + dni + "\n" +
                 "Direccion:\t" + direccion.toString() + "\n" +
                 "Email:\t" + email + "\n" +
-                "Fecha de alta:\t" + fecha.get(Calendar.DAY_OF_MONTH) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR) + "\n\n";
+                "Fecha de alta:\t" + dia + "/" + mes + "/" + anyo + "\n\n";
     }
 }
