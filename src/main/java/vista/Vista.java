@@ -808,6 +808,7 @@ public class Vista implements InterfazVista {
                     ArrayList<Factura> facturas = gestor.getMetodo().facturasCliente(dniVerFacCliente.getText());
                     for (Factura factura : facturas){
                         areaVerFacCliente.append(factura.toString());
+                        areaVerFacCliente.append("\n\n");
                     }
                 }catch (NoSuchElementException exc){
                     areaVerFacCliente.append("Cliente no encontrado\n\n");
@@ -818,11 +819,80 @@ public class Vista implements InterfazVista {
         verFacturasCliente.add(buscarFacturasCliente);
         verFacturasCliente.add(panelVerFacCliente);
 
-
         //------------------------------------
         //----Ver Facturas Cliente Fechas-----
         //------------------------------------
+        verFacturasClienteFechas.setLayout(new BoxLayout(verFacturasClienteFechas, BoxLayout.PAGE_AXIS));
+        JPanel dniFacturasFechas = new JPanel();
+        JTextField dniFacFechas = new JTextField(20);
+        JLabel dniFacFechasLabel = new JLabel("DNI/CIF:");
+        dniFacturasFechas.add(dniFacFechasLabel);
+        dniFacturasFechas.add(dniFacFechas);
+        JPanel datosFechaInicio = new JPanel();
+        JPanel datosFechaFin = new JPanel();
+        JLabel fechaInicioLabel = new JLabel("Dia/Mes/Año :");
+        JTextField diaInicio = new JTextField(2);
+        JLabel barra1 = new JLabel("/");
+        JTextField mesInicio = new JTextField(2);
+        JLabel barra2 = new JLabel("/");
+        JTextField anyoInicio = new JTextField(4);
+        datosFechaInicio.add(fechaInicioLabel);
+        datosFechaInicio.add(diaInicio);
+        datosFechaInicio.add(barra1);
+        datosFechaInicio.add(mesInicio);
+        datosFechaInicio.add(barra2);
+        datosFechaInicio.add(anyoInicio);
+        JLabel fechaFinLabel = new JLabel("Dia/Mes/Año :");
+        JTextField diaFin = new JTextField(2);
+        JLabel barra3 = new JLabel("/");
+        JTextField mesFin = new JTextField(2);
+        JLabel barra4 = new JLabel("/");
+        JTextField anyoFin = new JTextField(4);
+        datosFechaFin.add(fechaFinLabel);
+        datosFechaFin.add(diaFin);
+        datosFechaFin.add(barra3);
+        datosFechaFin.add(mesFin);
+        datosFechaFin.add(barra4);
+        datosFechaFin.add(anyoFin);
 
+        JPanel panelFacFechas = new JPanel();
+        JTextArea areaFacFechas = new JTextArea(15,35);
+        areaFacFechas.setEditable(false);
+        JScrollPane scrollFacFechas = new JScrollPane(areaFacFechas);
+        panelFacFechas.add(scrollFacFechas);
+
+        JButton buscarFacturasFechas = new JButton("Buscar");
+        buscarFacturasFechas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dniFacFechas.getText().equals("")
+                        || diaFin.getText().equals("") || diaInicio.getText().equals("")
+                        || mesFin.getText().equals("") || mesInicio.getText().equals("")
+                        || anyoFin.getText().equals("") || anyoInicio.getText().equals("")){
+                    areaFacFechas.append("Debes rellenar todos los campos\n\n");
+                    return;
+                }
+                FechaIntervalo<Factura> fechaIntervalo = new FechaIntervalo<>();
+                int dIni = Integer.parseInt(diaInicio.getText());
+                int mIni = Integer.parseInt(mesInicio.getText()) -1;
+                int aIni = Integer.parseInt(anyoInicio.getText());
+                int dFin = Integer.parseInt(diaFin.getText());
+                int mFin = Integer.parseInt(mesFin.getText()) -1;
+                int aFin = Integer.parseInt(anyoFin.getText());
+                GregorianCalendar inicio = new GregorianCalendar(aIni, mIni, dIni);
+                GregorianCalendar fin = new GregorianCalendar(aFin, mFin,dFin);
+                fechaIntervalo.fechasIntervalo(gestor.getMetodo().facturasCliente(dniFacFechas.getText()), inicio, fin);
+                for (Factura factura : fechaIntervalo.getFechaCorrecta()){
+                    areaFacFechas.append(factura.toString());
+                }
+
+            }
+        });
+        verFacturasClienteFechas.add(dniFacturasFechas);
+        verFacturasClienteFechas.add(datosFechaInicio);
+        verFacturasClienteFechas.add(datosFechaFin);
+        verFacturasClienteFechas.add(buscarFacturasFechas);
+        verFacturasClienteFechas.add(panelFacFechas);
 
 
         pestanyas.addTab("Emitir Factura", emitirFactura);
